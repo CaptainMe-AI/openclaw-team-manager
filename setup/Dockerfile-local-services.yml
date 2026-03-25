@@ -1,0 +1,66 @@
+services:
+  db:
+    container_name: "openclaw-team-manager-psql"
+    hostname: openclaw-team-manager.psql.dev
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=openclaw-team-manager-password
+      - POSTGRES_USER=openclaw-team-manager
+    image: "arm64v8/postgres:17.5"
+    ports:
+      - "5411:5432"
+    volumes:
+      - openclaw-team-manager-psql:/usr/local/DockerDB
+
+  # ElasticMQ - Local SQS emulator for test environment
+  # Provides AWS SQS-compatible API for testing Shoryuken workers
+  # UI available at http://localhost:9325
+  # elasticmq:
+  #   container_name: "openclaw-team-manager-elasticmq"
+  #   image: "softwaremill/elasticmq:latest"
+  #   ports:
+  #     - "9324:9324"   # SQS API port
+  #     - "9325:9325"   # Web UI port
+  #   volumes:
+  #     - ./elasticmq.conf:/opt/elasticmq.conf:ro
+  #   command: ["-Dconfig.file=/opt/elasticmq.conf"]
+
+  # dynamodb-dev:
+  #   command: "-jar DynamoDBLocal.jar -sharedDb"
+  #   image: "amazon/dynamodb-local:latest"
+  #   container_name: "openclaw-team-manager-dynamodb-dev"
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - openclaw-team-manager-development:/home/dynamodblocal
+  #   working_dir: /home/dynamodblocal
+
+  # dynamodb-test:
+  #   command: "-jar DynamoDBLocal.jar -port 8001 -inMemory"
+  #   image: "amazon/dynamodb-local:latest"
+  #   container_name: "openclaw-team-manager-dynamodb-test"
+  #   ports:
+  #     - "8001:8001"
+
+  # redis-db:
+  #   container_name: "openclaw-team-manager-redis"
+  #   image: 'arm64v8/redis:7.2.5'
+  #   environment:
+  #     - ALLOW_EMPTY_PASSWORD=yes
+  #     - REDIS_PORT_NUMBER=7782
+  #   ports:
+  #     - '7766:6379'
+
+  # memcache-db:
+  #   container_name: "openclaw-team-manager-memcache"
+  #   image: 'arm64v8/memcached:1.6'
+  #   environment:
+  #     - ALLOW_EMPTY_PASSWORD=yes
+  #   ports:
+  #     - "11288:11211"
+  #   command: memcached
+
+
+volumes:
+  openclaw-team-manager-psql:
+  openclaw-team-manager-development:

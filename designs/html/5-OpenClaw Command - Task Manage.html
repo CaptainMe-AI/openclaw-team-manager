@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - OpenClaw Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#0f1219',
+                        surface: '#1a1f2e',
+                        surfaceHover: '#252b3d',
+                        accent: '#00d4aa',
+                        accentHover: '#00b38f',
+                        textPrimary: '#f3f4f6',
+                        textSecondary: '#9ca3af',
+                        border: '#2d3748',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        success: '#10b981',
+                        priority0: '#ef4444', // Red for P0
+                        priority1: '#f59e0b', // Amber for P1
+                        priority2: '#3b82f6', // Blue for P2
+                        priority3: '#9ca3af', // Gray for P3
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f1219;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1219;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3748;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5568;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Kanban specific styles */
+        .kanban-column {
+            min-width: 320px;
+            max-width: 320px;
+        }
+        
+        /* Drag and drop styles */
+        .draggable-card {
+            cursor: grab;
+        }
+        .draggable-card:active {
+            cursor: grabbing;
+        }
+        .drag-over {
+            background-color: rgba(45, 55, 72, 0.5);
+            border: 2px dashed #00d4aa;
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="w-full md:w-64 bg-surface border-b md:border-b-0 md:border-r border-border flex flex-col flex-shrink-0 transition-all duration-300 z-20 sticky top-0 md:h-screen">
+        <div class="h-16 flex items-center justify-between px-4 md:px-6 border-b border-border">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-terminal text-accent text-xl"></i>
+                <span class="font-bold text-lg tracking-tight hidden md:block">OpenClaw</span>
+            </div>
+            <button class="md:hidden text-textSecondary hover:text-textPrimary" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <nav id="mobile-menu" class="hidden md:flex flex-col flex-1 py-4 overflow-y-auto">
+            <div class="px-3 mb-2">
+                <p class="text-xs font-semibold text-textSecondary uppercase tracking-wider px-3 mb-2 hidden md:block">Main Menu</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-chart-line w-5 text-center"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-robot w-5 text-center"></i>
+                    <span class="font-medium">Agents</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md bg-surfaceHover text-accent border-l-2 border-accent mb-1 transition-colors">
+                    <i class="fa-solid fa-list-check w-5 text-center"></i>
+                    <span class="font-medium">Tasks</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                    <span class="font-medium">Usage</span>
+                </a>
+                <a href="#" class="flex items-center justify-between px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-shield-check w-5 text-center"></i>
+                        <span class="font-medium">Approvals</span>
+                    </div>
+                    <span class="bg-warning text-background text-xs font-bold px-1.5 py-0.5 rounded">3</span>
+                </a>
+            </div>
+
+            <div class="mt-auto px-3 pb-4">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary transition-colors">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col min-w-0 h-screen relative overflow-hidden">
+        
+        <!-- Top Navigation Bar -->
+        <header id="top-nav" class="h-16 bg-surface border-b border-border flex items-center justify-between px-4 sm:px-6 lg:px-8 shrink-0 z-10 sticky top-0">
+            <div class="flex items-center flex-1 gap-4 lg:gap-8">
+                <div class="hidden md:flex items-center gap-2 text-textSecondary">
+                    <span class="text-sm font-medium">Command Center</span>
+                    <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    <span class="text-sm text-textPrimary font-medium">Tasks</span>
+                </div>
+                
+                <div class="flex-1 max-w-xl relative">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-textSecondary text-sm"></i>
+                    <input type="text" placeholder="Search tasks, agents, or approvals (Press '/')" class="w-full bg-background border border-border rounded-md py-1.5 pl-9 pr-4 text-sm text-textPrimary placeholder-textSecondary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                    <div class="absolute right-2 top-1/2 transform -translate-y-1/2 flex gap-1 hidden sm:flex">
+                        <kbd class="px-1.5 py-0.5 text-[10px] font-mono bg-surface border border-border rounded text-textSecondary">/</kbd>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4 ml-4">
+                <button class="relative p-2 text-textSecondary hover:text-textPrimary transition-colors rounded-full hover:bg-surfaceHover">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="absolute top-1 right-1.5 w-2 h-2 bg-accent rounded-full border-2 border-surface"></span>
+                </button>
+                <div class="h-6 w-px bg-border hidden sm:block"></div>
+                <button class="flex items-center gap-2 hover:bg-surfaceHover p-1 pr-2 rounded-full transition-colors">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="User Avatar" class="w-7 h-7 rounded-full object-cover border border-border">
+                    <i class="fa-solid fa-chevron-down text-xs text-textSecondary hidden sm:block"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Kanban Header -->
+        <div class="px-4 sm:px-6 lg:px-8 py-4 border-b border-border shrink-0 bg-background">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-textPrimary tracking-tight">Task Board</h1>
+                    <p class="text-sm text-textSecondary mt-1">Monitor and manage agent workflows across all stages.</p>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                    <div class="flex bg-surface border border-border rounded-md p-1">
+                        <button class="px-3 py-1.5 rounded text-sm font-medium bg-surfaceHover text-textPrimary transition-colors">
+                            <i class="fa-solid fa-kanban"></i> Board
+                        </button>
+                        <button class="px-3 py-1.5 rounded text-sm font-medium text-textSecondary hover:text-textPrimary transition-colors">
+                            <i class="fa-solid fa-list"></i> List
+                        </button>
+                    </div>
+                    
+                    <button class="px-3 py-1.5 text-sm font-medium bg-accent text-background rounded-md hover:bg-accentHover transition-colors flex items-center gap-2 shadow-[0_0_10px_rgba(0,212,170,0.3)]">
+                        <i class="fa-solid fa-plus"></i>
+                        New Task
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="flex flex-wrap gap-3 items-center text-sm mt-4">
+                <span class="text-textSecondary mr-2 font-medium">Filters:</span>
+                <button class="px-3 py-1 bg-surface border border-border rounded-full text-textPrimary hover:border-textSecondary transition-colors flex items-center gap-2">
+                    Agent: All <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                <button class="px-3 py-1 bg-surface border border-border rounded-full text-textPrimary hover:border-textSecondary transition-colors flex items-center gap-2">
+                    Priority: All <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                <button class="px-3 py-1 bg-surface border border-border rounded-full text-textPrimary hover:border-textSecondary transition-colors flex items-center gap-2">
+                    Time: Last 24h <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+                <div class="ml-auto flex items-center gap-2 text-xs text-textSecondary">
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-priority0"></span> P0</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-priority1"></span> P1</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-priority2"></span> P2</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-priority3"></span> P3</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban Board Area -->
+        <div class="flex-1 overflow-x-auto overflow-y-hidden p-4 sm:p-6 lg:p-8 bg-background">
+            <div class="flex gap-6 h-full pb-4" id="kanban-board">
+                
+                <!-- Column: Backlog (NEW) -->
+                <div class="kanban-column flex flex-col h-full" id="col-backlog">
+                    <div class="flex items-center justify-between mb-4 px-1 shrink-0">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-textSecondary/50"></div>
+                            <h3 class="font-semibold text-textPrimary text-sm uppercase tracking-wider">Backlog</h3>
+                            <span class="bg-surface border border-border text-textSecondary text-xs px-2 py-0.5 rounded-full font-mono">5</span>
+                        </div>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto space-y-3 pr-2 hide-scrollbar drop-zone" data-column="backlog">
+                        
+                        <!-- Task Card -->
+                        <div class="bg-surface border border-border hover:border-textSecondary rounded-lg p-4 cursor-pointer transition-all draggable-card group relative" draggable="true" onclick="openTaskPanel('tsk_1050')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority3 rounded-l-lg"></div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_1050</span>
+                                <span class="text-[10px] font-medium text-priority3 bg-priority3/10 px-1.5 py-0.5 rounded border border-priority3/20">P3</span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textPrimary mb-2 group-hover:text-accent transition-colors leading-snug">Update Documentation</h4>
+                            <p class="text-xs text-textSecondary line-clamp-2 mb-3">Refresh API documentation with new endpoint specs and authentication flow changes.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-surfaceHover flex items-center justify-center text-[10px] text-textSecondary border border-border" title="Unassigned">
+                                        <i class="fa-solid fa-user-xmark"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Unassigned</span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] text-textSecondary font-mono">
+                                    <i class="fa-regular fa-clock"></i> 3d ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Card -->
+                        <div class="bg-surface border border-border hover:border-textSecondary rounded-lg p-4 cursor-pointer transition-all draggable-card group relative" draggable="true" onclick="openTaskPanel('tsk_1048')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority2 rounded-l-lg"></div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_1048</span>
+                                <span class="text-[10px] font-medium text-priority2 bg-priority2/10 px-1.5 py-0.5 rounded border border-priority2/20">P2</span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textPrimary mb-2 group-hover:text-accent transition-colors leading-snug">Optimize Database Queries</h4>
+                            <p class="text-xs text-textSecondary line-clamp-2 mb-3">Review slow query logs and add appropriate indexes to improve dashboard load times.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-surfaceHover flex items-center justify-center text-[10px] text-textSecondary border border-border" title="Unassigned">
+                                        <i class="fa-solid fa-user-xmark"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Unassigned</span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] text-textSecondary font-mono">
+                                    <i class="fa-regular fa-clock"></i> 2d ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Card -->
+                        <div class="bg-surface border border-border hover:border-textSecondary rounded-lg p-4 cursor-pointer transition-all draggable-card group relative" draggable="true" onclick="openTaskPanel('tsk_1046')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority3 rounded-l-lg"></div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_1046</span>
+                                <span class="text-[10px] font-medium text-priority3 bg-priority3/10 px-1.5 py-0.5 rounded border border-priority3/20">P3</span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textPrimary mb-2 group-hover:text-accent transition-colors leading-snug">Refactor Agent Config Parser</h4>
+                            <p class="text-xs text-textSecondary line-clamp-2 mb-3">Split monolithic YAML parser into modular components for better maintainability.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-surfaceHover flex items-center justify-center text-[10px] text-textSecondary border border-border" title="Unassigned">
+                                        <i class="fa-solid fa-user-xmark"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Unassigned</span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] text-textSecondary font-mono">
+                                    <i class="fa-regular fa-clock"></i> 5d ago
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Column: Queued -->
+                <div class="kanban-column flex flex-col h-full" id="col-queued">
+                    <div class="flex items-center justify-between mb-4 px-1 shrink-0">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-textSecondary"></div>
+                            <h3 class="font-semibold text-textPrimary text-sm uppercase tracking-wider">Queued</h3>
+                            <span class="bg-surface border border-border text-textSecondary text-xs px-2 py-0.5 rounded-full font-mono">3</span>
+                        </div>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto space-y-3 pr-2 hide-scrollbar drop-zone" data-column="queued">
+                        
+                        <!-- Task Card -->
+                        <div class="bg-surface border border-border hover:border-textSecondary rounded-lg p-4 cursor-pointer transition-all draggable-card group relative" draggable="true" onclick="openTaskPanel('tsk_1042')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority2 rounded-l-lg"></div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_1042</span>
+                                <span class="text-[10px] font-medium text-priority2 bg-priority2/10 px-1.5 py-0.5 rounded border border-priority2/20">P2</span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textPrimary mb-2 group-hover:text-accent transition-colors leading-snug">Generate Weekly Analytics Report</h4>
+                            <p class="text-xs text-textSecondary line-clamp-2 mb-3">Compile data from PostgreSQL and generate the standard weekly PDF report for the executive team.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-surfaceHover flex items-center justify-center text-[10px] text-textSecondary border border-border" title="Unassigned">
+                                        <i class="fa-solid fa-user-xmark"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Unassigned</span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] text-textSecondary font-mono">
+                                    <i class="fa-regular fa-clock"></i> 10m ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Task Card -->
+                        <div class="bg-surface border border-border hover:border-textSecondary rounded-lg p-4 cursor-pointer transition-all draggable-card group relative" draggable="true" onclick="openTaskPanel('tsk_1045')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority3 rounded-l-lg"></div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_1045</span>
+                                <span class="text-[10px] font-medium text-priority3 bg-priority3/10 px-1.5 py-0.5 rounded border border-priority3/20">P3</span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textPrimary mb-2 group-hover:text-accent transition-colors leading-snug">Cleanup Temp Storage</h4>
+                            <p class="text-xs text-textSecondary line-clamp-2 mb-3">Remove temporary files older than 7 days from the S3 processing bucket.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-blue-500/10 flex items-center justify-center text-[10px] text-blue-400 border border-blue-500/20" title="Agent-Beta">
+                                        <i class="fa-solid fa-robot"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Agent-Beta</span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] text-textSecondary font-mono">
+                                    <i class="fa-regular fa-clock"></i> 1h ago
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Column: In Progress -->
+                <div class="kanban-column flex flex-col h-full" id="col-progress">
+                    <div class="flex items-center justify-between mb-4 px-1 shrink-0">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                            <h3 class="font-semibold text-textPrimary text-sm uppercase tracking-wider">In Progress</h3>
+                            <span class="bg-accent/10 border border-accent/20 text-accent text-xs px-2 py-0.5 rounded-full font-mono">2</span>
+                        </div>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto space-y-3 pr-2 hide-scrollbar drop-zone" data-column="progress">
+                        
+                        <!-- Task Card -->
+                        <div class="bg-surface border border-accent/30 shadow-[0_0_15px_rgba(0,212,170,0.05)] rounded-lg p-4 cursor-pointer transition-all draggable-card group relative" draggable="true" onclick="openTaskPanel('tsk_1038')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority1 rounded-l-lg"></div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_1038</span>
+                                <span class="text-[10px] font-medium text-priority1 bg-priority1/10 px-1.5 py-0.5 rounded border border-priority1/20">P1</span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textPrimary mb-2 group-hover:text-accent transition-colors leading-snug">Scrape Competitor Pricing Data</h4>
+                            <p class="text-xs text-textSecondary line-clamp-2 mb-3">Extract pricing tiers from 5 major competitors and format into unified JSON schema.</p>
+                            
+                            <!-- Progress Bar -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-[10px] mb-1">
+                                    <span class="text-textSecondary">Extracting tables...</span>
+                                    <span class="text-accent font-mono">45%</span>
+                                </div>
+                                <div class="w-full bg-background rounded-full h-1">
+                                    <div class="bg-accent h-1 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-blue-500/10 flex items-center justify-center text-[10px] text-blue-400 border border-blue-500/20" title="Agent-Alpha">
+                                        <i class="fa-solid fa-robot"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Agent-Alpha</span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] text-accent font-mono">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> 12m 45s
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Column: Awaiting Approval -->
+                <div class="kanban-column flex flex-col h-full" id="col-approval">
+                    <div class="flex items-center justify-between mb-4 px-1 shrink-0">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-warning"></div>
+                            <h3 class="font-semibold text-textPrimary text-sm uppercase tracking-wider">Awaiting Approval</h3>
+                            <span class="bg-warning/10 border border-warning/20 text-warning text-xs px-2 py-0.5 rounded-full font-mono">1</span>
+                        </div>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto space-y-3 pr-2 hide-scrollbar drop-zone" data-column="approval">
+                        
+                        <!-- Task Card -->
+                        <div class="bg-warning/5 border border-warning/30 hover:border-warning/50 rounded-lg p-4 cursor-pointer transition-all draggable-card group relative" draggable="true" onclick="openTaskPanel('tsk_1022')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority0 rounded-l-lg"></div>
+                            <div class="absolute top-2 right-2 flex gap-1">
+                                <button class="w-6 h-6 rounded bg-success/10 text-success flex items-center justify-center hover:bg-success/20 transition-colors" title="Approve" onclick="event.stopPropagation()">
+                                    <i class="fa-solid fa-check text-[10px]"></i>
+                                </button>
+                                <button class="w-6 h-6 rounded bg-danger/10 text-danger flex items-center justify-center hover:bg-danger/20 transition-colors" title="Reject" onclick="event.stopPropagation()">
+                                    <i class="fa-solid fa-xmark text-[10px]"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="flex justify-between items-start mb-2 pr-14">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_1022</span>
+                                <span class="text-[10px] font-medium text-priority0 bg-priority0/10 px-1.5 py-0.5 rounded border border-priority0/20">P0</span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textPrimary mb-2 group-hover:text-warning transition-colors leading-snug">Execute DB Migration (Prod)</h4>
+                            <p class="text-xs text-textSecondary line-clamp-2 mb-3">Agent intends to run 'ALTER TABLE users ADD COLUMN preferences jsonb'. Requires admin override.</p>
+                            
+                            <div class="bg-background rounded p-2 mb-3 border border-warning/20">
+                                <span class="text-[10px] text-warning flex items-center gap-1 font-medium">
+                                    <i class="fa-solid fa-shield-halved"></i> High-risk operation detected
+                                </span>
+                            </div>
+
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-purple-500/10 flex items-center justify-center text-[10px] text-purple-400 border border-purple-500/20" title="Agent-DBA">
+                                        <i class="fa-solid fa-database"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Agent-DBA</span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] text-warning font-mono">
+                                    <i class="fa-regular fa-hourglass-half"></i> blocked 2h
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Column: Completed -->
+                <div class="kanban-column flex flex-col h-full" id="col-completed">
+                    <div class="flex items-center justify-between mb-4 px-1 shrink-0">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-success"></div>
+                            <h3 class="font-semibold text-textPrimary text-sm uppercase tracking-wider">Completed (24h)</h3>
+                            <span class="bg-success/10 border border-success/20 text-success text-xs px-2 py-0.5 rounded-full font-mono">12</span>
+                        </div>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto space-y-3 pr-2 hide-scrollbar drop-zone" data-column="completed">
+                        
+                        <!-- Task Card -->
+                        <div class="bg-surface border border-border hover:border-textSecondary rounded-lg p-4 cursor-pointer transition-all draggable-card group relative opacity-80 hover:opacity-100" draggable="true" onclick="openTaskPanel('tsk_0985')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority2 rounded-l-lg opacity-50"></div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_0985</span>
+                                <span class="text-[10px] font-medium text-success bg-success/10 px-1.5 py-0.5 rounded border border-success/20">
+                                    <i class="fa-solid fa-check mr-1"></i> Done
+                                </span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textSecondary mb-2 group-hover:text-textPrimary transition-colors leading-snug line-through decoration-textSecondary/50">Daily Price Sync</h4>
+                            <p class="text-xs text-textSecondary/70 line-clamp-1 mb-3">Sync internal DB with supplier API.</p>
+                            
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-blue-500/10 flex items-center justify-center text-[10px] text-blue-400 border border-blue-500/20" title="Agent-Alpha">
+                                        <i class="fa-solid fa-robot"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Agent-Alpha</span>
+                                </div>
+                                <div class="flex items-center gap-1 text-[10px] text-textSecondary font-mono">
+                                    <i class="fa-solid fa-stopwatch"></i> 4m 12s
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Column: Failed -->
+                <div class="kanban-column flex flex-col h-full" id="col-failed">
+                    <div class="flex items-center justify-between mb-4 px-1 shrink-0">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-danger"></div>
+                            <h3 class="font-semibold text-textPrimary text-sm uppercase tracking-wider">Failed (24h)</h3>
+                            <span class="bg-danger/10 border border-danger/20 text-danger text-xs px-2 py-0.5 rounded-full font-mono">1</span>
+                        </div>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis"></i></button>
+                    </div>
+                    
+                    <div class="flex-1 overflow-y-auto space-y-3 pr-2 hide-scrollbar drop-zone" data-column="failed">
+                        
+                        <!-- Task Card -->
+                        <div class="bg-danger/5 border border-danger/30 hover:border-danger/50 rounded-lg p-4 cursor-pointer transition-all draggable-card group relative" draggable="true" onclick="openTaskPanel('tsk_0942')">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-priority1 rounded-l-lg"></div>
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="text-[10px] font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border">tsk_0942</span>
+                                <span class="text-[10px] font-medium text-danger bg-danger/10 px-1.5 py-0.5 rounded border border-danger/20">
+                                    <i class="fa-solid fa-xmark mr-1"></i> Failed
+                                </span>
+                            </div>
+                            <h4 class="text-sm font-medium text-textPrimary mb-2 group-hover:text-danger transition-colors leading-snug">Extract Product Catalog</h4>
+                            <p class="text-xs text-textSecondary line-clamp-2 mb-3">Target website structure changed. CSS selectors no longer matching.</p>
+                            
+                            <div class="bg-background rounded p-2 mb-3 border border-danger/20 overflow-hidden">
+                                <span class="text-[10px] text-danger font-mono whitespace-nowrap">Error: Timeout waiting for selector '.product-grid'</span>
+                            </div>
+
+                            <div class="flex justify-between items-center mt-auto pt-3 border-t border-border/50">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-5 h-5 rounded bg-blue-500/10 flex items-center justify-center text-[10px] text-blue-400 border border-blue-500/20" title="Agent-Alpha">
+                                        <i class="fa-solid fa-robot"></i>
+                                    </div>
+                                    <span class="text-[10px] text-textSecondary">Agent-Alpha</span>
+                                </div>
+                                <button class="text-[10px] bg-surface border border-border hover:border-textSecondary px-2 py-1 rounded text-textPrimary transition-colors" onclick="event.stopPropagation()">
+                                    <i class="fa-solid fa-rotate-right mr-1"></i> Retry
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Slide-over Panel (Task Detail) -->
+    <div id="slide-over-backdrop" class="fixed inset-0 bg-background/80 backdrop-blur-sm z-40 hidden transition-opacity" onclick="closeTaskPanel()"></div>
+    
+    <div id="task-panel" class="fixed inset-y-0 right-0 w-full md:w-[600px] bg-surface border-l border-border shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+        
+        <!-- Panel Header -->
+        <div class="h-16 px-6 border-b border-border flex items-center justify-between bg-surface shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-mono text-textSecondary bg-background px-1.5 py-0.5 rounded border border-border" id="panel-task-id">tsk_1038</span>
+                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium bg-accent/10 text-accent border border-accent/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span> In Progress
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="p-2 text-textSecondary hover:text-textPrimary rounded hover:bg-surfaceHover transition-colors" title="Copy Link">
+                    <i class="fa-solid fa-link"></i>
+                </button>
+                <button class="p-2 text-textSecondary hover:text-textPrimary rounded hover:bg-surfaceHover transition-colors" onclick="closeTaskPanel()">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Panel Content (Scrollable) -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-8">
+            
+            <!-- Header Info -->
+            <div>
+                <h2 class="text-xl font-bold text-textPrimary mb-2">Scrape Competitor Pricing Data</h2>
+                <p class="text-sm text-textSecondary leading-relaxed">Extract pricing tiers from 5 major competitors and format into unified JSON schema. Focus on enterprise tier differences and feature gating limits.</p>
+            </div>
+
+            <!-- Meta Grid -->
+            <div class="grid grid-cols-2 gap-4 bg-background border border-border rounded-lg p-4">
+                <div>
+                    <span class="text-[10px] text-textSecondary uppercase tracking-wider block mb-1">Assignee</span>
+                    <div class="flex items-center gap-2">
+                        <div class="w-6 h-6 rounded bg-blue-500/10 flex items-center justify-center text-xs text-blue-400 border border-blue-500/20">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <span class="text-sm font-medium text-textPrimary">Agent-Alpha</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-[10px] text-textSecondary uppercase tracking-wider block mb-1">Priority</span>
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium bg-priority1/10 text-priority1 border border-priority1/20">
+                        <span class="w-2 h-2 rounded-full bg-priority1"></span> P1 - High
+                    </span>
+                </div>
+                <div>
+                    <span class="text-[10px] text-textSecondary uppercase tracking-wider block mb-1">Created</span>
+                    <span class="text-sm text-textPrimary font-mono">Oct 27, 14:15 UTC</span>
+                </div>
+                <div>
+                    <span class="text-[10px] text-textSecondary uppercase tracking-wider block mb-1">Elapsed Time</span>
+                    <span class="text-sm text-accent font-mono flex items-center gap-1">
+                        <i class="fa-solid fa-spinner fa-spin text-xs"></i> 12m 45s
+                    </span>
+                </div>
+            </div>
+
+            <!-- Agent Logs Tail -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-sm font-semibold text-textPrimary flex items-center gap-2">
+                        <i class="fa-solid fa-terminal text-textSecondary"></i> Execution Logs
+                    </h3>
+                    <button class="text-xs text-textSecondary hover:text-textPrimary flex items-center gap-1">
+                        <i class="fa-solid fa-expand"></i> Full Screen
+                    </button>
+                </div>
+                <div class="bg-[#0a0a0a] border border-border rounded-lg p-3 h-64 overflow-y-auto font-mono text-[10px] leading-relaxed relative" id="task-log-container">
+                    <div class="text-textSecondary">[14:32:01] <span class="text-blue-400">INFO</span>  Starting task tsk_1038</div>
+                    <div class="text-textSecondary">[14:32:02] <span class="text-blue-400">INFO</span>  Initializing web_scraper tool</div>
+                    <div class="text-textSecondary">[14:32:05] <span class="text-blue-400">INFO</span>  Navigating to URL 1/5: https://comp-a.com/pricing</div>
+                    <div class="text-textSecondary">[14:32:15] <span class="text-blue-400">INFO</span>  DOM loaded. Extracting tables...</div>
+                    <div class="text-textSecondary">[14:32:18] <span class="text-blue-400">INFO</span>  Extracted 3 pricing tiers. Formatting...</div>
+                    <div class="text-textSecondary">[14:32:25] <span class="text-success">SUCCESS</span> URL 1 complete. Data validated.</div>
+                    <div class="text-textSecondary">[14:32:26] <span class="text-blue-400">INFO</span>  Navigating to URL 2/5: https://comp-b.com/pricing</div>
+                    <div class="text-textSecondary">[14:32:30] <span class="text-warning">WARN</span>  Cloudflare challenge detected. Solving...</div>
+                    <div class="text-textSecondary">[14:32:45] <span class="text-blue-400">INFO</span>  Challenge bypassed. DOM loaded.</div>
+                    <div class="text-textSecondary mt-2 animate-pulse text-textSecondary/50">Extracting tables... _</div>
+                </div>
+            </section>
+
+            <!-- Artifacts / Output -->
+            <section>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-sm font-semibold text-textPrimary flex items-center gap-2">
+                        <i class="fa-solid fa-box-open text-textSecondary"></i> Artifacts (Partial)
+                    </h3>
+                    <span class="text-xs text-textSecondary">1 file generated</span>
+                </div>
+                <div class="bg-background border border-border rounded-lg p-4">
+                    <div class="flex items-center justify-between p-2 hover:bg-surface rounded transition-colors cursor-pointer border border-transparent hover:border-border">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-brands fa-js text-yellow-400 text-lg"></i>
+                            <div>
+                                <p class="text-sm font-medium text-textPrimary">comp-a_pricing.json</p>
+                                <p class="text-[10px] text-textSecondary">2.4 KB • Generated 5m ago</p>
+                            </div>
+                        </div>
+                        <button class="text-textSecondary hover:text-textPrimary p-2">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="h-4"></div>
+        </div>
+        
+        <!-- Panel Footer Actions -->
+        <div class="p-4 border-t border-border bg-surface flex gap-3 shrink-0">
+            <button class="px-4 py-2 bg-surface border border-border hover:bg-surfaceHover text-textPrimary text-sm font-medium rounded transition-colors flex items-center justify-center gap-2">
+                <i class="fa-solid fa-pen"></i> Edit Task
+            </button>
+            <button class="flex-1 py-2 bg-danger/10 border border-danger/20 hover:bg-danger/20 text-danger text-sm font-medium rounded transition-colors">
+                Cancel Execution
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Slide-over Panel Logic
+        function openTaskPanel(taskId) {
+            document.getElementById('panel-task-id').innerText = taskId;
+            const panel = document.getElementById('task-panel');
+            const backdrop = document.getElementById('slide-over-backdrop');
+            
+            backdrop.classList.remove('hidden');
+            setTimeout(() => {
+                panel.classList.remove('translate-x-full');
+            }, 10);
+            
+            // Auto-scroll logs to bottom
+            const logContainer = document.getElementById('task-log-container');
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function closeTaskPanel() {
+            const panel = document.getElementById('task-panel');
+            const backdrop = document.getElementById('slide-over-backdrop');
+            
+            panel.classList.add('translate-x-full');
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        // Drag and Drop Logic Implementation
+        document.addEventListener('DOMContentLoaded', () => {
+            const draggables = document.querySelectorAll('.draggable-card');
+            const dropZones = document.querySelectorAll('.drop-zone');
+
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', () => {
+                    draggable.classList.add('opacity-50');
+                    // Add a class to identify the currently dragged element
+                    draggable.setAttribute('data-dragging', 'true');
+                });
+
+                draggable.addEventListener('dragend', () => {
+                    draggable.classList.remove('opacity-50');
+                    draggable.removeAttribute('data-dragging');
+                });
+            });
+
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over', 'rounded-lg');
+                });
+
+                zone.addEventListener('dragleave', () => {
+                    zone.classList.remove('drag-over', 'rounded-lg');
+                });
+
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over', 'rounded-lg');
+                    
+                    const draggingCard = document.querySelector('[data-dragging="true"]');
+                    if (draggingCard) {
+                        zone.appendChild(draggingCard);
+                        // In a real app, trigger an API call here to update task status
+                        console.log(`Moved task to ${zone.dataset.column}`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

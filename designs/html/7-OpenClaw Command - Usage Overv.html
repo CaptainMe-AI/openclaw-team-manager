@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usage - OpenClaw Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#0f1219',
+                        surface: '#1a1f2e',
+                        surfaceHover: '#252b3d',
+                        accent: '#00d4aa',
+                        accentHover: '#00b38f',
+                        textPrimary: '#f3f4f6',
+                        textSecondary: '#9ca3af',
+                        border: '#2d3748',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        success: '#10b981',
+                        priority0: '#ef4444', // Red for P0
+                        priority1: '#f59e0b', // Amber for P1
+                        priority2: '#3b82f6', // Blue for P2
+                        priority3: '#9ca3af', // Gray for P3
+                        chart1: '#00d4aa',
+                        chart2: '#3b82f6',
+                        chart3: '#8b5cf6',
+                        chart4: '#f43f5e',
+                        chart5: '#f59e0b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f1219;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1219;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3748;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5568;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .card-glow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="w-full md:w-64 bg-surface border-b md:border-b-0 md:border-r border-border flex flex-col flex-shrink-0 transition-all duration-300 z-20 sticky top-0 md:h-screen">
+        <div class="h-16 flex items-center justify-between px-4 md:px-6 border-b border-border">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-terminal text-accent text-xl"></i>
+                <span class="font-bold text-lg tracking-tight hidden md:block">OpenClaw</span>
+            </div>
+            <button class="md:hidden text-textSecondary hover:text-textPrimary" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <nav id="mobile-menu" class="hidden md:flex flex-col flex-1 py-4 overflow-y-auto">
+            <div class="px-3 mb-2">
+                <p class="text-xs font-semibold text-textSecondary uppercase tracking-wider px-3 mb-2 hidden md:block">Main Menu</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-chart-line w-5 text-center"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-robot w-5 text-center"></i>
+                    <span class="font-medium">Agents</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-list-check w-5 text-center"></i>
+                    <span class="font-medium">Tasks</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md bg-surfaceHover text-accent border-l-2 border-accent mb-1 transition-colors">
+                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                    <span class="font-medium">Usage</span>
+                </a>
+                <a href="#" class="flex items-center justify-between px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-shield-check w-5 text-center"></i>
+                        <span class="font-medium">Approvals</span>
+                    </div>
+                    <span class="bg-warning text-background text-xs font-bold px-1.5 py-0.5 rounded">3</span>
+                </a>
+            </div>
+
+            <div class="mt-auto px-3 pb-4">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary transition-colors">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col min-w-0 h-screen relative overflow-y-auto bg-background">
+        
+        <!-- Top Navigation Bar -->
+        <header id="top-nav" class="h-16 bg-surface border-b border-border flex items-center justify-between px-4 sm:px-6 lg:px-8 shrink-0 z-10 sticky top-0">
+            <div class="flex items-center flex-1 gap-4 lg:gap-8">
+                <div class="hidden md:flex items-center gap-2 text-textSecondary">
+                    <span class="text-sm font-medium">Command Center</span>
+                    <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    <span class="text-sm text-textPrimary font-medium">Usage Metrics</span>
+                </div>
+                
+                <div class="flex-1 max-w-xl relative">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-textSecondary text-sm"></i>
+                    <input type="text" placeholder="Search agents or metrics (Press '/')" class="w-full bg-background border border-border rounded-md py-1.5 pl-9 pr-4 text-sm text-textPrimary placeholder-textSecondary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                    <div class="absolute right-2 top-1/2 transform -translate-y-1/2 flex gap-1 hidden sm:flex">
+                        <kbd class="px-1.5 py-0.5 text-[10px] font-mono bg-surface border border-border rounded text-textSecondary">/</kbd>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4 ml-4">
+                <button class="relative p-2 text-textSecondary hover:text-textPrimary transition-colors rounded-full hover:bg-surfaceHover">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="absolute top-1 right-1.5 w-2 h-2 bg-accent rounded-full border-2 border-surface"></span>
+                </button>
+                <div class="h-6 w-px bg-border hidden sm:block"></div>
+                <button class="flex items-center gap-2 hover:bg-surfaceHover p-1 pr-2 rounded-full transition-colors">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="User Avatar" class="w-7 h-7 rounded-full object-cover border border-border">
+                    <i class="fa-solid fa-chevron-down text-xs text-textSecondary hidden sm:block"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Content Padding Wrapper -->
+        <div class="p-4 sm:p-6 lg:p-8 space-y-6">
+            
+            <!-- Header Section -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-textPrimary tracking-tight">Usage & Cost Tracking</h1>
+                    <p class="text-sm text-textSecondary mt-1">Monitor API consumption, latency, and estimated costs across your agent fleet.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="bg-surface border border-border rounded-md p-1 flex">
+                        <button class="px-3 py-1.5 text-xs font-medium text-textSecondary hover:text-textPrimary rounded transition-colors">1h</button>
+                        <button class="px-3 py-1.5 text-xs font-medium text-textSecondary hover:text-textPrimary rounded transition-colors">6h</button>
+                        <button class="px-3 py-1.5 text-xs font-medium bg-surfaceHover text-textPrimary rounded transition-colors">24h</button>
+                        <button class="px-3 py-1.5 text-xs font-medium text-textSecondary hover:text-textPrimary rounded transition-colors">7d</button>
+                        <button class="px-3 py-1.5 text-xs font-medium text-textSecondary hover:text-textPrimary rounded transition-colors">30d</button>
+                    </div>
+                    <button class="px-3 py-1.5 text-sm font-medium bg-surface border border-border text-textPrimary rounded-md hover:bg-surfaceHover transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-download text-textSecondary"></i> Export Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Top — Summary bar (KPI Cards) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Total Tokens -->
+                <div class="bg-surface border border-border rounded-lg p-5 card-glow relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-chart1/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-md bg-chart1/10 flex items-center justify-center text-chart1">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <span class="text-sm font-medium text-textSecondary">Total Tokens</span>
+                        </div>
+                        <span class="text-xs font-medium text-success bg-success/10 px-2 py-1 rounded-full flex items-center gap-1 border border-success/20">
+                            <i class="fa-solid fa-arrow-trend-up"></i> 12.5%
+                        </span>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <h2 class="text-3xl font-bold font-mono text-textPrimary">42.8M</h2>
+                        <span class="text-xs text-textSecondary mb-1">/ 24h</span>
+                    </div>
+                </div>
+
+                <!-- API Calls -->
+                <div class="bg-surface border border-border rounded-lg p-5 card-glow relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-chart2/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-md bg-chart2/10 flex items-center justify-center text-chart2">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                            <span class="text-sm font-medium text-textSecondary">Total API Calls</span>
+                        </div>
+                        <span class="text-xs font-medium text-success bg-success/10 px-2 py-1 rounded-full flex items-center gap-1 border border-success/20">
+                            <i class="fa-solid fa-arrow-trend-up"></i> 5.2%
+                        </span>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <h2 class="text-3xl font-bold font-mono text-textPrimary">124.5k</h2>
+                        <span class="text-xs text-textSecondary mb-1">/ 24h</span>
+                    </div>
+                </div>
+
+                <!-- Estimated Cost -->
+                <div class="bg-surface border border-border rounded-lg p-5 card-glow relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-chart5/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-md bg-chart5/10 flex items-center justify-center text-chart5">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                            <span class="text-sm font-medium text-textSecondary">Estimated Cost</span>
+                        </div>
+                        <span class="text-xs font-medium text-danger bg-danger/10 px-2 py-1 rounded-full flex items-center gap-1 border border-danger/20">
+                            <i class="fa-solid fa-arrow-trend-up"></i> 18.1%
+                        </span>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <h2 class="text-3xl font-bold font-mono text-textPrimary">$842.50</h2>
+                        <span class="text-xs text-textSecondary mb-1">/ 24h</span>
+                    </div>
+                </div>
+
+                <!-- Average Latency -->
+                <div class="bg-surface border border-border rounded-lg p-5 card-glow relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-chart3/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-md bg-chart3/10 flex items-center justify-center text-chart3">
+                                <i class="fa-solid fa-stopwatch"></i>
+                            </div>
+                            <span class="text-sm font-medium text-textSecondary">Avg Latency</span>
+                        </div>
+                        <span class="text-xs font-medium text-success bg-success/10 px-2 py-1 rounded-full flex items-center gap-1 border border-success/20">
+                            <i class="fa-solid fa-arrow-trend-down"></i> 1.2s
+                        </span>
+                    </div>
+                    <div class="flex items-end gap-2">
+                        <h2 class="text-3xl font-bold font-mono text-textPrimary">1.8s</h2>
+                        <span class="text-xs text-textSecondary mb-1">avg</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle — Charts (2-column grid) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Token Usage Over Time (Stacked Area) -->
+                <div class="bg-surface border border-border rounded-lg p-5 card-glow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-semibold text-textPrimary flex items-center gap-2">
+                            <i class="fa-solid fa-chart-area text-textSecondary"></i> Token Usage Over Time
+                        </h3>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                    <div id="token-usage-chart" class="h-[300px] w-full"></div>
+                </div>
+
+                <!-- Cost Breakdown by Agent (Donut Chart) -->
+                <div class="bg-surface border border-border rounded-lg p-5 card-glow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-semibold text-textPrimary flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-textSecondary"></i> Cost Breakdown by Agent
+                        </h3>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                    <div class="flex items-center h-[300px]">
+                        <div id="cost-breakdown-chart" class="h-[300px] w-full"></div>
+                    </div>
+                </div>
+
+                <!-- API Calls by Endpoint (Horizontal Bar) -->
+                <div class="bg-surface border border-border rounded-lg p-5 card-glow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-semibold text-textPrimary flex items-center gap-2">
+                            <i class="fa-solid fa-chart-bar text-textSecondary"></i> API Calls by Endpoint
+                        </h3>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                    <div id="api-calls-chart" class="h-[300px] w-full"></div>
+                </div>
+
+                <!-- Latency Distribution (Histogram) -->
+                <div class="bg-surface border border-border rounded-lg p-5 card-glow">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-semibold text-textPrimary flex items-center gap-2">
+                            <i class="fa-solid fa-wave-square text-textSecondary"></i> Latency Distribution
+                        </h3>
+                        <button class="text-textSecondary hover:text-textPrimary"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                    <div id="latency-histogram" class="h-[300px] w-full"></div>
+                </div>
+
+            </div>
+
+            <!-- Bottom — Usage Table -->
+            <div class="bg-surface border border-border rounded-lg card-glow overflow-hidden">
+                <div class="p-5 border-b border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <h3 class="text-sm font-semibold text-textPrimary flex items-center gap-2">
+                        <i class="fa-solid fa-table text-textSecondary"></i> Per-Agent Usage Breakdown
+                    </h3>
+                    <div class="flex items-center gap-2">
+                        <div class="relative">
+                            <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-textSecondary text-xs"></i>
+                            <input type="text" placeholder="Filter agents..." class="bg-background border border-border rounded-md py-1 pl-8 pr-3 text-xs text-textPrimary placeholder-textSecondary focus:outline-none focus:border-accent">
+                        </div>
+                        <button class="px-3 py-1 bg-surfaceHover border border-border text-textPrimary text-xs font-medium rounded hover:bg-border transition-colors flex items-center gap-1">
+                            <i class="fa-solid fa-file-csv"></i> CSV
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surfaceHover border-b border-border">
+                                <th class="px-5 py-3 text-xs font-medium text-textSecondary uppercase tracking-wider cursor-pointer hover:text-textPrimary">Agent Name <i class="fa-solid fa-sort ml-1"></i></th>
+                                <th class="px-5 py-3 text-xs font-medium text-textSecondary uppercase tracking-wider text-right cursor-pointer hover:text-textPrimary">Tokens In <i class="fa-solid fa-sort ml-1"></i></th>
+                                <th class="px-5 py-3 text-xs font-medium text-textSecondary uppercase tracking-wider text-right cursor-pointer hover:text-textPrimary">Tokens Out <i class="fa-solid fa-sort ml-1"></i></th>
+                                <th class="px-5 py-3 text-xs font-medium text-textSecondary uppercase tracking-wider text-right cursor-pointer hover:text-textPrimary">Total Tokens <i class="fa-solid fa-sort-down ml-1 text-accent"></i></th>
+                                <th class="px-5 py-3 text-xs font-medium text-textSecondary uppercase tracking-wider text-right cursor-pointer hover:text-textPrimary">API Calls <i class="fa-solid fa-sort ml-1"></i></th>
+                                <th class="px-5 py-3 text-xs font-medium text-textSecondary uppercase tracking-wider text-right cursor-pointer hover:text-textPrimary">Est. Cost <i class="fa-solid fa-sort ml-1"></i></th>
+                                <th class="px-5 py-3 text-xs font-medium text-textSecondary uppercase tracking-wider text-right cursor-pointer hover:text-textPrimary">Avg Latency <i class="fa-solid fa-sort ml-1"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border">
+                            <!-- Row 1 -->
+                            <tr class="hover:bg-surfaceHover/50 transition-colors">
+                                <td class="px-5 py-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded bg-blue-500/10 flex items-center justify-center text-xs text-blue-400 border border-blue-500/20">
+                                            <i class="fa-solid fa-robot"></i>
+                                        </div>
+                                        <span class="text-sm font-medium text-textPrimary">Agent-Alpha</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">12.4M</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">4.1M</td>
+                                <td class="px-5 py-3 text-sm text-textPrimary font-semibold text-right font-mono">16.5M</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">45,210</td>
+                                <td class="px-5 py-3 text-sm text-textPrimary text-right font-mono">$324.50</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">1.2s</td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-surfaceHover/50 transition-colors">
+                                <td class="px-5 py-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded bg-purple-500/10 flex items-center justify-center text-xs text-purple-400 border border-purple-500/20">
+                                            <i class="fa-solid fa-database"></i>
+                                        </div>
+                                        <span class="text-sm font-medium text-textPrimary">Agent-DBA</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">8.2M</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">2.8M</td>
+                                <td class="px-5 py-3 text-sm text-textPrimary font-semibold text-right font-mono">11.0M</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">32,105</td>
+                                <td class="px-5 py-3 text-sm text-textPrimary text-right font-mono">$215.80</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">2.4s</td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-surfaceHover/50 transition-colors">
+                                <td class="px-5 py-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded bg-green-500/10 flex items-center justify-center text-xs text-green-400 border border-green-500/20">
+                                            <i class="fa-solid fa-code"></i>
+                                        </div>
+                                        <span class="text-sm font-medium text-textPrimary">Agent-Coder</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">6.5M</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">3.2M</td>
+                                <td class="px-5 py-3 text-sm text-textPrimary font-semibold text-right font-mono">9.7M</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">28,400</td>
+                                <td class="px-5 py-3 text-sm text-textPrimary text-right font-mono">$185.20</td>
+                                <td class="px-5 py-3 text-sm text-warning text-right font-mono">3.5s <i class="fa-solid fa-triangle-exclamation ml-1 text-[10px]"></i></td>
+                            </tr>
+                            <!-- Row 4 -->
+                            <tr class="hover:bg-surfaceHover/50 transition-colors">
+                                <td class="px-5 py-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded bg-yellow-500/10 flex items-center justify-center text-xs text-yellow-400 border border-yellow-500/20">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <span class="text-sm font-medium text-textPrimary">Agent-Scraper</span>
+                                    </div>
+                                </td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">4.1M</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">1.5M</td>
+                                <td class="px-5 py-3 text-sm text-textPrimary font-semibold text-right font-mono">5.6M</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">18,785</td>
+                                <td class="px-5 py-3 text-sm text-textPrimary text-right font-mono">$117.00</td>
+                                <td class="px-5 py-3 text-sm text-textSecondary text-right font-mono">1.8s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-4 border-t border-border flex items-center justify-between text-xs text-textSecondary">
+                    <span>Showing 1 to 4 of 12 agents</span>
+                    <div class="flex gap-1">
+                        <button class="px-2 py-1 rounded hover:bg-surfaceHover disabled:opacity-50" disabled><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="px-2 py-1 rounded bg-surfaceHover text-textPrimary">1</button>
+                        <button class="px-2 py-1 rounded hover:bg-surfaceHover">2</button>
+                        <button class="px-2 py-1 rounded hover:bg-surfaceHover">3</button>
+                        <button class="px-2 py-1 rounded hover:bg-surfaceHover"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-8"></div> <!-- Bottom spacing -->
+        </div>
+    </main>
+
+    <script>
+        // Plotly Charts Initialization
+        window.addEventListener('load', function() {
+            try {
+                const layoutDefaults = {
+                    plot_bgcolor: 'transparent',
+                    paper_bgcolor: 'transparent',
+                    font: { family: 'Inter, sans-serif', color: '#9ca3af', size: 10 },
+                    margin: { t: 10, r: 10, b: 30, l: 40 },
+                    showlegend: false
+                };
+                const config = { responsive: true, displayModeBar: false };
+
+                // 1. Token Usage Over Time (Stacked Area)
+                const timeLabels = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'];
+                const trace1 = { x: timeLabels, y: [1.2, 1.5, 3.2, 4.5, 3.8, 2.1, 1.4], type: 'scatter', mode: 'lines', fill: 'tozeroy', name: 'Agent-Alpha', line: {color: '#3b82f6', width: 2}, fillcolor: 'rgba(59, 130, 246, 0.3)' };
+                const trace2 = { x: timeLabels, y: [0.8, 1.1, 2.5, 3.1, 2.4, 1.5, 0.9], type: 'scatter', mode: 'lines', fill: 'tonexty', name: 'Agent-DBA', line: {color: '#8b5cf6', width: 2}, fillcolor: 'rgba(139, 92, 246, 0.3)' };
+                const trace3 = { x: timeLabels, y: [0.5, 0.7, 1.8, 2.2, 1.9, 1.1, 0.6], type: 'scatter', mode: 'lines', fill: 'tonexty', name: 'Agent-Coder', line: {color: '#10b981', width: 2}, fillcolor: 'rgba(16, 185, 129, 0.3)' };
+                
+                Plotly.newPlot('token-usage-chart', [trace1, trace2, trace3], {
+                    ...layoutDefaults,
+                    xaxis: { showgrid: false, zeroline: false, color: '#4a5568' },
+                    yaxis: { showgrid: true, gridcolor: '#2d3748', zeroline: false, color: '#4a5568' },
+                    showlegend: true,
+                    legend: { orientation: 'h', y: -0.2 }
+                }, config);
+
+                // 2. Cost Breakdown (Donut)
+                const donutData = [{
+                    values: [324.50, 215.80, 185.20, 117.00],
+                    labels: ['Agent-Alpha', 'Agent-DBA', 'Agent-Coder', 'Agent-Scraper'],
+                    type: 'pie',
+                    hole: .6,
+                    marker: { colors: ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b'] },
+                    textinfo: 'none',
+                    hoverinfo: 'label+percent+value'
+                }];
+                Plotly.newPlot('cost-breakdown-chart', donutData, {
+                    ...layoutDefaults,
+                    margin: { t: 10, r: 10, b: 10, l: 10 },
+                    showlegend: true,
+                    legend: { orientation: 'v', x: 1, y: 0.5 }
+                }, config);
+
+                // 3. API Calls by Endpoint (Horizontal Bar)
+                const apiData = [{
+                    type: 'bar',
+                    x: [45200, 32100, 28400, 15000, 8000],
+                    y: ['/v1/chat/completions', '/v1/embeddings', '/v1/models', '/v1/files', '/v1/assistants'],
+                    orientation: 'h',
+                    marker: { color: '#00d4aa', opacity: 0.8 }
+                }];
+                Plotly.newPlot('api-calls-chart', apiData, {
+                    ...layoutDefaults,
+                    margin: { t: 10, r: 20, b: 30, l: 120 },
+                    xaxis: { showgrid: true, gridcolor: '#2d3748', color: '#4a5568' },
+                    yaxis: { showgrid: false, color: '#9ca3af', autorange: 'reversed' }
+                }, config);
+
+                // 4. Latency Distribution (Histogram)
+                // Generating dummy normal distribution data
+                let xData = [];
+                for (let i = 0; i < 500; i++) { xData.push(Math.max(0.1, 1.8 + (Math.random() + Math.random() + Math.random() - 1.5) * 1.5)); }
+                
+                const histData = [{
+                    x: xData,
+                    type: 'histogram',
+                    marker: { color: '#f43f5e', opacity: 0.7 },
+                    xbins: { size: 0.2 }
+                }];
+                Plotly.newPlot('latency-histogram', histData, {
+                    ...layoutDefaults,
+                    xaxis: { title: 'Seconds', showgrid: false, color: '#4a5568' },
+                    yaxis: { showgrid: true, gridcolor: '#2d3748', color: '#4a5568' }
+                }, config);
+
+            } catch(e) { console.error('Error rendering charts:', e); }
+        });
+    </script>
+</body>
+</html>

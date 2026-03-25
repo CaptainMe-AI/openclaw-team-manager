@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - OpenClaw Command Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#0f1219',
+                        surface: '#1a1f2e',
+                        surfaceHover: '#252b3d',
+                        accent: '#00d4aa',
+                        accentHover: '#00b38f',
+                        textPrimary: '#f3f4f6',
+                        textSecondary: '#9ca3af',
+                        border: '#2d3748',
+                        danger: '#ef4444',
+                        warning: '#f59e0b',
+                        success: '#10b981',
+                        priority0: '#ef4444',
+                        priority1: '#f59e0b',
+                        priority2: '#3b82f6',
+                        priority3: '#9ca3af',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0f1219;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1219;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3748;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a5568;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .card-glow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Custom Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #00d4aa;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #00d4aa;
+        }
+        .toggle-checkbox {
+            right: 0;
+            z-index: 1;
+            border-color: #e2e8f0;
+            transition: all 0.3s;
+        }
+        .toggle-label {
+            width: 2.5rem;
+            height: 1.25rem;
+            background-color: #2d3748;
+            border-radius: 9999px;
+            transition: all 0.3s;
+        }
+        .toggle-checkbox:checked {
+            transform: translateX(1.25rem);
+        }
+    </style>
+</head>
+<body class="w-full min-h-screen flex flex-col md:flex-row overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="w-full md:w-64 bg-surface border-b md:border-b-0 md:border-r border-border flex flex-col flex-shrink-0 transition-all duration-300 z-20 sticky top-0 md:h-screen">
+        <div class="h-16 flex items-center justify-between px-4 md:px-6 border-b border-border">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-terminal text-accent text-xl"></i>
+                <span class="font-bold text-lg tracking-tight hidden md:block">OpenClaw</span>
+            </div>
+            <button class="md:hidden text-textSecondary hover:text-textPrimary" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <nav id="mobile-menu" class="hidden md:flex flex-col flex-1 py-4 overflow-y-auto">
+            <div class="px-3 mb-2">
+                <p class="text-xs font-semibold text-textSecondary uppercase tracking-wider px-3 mb-2 hidden md:block">Main Menu</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-chart-line w-5 text-center"></i>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-robot w-5 text-center"></i>
+                    <span class="font-medium">Agents</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-list-check w-5 text-center"></i>
+                    <span class="font-medium">Tasks</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                    <span class="font-medium">Usage</span>
+                </a>
+                <a href="#" class="flex items-center justify-between px-3 py-2 rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary mb-1 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-shield-check w-5 text-center"></i>
+                        <span class="font-medium">Approvals</span>
+                    </div>
+                    <span class="bg-warning text-background text-xs font-bold px-1.5 py-0.5 rounded">3</span>
+                </a>
+            </div>
+
+            <div class="mt-auto px-3 pb-4">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-md bg-surfaceHover text-accent border-l-2 border-accent transition-colors">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col min-w-0 h-screen relative overflow-y-auto bg-background">
+        
+        <!-- Top Navigation Bar -->
+        <header id="top-nav" class="h-16 bg-surface border-b border-border flex items-center justify-between px-4 sm:px-6 lg:px-8 shrink-0 z-10 sticky top-0">
+            <div class="flex items-center flex-1 gap-4 lg:gap-8">
+                <div class="hidden md:flex items-center gap-2 text-textSecondary">
+                    <span class="text-sm font-medium">Command Center</span>
+                    <i class="fa-solid fa-chevron-right text-xs opacity-50"></i>
+                    <span class="text-sm text-textPrimary font-medium">Settings</span>
+                </div>
+                
+                <div class="flex-1 max-w-xl relative">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-textSecondary text-sm"></i>
+                    <input type="text" placeholder="Search settings (Press '/')" class="w-full bg-background border border-border rounded-md py-1.5 pl-9 pr-4 text-sm text-textPrimary placeholder-textSecondary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                    <div class="absolute right-2 top-1/2 transform -translate-y-1/2 flex gap-1 hidden sm:flex">
+                        <kbd class="px-1.5 py-0.5 text-[10px] font-mono bg-surface border border-border rounded text-textSecondary">/</kbd>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 sm:gap-4 ml-4">
+                <button class="relative p-2 text-textSecondary hover:text-textPrimary transition-colors rounded-full hover:bg-surfaceHover">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="absolute top-1 right-1.5 w-2 h-2 bg-accent rounded-full border-2 border-surface"></span>
+                </button>
+                <div class="h-6 w-px bg-border hidden sm:block"></div>
+                <button class="flex items-center gap-2 hover:bg-surfaceHover p-1 pr-2 rounded-full transition-colors">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg" alt="User Avatar" class="w-7 h-7 rounded-full object-cover border border-border">
+                    <i class="fa-solid fa-chevron-down text-xs text-textSecondary hidden sm:block"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Content Padding Wrapper -->
+        <div class="p-4 sm:p-6 lg:p-8 space-y-6">
+            
+            <!-- Header Section -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-textPrimary tracking-tight">Configuration Settings</h1>
+                    <p class="text-sm text-textSecondary mt-1">Manage global preferences, agent policies, and data integrations.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button class="px-4 py-2 text-sm font-medium bg-surface border border-border text-textPrimary rounded-md hover:bg-surfaceHover transition-colors">
+                        Discard Changes
+                    </button>
+                    <button class="px-4 py-2 text-sm font-medium bg-accent text-background rounded-md hover:bg-accentHover transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-save"></i> Save Configuration
+                    </button>
+                </div>
+            </div>
+
+            <!-- Settings Layout: Sidebar + Content -->
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <!-- Settings Tabs Sidebar -->
+                <div class="w-full lg:w-64 shrink-0">
+                    <nav class="flex flex-row lg:flex-col space-x-2 lg:space-x-0 lg:space-y-1 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0" aria-label="Settings Tabs">
+                        <button class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-md bg-surfaceHover text-accent w-full text-left whitespace-nowrap lg:whitespace-normal">
+                            <i class="fa-solid fa-sliders w-5 text-center"></i>
+                            General
+                        </button>
+                        <button class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary w-full text-left whitespace-nowrap lg:whitespace-normal transition-colors">
+                            <i class="fa-solid fa-robot w-5 text-center"></i>
+                            Agents
+                        </button>
+                        <button class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary w-full text-left whitespace-nowrap lg:whitespace-normal transition-colors">
+                            <i class="fa-solid fa-bell w-5 text-center"></i>
+                            Notifications
+                        </button>
+                        <button class="flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-md text-textSecondary hover:bg-surfaceHover hover:text-textPrimary w-full text-left whitespace-nowrap lg:whitespace-normal transition-colors">
+                            <i class="fa-solid fa-database w-5 text-center"></i>
+                            Data Sources
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Settings Panels -->
+                <div class="flex-1 space-y-8 min-w-0">
+                    
+                    <!-- General Settings Panel -->
+                    <section id="panel-general" class="space-y-6">
+                        <div class="bg-surface border border-border rounded-lg card-glow overflow-hidden">
+                            <div class="px-6 py-4 border-b border-border">
+                                <h2 class="text-lg font-semibold text-textPrimary">General Preferences</h2>
+                                <p class="text-sm text-textSecondary">Basic configuration for the Command Center display and behavior.</p>
+                            </div>
+                            
+                            <div class="p-6 space-y-6">
+                                <!-- Display Name -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Display Name</label>
+                                        <p class="text-xs text-textSecondary">The name shown in the top navigation and emails.</p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <input type="text" value="OpenClaw Production" class="w-full max-w-md bg-background border border-border rounded-md py-2 px-3 text-sm text-textPrimary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                                    </div>
+                                </div>
+
+                                <div class="h-px bg-border w-full"></div>
+
+                                <!-- Timezone -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Timezone</label>
+                                        <p class="text-xs text-textSecondary">Default timezone for all metrics and logs.</p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <div class="relative max-w-md">
+                                            <select class="w-full bg-background border border-border rounded-md py-2 pl-3 pr-10 text-sm text-textPrimary focus:outline-none focus:border-accent appearance-none">
+                                                <option>UTC (Coordinated Universal Time)</option>
+                                                <option selected>America/New_York (EST)</option>
+                                                <option>America/Los_Angeles (PST)</option>
+                                                <option>Europe/London (GMT)</option>
+                                            </select>
+                                            <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-textSecondary text-xs pointer-events-none"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="h-px bg-border w-full"></div>
+
+                                <!-- Refresh Interval -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Dashboard Refresh</label>
+                                        <p class="text-xs text-textSecondary">How often the UI polls for new data.</p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <div class="flex items-center gap-4">
+                                            <div class="relative w-32">
+                                                <select class="w-full bg-background border border-border rounded-md py-2 pl-3 pr-8 text-sm text-textPrimary focus:outline-none focus:border-accent appearance-none">
+                                                    <option>Manual</option>
+                                                    <option>10 seconds</option>
+                                                    <option selected>30 seconds</option>
+                                                    <option>1 minute</option>
+                                                    <option>5 minutes</option>
+                                                </select>
+                                                <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-textSecondary text-xs pointer-events-none"></i>
+                                            </div>
+                                            <span class="text-sm text-textSecondary">Warning: Frequent polling may increase API costs.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Agents Settings Panel (Visible for demonstration, normally toggleable) -->
+                    <section id="panel-agents" class="space-y-6">
+                        <div class="bg-surface border border-border rounded-lg card-glow overflow-hidden">
+                            <div class="px-6 py-4 border-b border-border flex justify-between items-center">
+                                <div>
+                                    <h2 class="text-lg font-semibold text-textPrimary">Agent Policies</h2>
+                                    <p class="text-sm text-textSecondary">Default configurations applied to new and existing agents.</p>
+                                </div>
+                                <span class="bg-surfaceHover text-textSecondary text-xs px-2 py-1 rounded border border-border font-mono">12 Active Agents</span>
+                            </div>
+                            
+                            <div class="p-6 space-y-6">
+                                <!-- Default Token Budgets -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Default Budgets</label>
+                                        <p class="text-xs text-textSecondary">Maximum daily spend and token limits per agent.</p>
+                                    </div>
+                                    <div class="md:col-span-2 space-y-4">
+                                        <div class="flex items-center gap-4 max-w-md">
+                                            <div class="flex-1">
+                                                <label class="block text-xs text-textSecondary mb-1">Daily Cost Limit ($)</label>
+                                                <div class="relative">
+                                                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-textSecondary text-sm">$</span>
+                                                    <input type="number" value="50.00" class="w-full bg-background border border-border rounded-md py-2 pl-7 pr-3 text-sm text-textPrimary font-mono focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                                                </div>
+                                            </div>
+                                            <div class="flex-1">
+                                                <label class="block text-xs text-textSecondary mb-1">Max Tokens / Task</label>
+                                                <input type="number" value="100000" class="w-full bg-background border border-border rounded-md py-2 px-3 text-sm text-textPrimary font-mono focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="h-px bg-border w-full"></div>
+
+                                <!-- Auto-Restart Policies -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Auto-Restart</label>
+                                        <p class="text-xs text-textSecondary">Behavior when an agent crashes or encounters a fatal error.</p>
+                                    </div>
+                                    <div class="md:col-span-2 space-y-3">
+                                        <label class="flex items-center gap-3 cursor-pointer">
+                                            <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                                <input type="checkbox" name="toggle" id="toggle1" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                                <label for="toggle1" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"></label>
+                                            </div>
+                                            <span class="text-sm text-textPrimary">Automatically restart on crash</span>
+                                        </label>
+                                        <div class="ml-12 max-w-xs">
+                                            <label class="block text-xs text-textSecondary mb-1">Max retry attempts</label>
+                                            <input type="number" value="3" class="w-full bg-background border border-border rounded-md py-1.5 px-3 text-sm text-textPrimary font-mono focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="h-px bg-border w-full"></div>
+
+                                <!-- Allowed Tools List -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Global Allowed Tools</label>
+                                        <p class="text-xs text-textSecondary">Tools available to all agents by default. Can be overridden per agent.</p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <div class="bg-background border border-border rounded-md p-4">
+                                            <div class="flex flex-wrap gap-2 mb-4">
+                                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-surfaceHover border border-border text-textPrimary">
+                                                    <i class="fa-solid fa-globe text-textSecondary"></i> WebSearch
+                                                    <button class="ml-1 text-textSecondary hover:text-danger"><i class="fa-solid fa-xmark"></i></button>
+                                                </span>
+                                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-surfaceHover border border-border text-textPrimary">
+                                                    <i class="fa-solid fa-file-code text-textSecondary"></i> FileRead
+                                                    <button class="ml-1 text-textSecondary hover:text-danger"><i class="fa-solid fa-xmark"></i></button>
+                                                </span>
+                                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-surfaceHover border border-border text-textPrimary">
+                                                    <i class="fa-solid fa-calculator text-textSecondary"></i> Calculator
+                                                    <button class="ml-1 text-textSecondary hover:text-danger"><i class="fa-solid fa-xmark"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <div class="relative flex-1">
+                                                    <select class="w-full bg-surface border border-border rounded-md py-1.5 pl-3 pr-8 text-sm text-textPrimary focus:outline-none focus:border-accent appearance-none">
+                                                        <option disabled selected>Select a tool to add...</option>
+                                                        <option>DatabaseQuery</option>
+                                                        <option>FileWrite</option>
+                                                        <option>ShellExecute (High Risk)</option>
+                                                    </select>
+                                                    <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-textSecondary text-xs pointer-events-none"></i>
+                                                </div>
+                                                <button class="px-3 py-1.5 bg-surfaceHover border border-border rounded-md text-sm text-textPrimary hover:bg-border transition-colors">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Notifications Panel -->
+                    <section id="panel-notifications" class="space-y-6">
+                        <div class="bg-surface border border-border rounded-lg card-glow overflow-hidden">
+                            <div class="px-6 py-4 border-b border-border">
+                                <h2 class="text-lg font-semibold text-textPrimary">Alerts & Notifications</h2>
+                                <p class="text-sm text-textSecondary">Configure when and how you are notified about agent activities.</p>
+                            </div>
+                            
+                            <div class="p-6 space-y-6">
+                                <!-- Alert Thresholds -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Threshold Alerts</label>
+                                        <p class="text-xs text-textSecondary">Trigger notifications when agents exceed defined limits.</p>
+                                    </div>
+                                    <div class="md:col-span-2 space-y-4">
+                                        <div class="flex items-center justify-between p-3 bg-background border border-border rounded-md">
+                                            <div>
+                                                <p class="text-sm font-medium text-textPrimary">Budget Usage</p>
+                                                <p class="text-xs text-textSecondary">Notify when daily spend exceeds a percentage.</p>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <input type="number" value="80" class="w-16 bg-surface border border-border rounded-md py-1 px-2 text-sm text-textPrimary font-mono text-center focus:outline-none focus:border-accent">
+                                                <span class="text-textSecondary text-sm">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between p-3 bg-background border border-border rounded-md">
+                                            <div>
+                                                <p class="text-sm font-medium text-textPrimary">Error Rate</p>
+                                                <p class="text-xs text-textSecondary">Notify when task failure rate spikes.</p>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <input type="number" value="15" class="w-16 bg-surface border border-border rounded-md py-1 px-2 text-sm text-textPrimary font-mono text-center focus:outline-none focus:border-accent">
+                                                <span class="text-textSecondary text-sm">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="h-px bg-border w-full"></div>
+
+                                <!-- Notification Channels -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Channels</label>
+                                        <p class="text-xs text-textSecondary">Where alerts should be routed.</p>
+                                    </div>
+                                    <div class="md:col-span-2 space-y-4">
+                                        <div class="space-y-3">
+                                            <label class="flex items-center gap-3 cursor-pointer">
+                                                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                                    <input type="checkbox" name="toggle" id="toggle2" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                                    <label for="toggle2" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"></label>
+                                                </div>
+                                                <span class="text-sm text-textPrimary">In-App Notifications (Bell icon)</span>
+                                            </label>
+                                            <label class="flex items-center gap-3 cursor-pointer">
+                                                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                                    <input type="checkbox" name="toggle" id="toggle3" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                                    <label for="toggle3" class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"></label>
+                                                </div>
+                                                <span class="text-sm text-textPrimary">Email Alerts</span>
+                                            </label>
+                                        </div>
+                                        <div class="max-w-md mt-2">
+                                            <label class="block text-xs text-textSecondary mb-1">Alert Email Addresses (comma separated)</label>
+                                            <input type="text" value="admin@openclaw.io, oncall@openclaw.io" class="w-full bg-background border border-border rounded-md py-2 px-3 text-sm text-textPrimary focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Data Sources Panel -->
+                    <section id="panel-data" class="space-y-6">
+                        <div class="bg-surface border border-border rounded-lg card-glow overflow-hidden">
+                            <div class="px-6 py-4 border-b border-border">
+                                <h2 class="text-lg font-semibold text-textPrimary">Data Source Integration</h2>
+                                <p class="text-sm text-textSecondary">Configure how the dashboard reads state from the OpenClaw repository.</p>
+                            </div>
+                            
+                            <div class="p-6 space-y-6">
+                                <!-- Repo Path -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Repository Path</label>
+                                        <p class="text-xs text-textSecondary">Absolute path to the local OpenClaw repo.</p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <div class="flex gap-2 max-w-xl">
+                                            <input type="text" value="/var/www/openclaw/data" class="flex-1 bg-background border border-border rounded-md py-2 px-3 text-sm text-textPrimary font-mono focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
+                                            <button class="px-4 py-2 bg-surfaceHover border border-border rounded-md text-sm font-medium text-textPrimary hover:bg-border transition-colors">
+                                                Test Connection
+                                            </button>
+                                        </div>
+                                        <p class="text-xs text-success mt-2 flex items-center gap-1"><i class="fa-solid fa-circle-check"></i> Connection successful. 12 agents found.</p>
+                                    </div>
+                                </div>
+
+                                <div class="h-px bg-border w-full"></div>
+
+                                <!-- File Watch Patterns -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Watch Patterns</label>
+                                        <p class="text-xs text-textSecondary">Glob patterns for files to monitor for state changes.</p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <textarea rows="3" class="w-full max-w-xl bg-background border border-border rounded-md py-2 px-3 text-sm text-textPrimary font-mono focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">agents/**/*.json
+logs/*.log
+state/global.yaml</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="h-px bg-border w-full"></div>
+
+                                <!-- Refresh Strategy -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
+                                    <div class="md:col-span-1">
+                                        <label class="block text-sm font-medium text-textPrimary mb-1">Sync Strategy</label>
+                                        <p class="text-xs text-textSecondary">How backend syncs with the filesystem.</p>
+                                    </div>
+                                    <div class="md:col-span-2">
+                                        <div class="space-y-4 max-w-xl">
+                                            <div class="flex items-start gap-3 p-3 border border-accent bg-accent/5 rounded-md">
+                                                <input type="radio" name="sync_strategy" id="sync_polling" checked class="mt-1 accent-accent">
+                                                <div>
+                                                    <label for="sync_polling" class="text-sm font-medium text-textPrimary block cursor-pointer">Polling (Recommended)</label>
+                                                    <p class="text-xs text-textSecondary mt-1">Periodically scan files for changes. Safe and reliable.</p>
+                                                    <div class="mt-2 flex items-center gap-2">
+                                                        <span class="text-xs text-textSecondary">Interval:</span>
+                                                        <input type="number" value="5" class="w-16 bg-background border border-border rounded-md py-1 px-2 text-xs text-textPrimary font-mono text-center focus:outline-none focus:border-accent">
+                                                        <span class="text-xs text-textSecondary">seconds</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="flex items-start gap-3 p-3 border border-border bg-background rounded-md opacity-70 hover:opacity-100 transition-opacity">
+                                                <input type="radio" name="sync_strategy" id="sync_webhook" class="mt-1 accent-accent">
+                                                <div>
+                                                    <label for="sync_webhook" class="text-sm font-medium text-textPrimary block cursor-pointer">File System Events (Inotify)</label>
+                                                    <p class="text-xs text-textSecondary mt-1">Listen for OS-level file modification events. Lower latency but requires specific OS support.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+            <div class="h-8"></div>
+        </div>
+    </main>
+
+</body>
+</html>

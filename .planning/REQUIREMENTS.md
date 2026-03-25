@@ -130,14 +130,14 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Feature | Reason |
 |---------|--------|
-| User registration/signup UI | Users created via Rails console only — local tool |
+| User registration/signup UI | Users created via Rails console only -- local tool |
 | Email delivery (verification, password reset) | No email infrastructure for local tool |
 | Mobile native app | Web with responsive layout is sufficient |
 | Multi-tenancy / RBAC | Single local installation, single operator |
-| LLM evaluation/scoring | Separate product category — use LangSmith/Langfuse |
+| LLM evaluation/scoring | Separate product category -- use LangSmith/Langfuse |
 | Prompt management/versioning | OpenClaw uses filesystem (IDENTITY.md, ROLE.md) as source of truth |
 | Plugin/extension system | Premature for v1, constrains internal refactoring |
-| AI-powered insights | Meta-complexity — surface raw data well instead |
+| AI-powered insights | Meta-complexity -- surface raw data well instead |
 | Real-time WebSocket for all data | Mock data first; polling sufficient for v1 |
 | Slack/webhook external notifications | No external notification channels in v1 |
 | Custom/configurable dashboard layouts | Fixed layouts per design spec in v1 |
@@ -148,79 +148,79 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUN-01 | Pending | Pending |
-| FOUN-02 | Pending | Pending |
-| FOUN-03 | Pending | Pending |
-| FOUN-04 | Pending | Pending |
-| FOUN-05 | Pending | Pending |
-| FOUN-06 | Pending | Pending |
-| FOUN-07 | Pending | Pending |
-| FOUN-08 | Pending | Pending |
-| FOUN-09 | Pending | Pending |
-| FOUN-10 | Pending | Pending |
-| DSGN-01 | Pending | Pending |
-| DSGN-02 | Pending | Pending |
-| DSGN-03 | Pending | Pending |
-| DSGN-04 | Pending | Pending |
-| SHEL-01 | Pending | Pending |
-| SHEL-02 | Pending | Pending |
-| SHEL-03 | Pending | Pending |
-| SHEL-04 | Pending | Pending |
-| SHEL-05 | Pending | Pending |
-| DATA-01 | Pending | Pending |
-| DATA-02 | Pending | Pending |
-| DATA-03 | Pending | Pending |
-| DATA-04 | Pending | Pending |
-| DATA-05 | Pending | Pending |
-| DASH-01 | Pending | Pending |
-| DASH-02 | Pending | Pending |
-| DASH-03 | Pending | Pending |
-| DASH-04 | Pending | Pending |
-| DASH-05 | Pending | Pending |
-| DASH-06 | Pending | Pending |
-| AGNT-01 | Pending | Pending |
-| AGNT-02 | Pending | Pending |
-| AGNT-03 | Pending | Pending |
-| AGNT-04 | Pending | Pending |
-| AGNT-05 | Pending | Pending |
-| AGNT-06 | Pending | Pending |
-| TASK-01 | Pending | Pending |
-| TASK-02 | Pending | Pending |
-| TASK-03 | Pending | Pending |
-| TASK-04 | Pending | Pending |
-| TASK-05 | Pending | Pending |
-| TASK-06 | Pending | Pending |
-| TASK-07 | Pending | Pending |
-| NTSK-01 | Pending | Pending |
-| NTSK-02 | Pending | Pending |
-| NTSK-03 | Pending | Pending |
-| NTSK-04 | Pending | Pending |
-| APPR-01 | Pending | Pending |
-| APPR-02 | Pending | Pending |
-| APPR-03 | Pending | Pending |
-| APPR-04 | Pending | Pending |
-| APPR-05 | Pending | Pending |
-| APPR-06 | Pending | Pending |
-| APPR-07 | Pending | Pending |
-| USAG-01 | Pending | Pending |
-| USAG-02 | Pending | Pending |
-| USAG-03 | Pending | Pending |
-| USAG-04 | Pending | Pending |
-| USAG-05 | Pending | Pending |
-| USAG-06 | Pending | Pending |
-| USAG-07 | Pending | Pending |
-| SETT-01 | Pending | Pending |
-| SETT-02 | Pending | Pending |
-| SETT-03 | Pending | Pending |
-| SETT-04 | Pending | Pending |
-| SETT-05 | Pending | Pending |
-| SETT-06 | Pending | Pending |
+| FOUN-01 | Phase 1 | Pending |
+| FOUN-02 | Phase 1 | Pending |
+| FOUN-03 | Phase 1 | Pending |
+| FOUN-04 | Phase 1 | Pending |
+| FOUN-05 | Phase 1 | Pending |
+| FOUN-06 | Phase 1 | Pending |
+| FOUN-07 | Phase 1 | Pending |
+| FOUN-08 | Phase 1 | Pending |
+| FOUN-09 | Phase 1 | Pending |
+| FOUN-10 | Phase 1 | Pending |
+| DSGN-01 | Phase 2 | Pending |
+| DSGN-02 | Phase 2 | Pending |
+| DSGN-03 | Phase 2 | Pending |
+| DSGN-04 | Phase 2 | Pending |
+| SHEL-01 | Phase 3 | Pending |
+| SHEL-02 | Phase 3 | Pending |
+| SHEL-03 | Phase 3 | Pending |
+| SHEL-04 | Phase 3 | Pending |
+| SHEL-05 | Phase 3 | Pending |
+| DATA-01 | Phase 4 | Pending |
+| DATA-02 | Phase 4 | Pending |
+| DATA-03 | Phase 4 | Pending |
+| DATA-04 | Phase 4 | Pending |
+| DATA-05 | Phase 4 | Pending |
+| DASH-01 | Phase 9 | Pending |
+| DASH-02 | Phase 9 | Pending |
+| DASH-03 | Phase 9 | Pending |
+| DASH-04 | Phase 9 | Pending |
+| DASH-05 | Phase 9 | Pending |
+| DASH-06 | Phase 9 | Pending |
+| AGNT-01 | Phase 5 | Pending |
+| AGNT-02 | Phase 5 | Pending |
+| AGNT-03 | Phase 5 | Pending |
+| AGNT-04 | Phase 5 | Pending |
+| AGNT-05 | Phase 5 | Pending |
+| AGNT-06 | Phase 5 | Pending |
+| TASK-01 | Phase 6 | Pending |
+| TASK-02 | Phase 6 | Pending |
+| TASK-03 | Phase 6 | Pending |
+| TASK-04 | Phase 6 | Pending |
+| TASK-05 | Phase 6 | Pending |
+| TASK-06 | Phase 6 | Pending |
+| TASK-07 | Phase 6 | Pending |
+| NTSK-01 | Phase 6 | Pending |
+| NTSK-02 | Phase 6 | Pending |
+| NTSK-03 | Phase 6 | Pending |
+| NTSK-04 | Phase 6 | Pending |
+| APPR-01 | Phase 7 | Pending |
+| APPR-02 | Phase 7 | Pending |
+| APPR-03 | Phase 7 | Pending |
+| APPR-04 | Phase 7 | Pending |
+| APPR-05 | Phase 7 | Pending |
+| APPR-06 | Phase 7 | Pending |
+| APPR-07 | Phase 7 | Pending |
+| USAG-01 | Phase 8 | Pending |
+| USAG-02 | Phase 8 | Pending |
+| USAG-03 | Phase 8 | Pending |
+| USAG-04 | Phase 8 | Pending |
+| USAG-05 | Phase 8 | Pending |
+| USAG-06 | Phase 8 | Pending |
+| USAG-07 | Phase 8 | Pending |
+| SETT-01 | Phase 10 | Pending |
+| SETT-02 | Phase 10 | Pending |
+| SETT-03 | Phase 10 | Pending |
+| SETT-04 | Phase 10 | Pending |
+| SETT-05 | Phase 10 | Pending |
+| SETT-06 | Phase 10 | Pending |
 
 **Coverage:**
-- v1 requirements: 61 total
-- Mapped to phases: 0
-- Unmapped: 61
+- v1 requirements: 67 total
+- Mapped to phases: 67
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-25*
-*Last updated: 2026-03-25 after initial definition*
+*Last updated: 2026-03-25 after roadmap creation*

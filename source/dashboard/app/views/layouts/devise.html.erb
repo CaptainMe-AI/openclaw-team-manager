@@ -8,10 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <%= vite_stylesheet_tag "application", media: "all" %>
+    <%= vite_javascript_tag "entrypoints/application.tsx" %>
   </head>
   <body class="bg-background min-h-screen font-sans">
     <%= yield %>
-    <%= vite_javascript_tag "application" %>
   </body>
 </html>

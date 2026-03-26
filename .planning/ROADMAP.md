@@ -55,7 +55,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 02-01-PLAN.md -- Theme tokens, typography, cn() utility, Vite path alias, CSS utilities
+- [x] 02-01-PLAN.md -- Theme tokens, typography, cn() utility, Vite path alias, CSS utilities
 - [ ] 02-02-PLAN.md -- StatusDot, Badge, Card, Button components
 - [ ] 02-03-PLAN.md -- Input, Table components, barrel export, demo page, E2E test stubs
 

@@ -11,9 +11,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **FOUN-01**: Rails app scaffolded in `source/dashboard` using Rails generators and commands
 - [x] **FOUN-02**: PostgreSQL configured with UUID as primary key for all models
-- [ ] **FOUN-03**: Devise authentication with session-based login (user created via console)
-- [ ] **FOUN-04**: vite_rails serving React frontend with Tailwind v4 CSS-first config
-- [ ] **FOUN-05**: `bin/dev` runs Rails server + Vite dev server together (Procfile.dev)
+- [x] **FOUN-03**: Devise authentication with session-based login (user created via console)
+- [x] **FOUN-04**: vite_rails serving React frontend with Tailwind v4 CSS-first config
+- [x] **FOUN-05**: `bin/dev` runs Rails server + Vite dev server together (Procfile.dev)
 - [x] **FOUN-06**: Docker-based PostgreSQL via `setup/Dockerfile-local-services.yml`
 - [ ] **FOUN-07**: RSpec + Factory Bot + Faker test framework configured
 - [ ] **FOUN-08**: RuboCop linting configured
@@ -150,9 +150,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | FOUN-01 | Phase 1 | Complete |
 | FOUN-02 | Phase 1 | Complete |
-| FOUN-03 | Phase 1 | Pending |
-| FOUN-04 | Phase 1 | Pending |
-| FOUN-05 | Phase 1 | Pending |
+| FOUN-03 | Phase 1 | Complete |
+| FOUN-04 | Phase 1 | Complete |
+| FOUN-05 | Phase 1 | Complete |
 | FOUN-06 | Phase 1 | Complete |
 | FOUN-07 | Phase 1 | Pending |
 | FOUN-08 | Phase 1 | Pending |

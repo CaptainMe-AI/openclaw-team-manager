@@ -1,0 +1,25 @@
+# Environment files
+.env.development
+.env.test.local
+
+# Rails secrets
+source/dashboard/config/master.key
+
+# Rails generated runtime directories
+source/dashboard/log/*
+!source/dashboard/log/.keep
+source/dashboard/tmp/*
+!source/dashboard/tmp/.keep
+!source/dashboard/tmp/pids/
+source/dashboard/tmp/pids/*
+!source/dashboard/tmp/pids/.keep
+source/dashboard/storage/*
+!source/dashboard/storage/.keep
+source/dashboard/tmp/storage/*
+!source/dashboard/tmp/storage/.keep
+
+# Node modules
+source/dashboard/node_modules/
+
+# Worktrees
+.claude/worktrees/

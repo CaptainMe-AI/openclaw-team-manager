@@ -23,5 +23,8 @@ module Dashboard
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Use structure.sql for schema dumps (requires matching local pg_dump version)
+    config.active_record.schema_format = :sql
   end
 end

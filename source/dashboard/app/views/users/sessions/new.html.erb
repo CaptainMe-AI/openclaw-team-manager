@@ -1,0 +1,40 @@
+<div class="min-h-screen flex items-center justify-center bg-background px-4">
+  <div class="w-full max-w-[400px] bg-surface rounded-lg border border-border p-8">
+    <h1 class="text-[20px] font-semibold text-text-primary mb-2">OpenClaw Command Center</h1>
+    <p class="text-[14px] text-text-secondary mb-6">Sign in to manage your agent fleet.</p>
+
+    <% if alert.present? %>
+      <p class="text-[12px] text-danger mb-4"><%= alert %></p>
+    <% end %>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+      <div>
+        <label for="user_email" class="block text-[14px] text-text-primary mb-2">Email</label>
+        <%= f.email_field :email,
+          autofocus: true,
+          autocomplete: "email",
+          class: "w-full bg-background border border-border rounded-md px-4 py-3 text-[14px] text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent",
+          placeholder: "you@example.com" %>
+      </div>
+
+      <div>
+        <label for="user_password" class="block text-[14px] text-text-primary mb-2">Password</label>
+        <%= f.password_field :password,
+          autocomplete: "current-password",
+          class: "w-full bg-background border border-border rounded-md px-4 py-3 text-[14px] text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="flex items-center gap-2">
+          <%= f.check_box :remember_me, class: "rounded border-border text-accent focus:ring-accent" %>
+          <label for="user_remember_me" class="text-[14px] text-text-secondary">Remember me</label>
+        </div>
+      <% end %>
+
+      <div>
+        <%= f.submit "Sign In",
+          class: "w-full bg-accent hover:bg-accent-hover text-[#0f1219] font-semibold text-[14px] py-3 rounded-md cursor-pointer transition-colors h-[44px]" %>
+      </div>
+    <% end %>
+  </div>
+</div>

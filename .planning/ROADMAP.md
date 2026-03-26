@@ -35,11 +35,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. PostgreSQL is running in Docker via `setup/` scripts, and all models use UUID primary keys
   4. RSpec test suite runs and passes with at least one model and one request spec
   5. RuboCop runs clean on the generated codebase
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md -- Rails 8 app generation, PostgreSQL connection, UUID primary keys
+- [ ] 01-02-PLAN.md -- Devise auth, Vite + React + Tailwind v4, bin/dev
+- [ ] 01-03-PLAN.md -- RSpec, RuboCop, AnnotateRb, Playwright test framework
 
 ### Phase 2: Design System
 **Goal**: A dark-mode component library and theme tokens that all screens share, preventing visual divergence
@@ -200,7 +201,7 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/0 | Not started | - |
+| 1. Foundation | 0/3 | Planning complete | - |
 | 2. Design System | 0/0 | Not started | - |
 | 3. App Shell | 0/0 | Not started | - |
 | 4. Data Layer | 0/0 | Not started | - |

@@ -12,14 +12,12 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Rails app scaffolded in `source/dashboard` with Devise auth, PostgreSQL, Vite + React, Tailwind — Validated in Phase 01: Foundation
+- [x] Docker-based PostgreSQL via setup scripts in `setup/` — Validated in Phase 01: Foundation
+- [x] `bin/dev` runs Rails server + Vite dev server together — Validated in Phase 01: Foundation
+- [x] Devise authentication (user created via console, no signup form) — Validated in Phase 01: Foundation
 
 ### Active
-
-- [ ] Rails app scaffolded in `source/dashboard` with Devise auth, PostgreSQL, Vite + React, Tailwind
-- [ ] Docker-based PostgreSQL via setup scripts in `setup/`
-- [ ] `bin/dev` runs Rails server + Vite dev server together
-- [ ] Devise authentication (user created via console, no signup form)
 - [ ] Global shell: persistent sidebar navigation + top bar with search, notifications, user menu
 - [ ] Dashboard screen: KPI cards, agent activity timeline, recent tasks table, action required sidebar
 - [ ] Agent Fleet screen: grid/table view toggle, agent cards with status/task/uptime/tokens, context menu actions, filters

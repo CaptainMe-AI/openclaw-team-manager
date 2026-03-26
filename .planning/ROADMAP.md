@@ -38,7 +38,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Rails 8 app generation, PostgreSQL connection, UUID primary keys
+- [x] 01-01-PLAN.md -- Rails 8 app generation, PostgreSQL connection, UUID primary keys
 - [ ] 01-02-PLAN.md -- Devise auth, Vite + React + Tailwind v4, bin/dev
 - [ ] 01-03-PLAN.md -- RSpec, RuboCop, AnnotateRb, Playwright test framework
 

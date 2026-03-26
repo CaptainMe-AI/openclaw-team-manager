@@ -1,3 +1,7 @@
 tmp/
 log/
 node_modules/
+storage/
+public/vite-dev/
+public/vite-test/
+public/vite/

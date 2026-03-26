@@ -40,7 +40,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-01-PLAN.md -- Rails 8 app generation, PostgreSQL connection, UUID primary keys
 - [x] 01-02-PLAN.md -- Devise auth, Vite + React + Tailwind v4, bin/dev
-- [ ] 01-03-PLAN.md -- RSpec, RuboCop, AnnotateRb, Playwright test framework
+- [x] 01-03-PLAN.md -- RSpec, RuboCop, AnnotateRb, Playwright test framework
 
 ### Phase 2: Design System
 **Goal**: A dark-mode component library and theme tokens that all screens share, preventing visual divergence

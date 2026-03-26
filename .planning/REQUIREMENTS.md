@@ -15,10 +15,10 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **FOUN-04**: vite_rails serving React frontend with Tailwind v4 CSS-first config
 - [x] **FOUN-05**: `bin/dev` runs Rails server + Vite dev server together (Procfile.dev)
 - [x] **FOUN-06**: Docker-based PostgreSQL via `setup/Dockerfile-local-services.yml`
-- [ ] **FOUN-07**: RSpec + Factory Bot + Faker test framework configured
-- [ ] **FOUN-08**: RuboCop linting configured
-- [ ] **FOUN-09**: Annotate gem configured for model schema annotations
-- [ ] **FOUN-10**: Playwright with cypress-on-rails for integration testing
+- [x] **FOUN-07**: RSpec + Factory Bot + Faker test framework configured
+- [x] **FOUN-08**: RuboCop linting configured
+- [x] **FOUN-09**: Annotate gem configured for model schema annotations
+- [x] **FOUN-10**: Playwright with cypress-on-rails for integration testing
 
 ### Design System
 
@@ -154,10 +154,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUN-04 | Phase 1 | Complete |
 | FOUN-05 | Phase 1 | Complete |
 | FOUN-06 | Phase 1 | Complete |
-| FOUN-07 | Phase 1 | Pending |
-| FOUN-08 | Phase 1 | Pending |
-| FOUN-09 | Phase 1 | Pending |
-| FOUN-10 | Phase 1 | Pending |
+| FOUN-07 | Phase 1 | Complete |
+| FOUN-08 | Phase 1 | Complete |
+| FOUN-09 | Phase 1 | Complete |
+| FOUN-10 | Phase 1 | Complete |
 | DSGN-01 | Phase 2 | Pending |
 | DSGN-02 | Phase 2 | Pending |
 | DSGN-03 | Phase 2 | Pending |

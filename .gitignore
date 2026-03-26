@@ -21,5 +21,8 @@ source/dashboard/tmp/storage/*
 # Node modules
 source/dashboard/node_modules/
 
+# Vite build output
+source/dashboard/public/vite/
+
 # Worktrees
 .claude/worktrees/

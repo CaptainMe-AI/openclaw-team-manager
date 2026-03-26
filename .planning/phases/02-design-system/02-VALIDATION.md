@@ -18,9 +18,9 @@ created: 2026-03-26
 | Property | Value |
 |----------|-------|
 | **Framework** | RSpec 8.0.4 + Playwright 1.58.2 |
-| **Config file** | `source/dashboard/spec/rails_helper.rb` (RSpec), Playwright config TBD |
+| **Config file** | `source/dashboard/spec/rails_helper.rb` (RSpec), `source/dashboard/e2e/playwright.config.js` (Playwright) |
 | **Quick run command** | `cd source/dashboard && npx tsc --noEmit` |
-| **Full suite command** | `cd source/dashboard && npx playwright test tests/e2e/design_system.spec.ts` |
+| **Full suite command** | `cd source/dashboard && npx playwright test e2e/playwright/e2e/design_system.spec.ts` |
 | **Estimated runtime** | ~15 seconds |
 
 ---
@@ -28,7 +28,7 @@ created: 2026-03-26
 ## Sampling Rate
 
 - **After every task commit:** Run `cd source/dashboard && npx tsc --noEmit`
-- **After every plan wave:** Run `cd source/dashboard && npx playwright test tests/e2e/design_system.spec.ts`
+- **After every plan wave:** Run `cd source/dashboard && npx playwright test e2e/playwright/e2e/design_system.spec.ts`
 - **Before `/gsd:verify-work`:** Full suite must be green
 - **Max feedback latency:** 15 seconds
 
@@ -38,18 +38,18 @@ created: 2026-03-26
 
 | Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
 |---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 02-01-01 | 01 | 1 | DSGN-01 | E2E (Playwright) | `cd source/dashboard && npx playwright test tests/e2e/design_system.spec.ts` | ❌ W0 | ⬜ pending |
-| 02-01-02 | 01 | 1 | DSGN-02 | E2E (Playwright) | `cd source/dashboard && npx playwright test tests/e2e/design_system.spec.ts` | ❌ W0 | ⬜ pending |
-| 02-02-01 | 02 | 1 | DSGN-03 | E2E (Playwright) | `cd source/dashboard && npx playwright test tests/e2e/design_system.spec.ts` | ❌ W0 | ⬜ pending |
-| 02-02-02 | 02 | 1 | DSGN-04 | E2E (Playwright) | `cd source/dashboard && npx playwright test tests/e2e/design_system.spec.ts` | ❌ W0 | ⬜ pending |
+| 02-01-01 | 01 | 1 | DSGN-01 | E2E (Playwright) | `cd source/dashboard && npx playwright test e2e/playwright/e2e/design_system.spec.ts` | W0 | pending |
+| 02-01-02 | 01 | 1 | DSGN-02 | E2E (Playwright) | `cd source/dashboard && npx playwright test e2e/playwright/e2e/design_system.spec.ts` | W0 | pending |
+| 02-02-01 | 02 | 2 | DSGN-03 | E2E (Playwright) | `cd source/dashboard && npx playwright test e2e/playwright/e2e/design_system.spec.ts` | W0 | pending |
+| 02-02-02 | 02 | 2 | DSGN-04 | E2E (Playwright) | `cd source/dashboard && npx playwright test e2e/playwright/e2e/design_system.spec.ts` | W0 | pending |
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+*Status: pending / green / red / flaky*
 
 ---
 
 ## Wave 0 Requirements
 
-- [ ] `source/dashboard/tests/e2e/design_system.spec.ts` — stubs for DSGN-01 through DSGN-04
+- [ ] `source/dashboard/e2e/playwright/e2e/design_system.spec.ts` — stubs for DSGN-01 through DSGN-04
 - [ ] Playwright config for the project (verify cypress-on-rails Playwright setup from Phase 1)
 - [ ] Component demo route/page for visual testing of all component variants
 

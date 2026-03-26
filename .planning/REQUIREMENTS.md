@@ -24,8 +24,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **DSGN-01**: Dark theme with spec color tokens (background #0f1219, surface #1a1f2e, accent #00d4aa, etc.)
 - [x] **DSGN-02**: Typography system — Inter for UI text, JetBrains Mono for data/metrics
-- [ ] **DSGN-03**: Reusable component library: cards, badges, buttons, tables, inputs, status dots, sparklines
-- [ ] **DSGN-04**: Responsive breakpoints — mobile (<640px), tablet (640-1024px), desktop (>1024px)
+- [x] **DSGN-03**: Reusable component library: cards, badges, buttons, tables, inputs, status dots, sparklines
+- [x] **DSGN-04**: Responsive breakpoints — mobile (<640px), tablet (640-1024px), desktop (>1024px)
 
 ### App Shell
 
@@ -160,8 +160,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUN-10 | Phase 1 | Complete |
 | DSGN-01 | Phase 2 | Complete |
 | DSGN-02 | Phase 2 | Complete |
-| DSGN-03 | Phase 2 | Pending |
-| DSGN-04 | Phase 2 | Pending |
+| DSGN-03 | Phase 2 | Complete |
+| DSGN-04 | Phase 2 | Complete |
 | SHEL-01 | Phase 3 | Pending |
 | SHEL-02 | Phase 3 | Pending |
 | SHEL-03 | Phase 3 | Pending |

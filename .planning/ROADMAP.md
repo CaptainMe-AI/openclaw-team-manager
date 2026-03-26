@@ -56,8 +56,8 @@ Plans:
 
 Plans:
 - [x] 02-01-PLAN.md -- Theme tokens, typography, cn() utility, Vite path alias, CSS utilities
-- [ ] 02-02-PLAN.md -- StatusDot, Badge, Card, Button components
-- [ ] 02-03-PLAN.md -- Input, Table components, barrel export, demo page, E2E test stubs
+- [x] 02-02-PLAN.md -- StatusDot, Badge, Card, Button components
+- [x] 02-03-PLAN.md -- Input, Table components, barrel export, demo page, E2E test stubs
 
 ### Phase 3: App Shell
 **Goal**: Persistent navigation chrome that wraps all screens, with routing to every section

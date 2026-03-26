@@ -63,13 +63,13 @@ Exceptions: none
 | Role | Size | Weight | Line Height | Font |
 |------|------|--------|-------------|------|
 | Body | 14px | 400 (regular) | 1.5 | Inter |
-| Label | 12px | 500 (medium) | 1.4 | Inter |
+| Label | 12px | 400 (regular) | 1.4 | Inter |
 | Heading | 20px | 600 (semibold) | 1.2 | Inter |
-| Display | 28px | 700 (bold) | 1.2 | Inter |
+| Display | 28px | 600 (semibold) | 1.2 | Inter |
 
-**Data text** (Phase 2+): JetBrains Mono at 13px, weight 400, line-height 1.4. Not used in Phase 1 but the font is loaded in the CSS file so it is available immediately in Phase 2.
+JetBrains Mono font family is loaded in the Phase 1 CSS `@theme` block so it is available immediately when Phase 2 introduces data-display components. The specific size for data text will be declared in the Phase 2 UI-SPEC where it is first used.
 
-**Phase 1 usage:** Login page uses Heading (20px/600) for "OpenClaw Command Center" title, Body (14px/400) for form labels and inputs, Label (12px/500) for helper text. Root placeholder uses Display (28px/700) for the application title.
+**Phase 1 usage:** Login page uses Heading (20px/600) for "OpenClaw Command Center" title, Body (14px/400) for form labels and inputs, Label (12px/400) for helper text. Root placeholder uses Display (28px/600) for the application title.
 
 **Source:** TEAM_MANAGER_SPEC.md Typography section (Inter 300-700, JetBrains Mono 400-700). Sizes derived from design screenshots and component patterns.
 
@@ -176,7 +176,7 @@ The Devise login form is server-rendered ERB styled with Tailwind classes. It do
 4. **Password input**: Same styling as email input
 5. **Remember me checkbox**: Inline with label, `--color-text-secondary` label text
 6. **Sign In button**: Full width, `--color-accent` background, `#0f1219` text (dark on teal), `--color-accent-hover` on hover, 14px weight 600, 44px height (touch target)
-7. **Error messages**: Below title, `--color-danger` text, 12px weight 500
+7. **Error messages**: Below title, `--color-danger` text, 12px weight 400
 
 ### States
 - **Default**: Form fields empty, button enabled
@@ -194,7 +194,7 @@ The authenticated root page renders a minimal React component to prove the pipel
 - Background color: `--color-background` (`#0f1219`)
 
 ### Elements
-1. **Heading**: "OpenClaw Team Manager" -- 28px, weight 700, color `--color-accent`
+1. **Heading**: "OpenClaw Team Manager" -- 28px, weight 600, color `--color-accent`
 2. **Subtext**: "Dashboard loading..." -- 14px, weight 400, color `--color-text-secondary`
 
 ### Purpose

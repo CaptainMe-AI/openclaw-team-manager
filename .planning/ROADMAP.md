@@ -51,12 +51,13 @@ Plans:
   2. Inter font renders for UI text and JetBrains Mono renders for data/metric values
   3. Reusable components (Card, Badge, Button, Table, Input, StatusDot) render correctly in isolation and respond to props
   4. Layout adapts across mobile (<640px), tablet (640-1024px), and desktop (>1024px) breakpoints
-**Plans**: TBD
+**Plans**: 3 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md -- Theme tokens, typography, cn() utility, Vite path alias, CSS utilities
+- [ ] 02-02-PLAN.md -- StatusDot, Badge, Card, Button components
+- [ ] 02-03-PLAN.md -- Input, Table components, barrel export, demo page, E2E test stubs
 
 ### Phase 3: App Shell
 **Goal**: Persistent navigation chrome that wraps all screens, with routing to every section
@@ -201,8 +202,8 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 2/3 | In Progress | - |
-| 2. Design System | 0/0 | Not started | - |
+| 1. Foundation | 3/3 | Complete | - |
+| 2. Design System | 0/3 | In Progress | - |
 | 3. App Shell | 0/0 | Not started | - |
 | 4. Data Layer | 0/0 | Not started | - |
 | 5. Agent Fleet | 0/0 | Not started | - |

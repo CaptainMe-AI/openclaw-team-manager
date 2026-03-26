@@ -16,7 +16,34 @@
   --color-warning: #f59e0b;
   --color-success: #10b981;
 
+  /* Info color */
+  --color-info: #3b82f6;
+
+  /* Priority colors */
+  --color-priority-0: #ef4444;
+  --color-priority-1: #f59e0b;
+  --color-priority-2: #3b82f6;
+  --color-priority-3: #9ca3af;
+
+  /* Chart colors */
+  --color-chart-1: #00d4aa;
+  --color-chart-2: #3b82f6;
+  --color-chart-3: #8b5cf6;
+  --color-chart-4: #f43f5e;
+  --color-chart-5: #f59e0b;
+
   /* Typography */
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@utility card-glow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+@layer base {
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--color-background); }
+  ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #4a5568; }
 }

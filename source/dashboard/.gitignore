@@ -5,3 +5,4 @@ storage/
 public/vite-dev/
 public/vite-test/
 public/vite/
+.env*.local

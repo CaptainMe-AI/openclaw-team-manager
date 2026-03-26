@@ -1,2 +1,2 @@
-web: bin/rails server -p 3000
-vite: bin/vite dev
+web: bin/rails server -p $PORT
+vite: FORCE_COLOR=1 bin/vite dev 

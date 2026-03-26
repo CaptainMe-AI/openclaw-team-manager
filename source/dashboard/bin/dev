@@ -5,4 +5,25 @@ if ! gem list foreman -i --silent; then
   gem install foreman
 fi
 
+
+# Load environment variables from .env.development if it exists
+# This runs before foreman/Rails, so dotenv gem isn't available yet
+if [ -f .env.development ]; then
+  # Export variables from .env.development (skip comments and empty lines)
+  set -a
+  . .env.development
+  set +a
+fi
+
+# Default ports if not specified
+export PORT="${PORT:-3000}"
+export VITE_RUBY_PORT="${VITE_RUBY_PORT:-3036}"
+
+echo "Starting development server on port $PORT (Vite on $VITE_RUBY_PORT)..."
+
+# Let the debug gem allow remote connections,
+# but avoid loading until `debugger` is called
+export RUBY_DEBUG_OPEN="true"
+export RUBY_DEBUG_LAZY="true"
+
 exec foreman start -f Procfile.dev "$@"

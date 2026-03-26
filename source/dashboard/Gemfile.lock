@@ -116,7 +116,10 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.6.2)
-    dotenv (3.2.0)
+    dotenv (3.1.2)
+    dotenv-rails (3.1.2)
+      dotenv (= 3.1.2)
+      railties (>= 6.1)
     drb (2.2.3)
     dry-cli (1.4.1)
     ed25519 (1.4.0)
@@ -439,6 +442,7 @@ DEPENDENCIES
   cypress-on-rails (~> 1.17)
   debug
   devise (~> 5.0)
+  dotenv-rails (= 3.1.2)
   factory_bot_rails (~> 6.5)
   faker (~> 3.6)
   jbuilder

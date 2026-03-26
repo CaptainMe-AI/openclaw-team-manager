@@ -16,6 +16,8 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 - [x] Docker-based PostgreSQL via setup scripts in `setup/` — Validated in Phase 01: Foundation
 - [x] `bin/dev` runs Rails server + Vite dev server together — Validated in Phase 01: Foundation
 - [x] Devise authentication (user created via console, no signup form) — Validated in Phase 01: Foundation
+- [x] Design system: dark theme (21 color tokens), Inter + JetBrains Mono typography, 6 reusable components (StatusDot, Badge, Card, Button, Input, Table) — Validated in Phase 02: Design System
+- [x] Responsive layout baseline: Tailwind breakpoints, overflow-x-auto tables, grid responsive columns — Validated in Phase 02: Design System
 
 ### Active
 - [ ] Global shell: persistent sidebar navigation + top bar with search, notifications, user menu
@@ -27,8 +29,6 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 - [ ] Usage & Cost Tracking screen: KPI cards, token usage charts, cost breakdown, latency distribution, export
 - [ ] Settings screen: general preferences, agent policies, notifications, data sources tabs
 - [ ] Mock data layer: realistic fake data for all screens until Gateway integration
-- [ ] Design system: dark theme matching spec colors, Inter + JetBrains Mono typography, component patterns from designs
-- [ ] Responsive layout: mobile/tablet/desktop breakpoints per spec
 
 ### Out of Scope
 
@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-25 after initialization*
+*Last updated: 2026-03-26 after Phase 02: Design System completion*

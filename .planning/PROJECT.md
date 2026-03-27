@@ -20,10 +20,10 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 - [x] Responsive layout baseline: Tailwind breakpoints, overflow-x-auto tables, grid responsive columns — Validated in Phase 02: Design System
 - [x] Global shell: persistent sidebar navigation + top bar with search, notifications, user menu — Validated in Phase 03: App Shell
 - [x] Data layer: 5 models (Agent, Task, Approval, UsageRecord, Setting), REST API under /api/v1/, service layer abstraction, TanStack Query hooks, Zustand stores, Faker seed data — Validated in Phase 04: Data Layer
+- [x] Agent Fleet screen: grid/table view toggle, agent cards with status/task/uptime/tokens, context menu actions, filters, sortable table columns, sparkline token charts — Validated in Phase 05: Agent Fleet
 
 ### Active
 - [ ] Dashboard screen: KPI cards, agent activity timeline, recent tasks table, action required sidebar
-- [ ] Agent Fleet screen: grid/table view toggle, agent cards with status/task/uptime/tokens, context menu actions, filters
 - [ ] Task Board screen: Kanban columns (Backlog → Queued → In Progress → Awaiting Approval → Completed → Failed), draggable cards, priority system
 - [ ] Create New Task modal: form with agent assignment, description, attachments, priority
 - [ ] Approvals screen: pending queue with approve/deny actions, expanded agent reasoning, history tab

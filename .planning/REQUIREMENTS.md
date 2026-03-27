@@ -38,10 +38,10 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Data Layer
 
 - [ ] **DATA-01**: Mock data service abstraction — controllers call service objects, swappable for real Gateway later
-- [ ] **DATA-02**: Seed data with realistic agents, tasks, approvals, and usage metrics (Faker-generated)
+- [x] **DATA-02**: Seed data with realistic agents, tasks, approvals, and usage metrics (Faker-generated)
 - [ ] **DATA-03**: REST API endpoints under `/api/v1/` with jbuilder serialization for all resources
 - [ ] **DATA-04**: React state management — TanStack Query for server state, Zustand for UI state
-- [ ] **DATA-05**: Database schema with models for agents, tasks, approvals, usage records, settings
+- [x] **DATA-05**: Database schema with models for agents, tasks, approvals, usage records, settings
 
 ### Dashboard
 
@@ -168,10 +168,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SHEL-04 | Phase 3 | Complete |
 | SHEL-05 | Phase 3 | Complete |
 | DATA-01 | Phase 4 | Pending |
-| DATA-02 | Phase 4 | Pending |
+| DATA-02 | Phase 4 | Complete |
 | DATA-03 | Phase 4 | Pending |
 | DATA-04 | Phase 4 | Pending |
-| DATA-05 | Phase 4 | Pending |
+| DATA-05 | Phase 4 | Complete |
 | DASH-01 | Phase 9 | Pending |
 | DASH-02 | Phase 9 | Pending |
 | DASH-03 | Phase 9 | Pending |

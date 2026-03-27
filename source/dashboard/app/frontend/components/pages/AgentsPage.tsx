@@ -9,6 +9,7 @@ import { useFilterStore } from "@/stores/filterStore";
 import { useViewStore } from "@/stores/viewStore";
 import { Button } from "@/components/ui";
 import { AgentGrid } from "@/components/agents/AgentGrid";
+import { AgentTable } from "@/components/agents/AgentTable";
 import { AgentFilters } from "@/components/agents/AgentFilters";
 import { AgentViewToggle } from "@/components/agents/AgentViewToggle";
 import type { Agent } from "@/types/api";
@@ -52,11 +53,27 @@ function SkeletonCard() {
   );
 }
 
+function SkeletonTable() {
+  return (
+    <div className="bg-surface rounded-lg border border-border p-6 animate-pulse">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div key={i} className="h-4 bg-surface-hover/50 rounded w-full mb-3" />
+      ))}
+    </div>
+  );
+}
+
 export function AgentsPage() {
   const { agentFilters, resetAgentFilters } = useFilterStore();
   const { agentView } = useViewStore();
   const [uptimeThreshold, setUptimeThreshold] = useState("all");
-  const { data, isLoading, isError, refetch } = useAgents(agentFilters);
+  const [sort, setSort] = useState<string | undefined>(undefined);
+  const [dir, setDir] = useState<"asc" | "desc" | undefined>(undefined);
+  const { data, isLoading, isError, refetch } = useAgents({
+    ...agentFilters,
+    sort,
+    dir,
+  });
 
   const agents = data?.data ?? [];
   const filteredAgents = filterByUptime(agents, uptimeThreshold);
@@ -64,6 +81,20 @@ export function AgentsPage() {
   function handleClearFilters() {
     resetAgentFilters();
     setUptimeThreshold("all");
+  }
+
+  function handleSortChange(column: string) {
+    if (sort === column) {
+      if (dir === "asc") {
+        setDir("desc");
+      } else {
+        setSort(undefined);
+        setDir(undefined);
+      }
+    } else {
+      setSort(column);
+      setDir("asc");
+    }
   }
 
   return (
@@ -92,11 +123,15 @@ export function AgentsPage() {
       {/* Content */}
       <div className="mt-4">
         {isLoading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <SkeletonCard key={i} />
-            ))}
-          </div>
+          agentView === "table" ? (
+            <SkeletonTable />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <SkeletonCard key={i} />
+              ))}
+            </div>
+          )
         )}
 
         {isError && (
@@ -140,14 +175,16 @@ export function AgentsPage() {
         )}
 
         {!isLoading && !isError && filteredAgents.length > 0 && (
-          <>
-            {agentView === "grid" && <AgentGrid agents={filteredAgents} />}
-            {agentView === "table" && (
-              <div className="text-sm text-text-secondary text-center py-16">
-                Table view coming soon
-              </div>
-            )}
-          </>
+          agentView === "table" ? (
+            <AgentTable
+              agents={filteredAgents}
+              sort={sort}
+              dir={dir}
+              onSortChange={handleSortChange}
+            />
+          ) : (
+            <AgentGrid agents={filteredAgents} />
+          )
         )}
       </div>
     </div>

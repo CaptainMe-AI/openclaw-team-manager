@@ -1,13 +1,14 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRobot, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Card, Badge, Button, Sparkline } from "@/components/ui";
+import { AgentContextMenu } from "./AgentContextMenu";
 import type { Agent } from "@/types/api";
 
 interface AgentCardProps {
   agent: Agent;
-  onMenuOpen?: (agent: Agent) => void;
 }
 
 const statusColorMap: Record<
@@ -29,7 +30,9 @@ function formatTokens(count: number): string {
   return count.toLocaleString();
 }
 
-export function AgentCard({ agent, onMenuOpen }: AgentCardProps) {
+export function AgentCard({ agent }: AgentCardProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <Card
       className={cn(
@@ -59,11 +62,14 @@ export function AgentCard({ agent, onMenuOpen }: AgentCardProps) {
             size="sm"
             className="min-w-[44px] min-h-[44px] p-0 flex items-center justify-center"
             aria-haspopup="true"
-            aria-expanded={false}
-            onClick={() => onMenuOpen?.(agent)}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(!menuOpen)}
           >
             <FontAwesomeIcon icon={faEllipsisVertical} />
           </Button>
+          {menuOpen && (
+            <AgentContextMenu agent={agent} onClose={() => setMenuOpen(false)} />
+          )}
         </div>
       </div>
 

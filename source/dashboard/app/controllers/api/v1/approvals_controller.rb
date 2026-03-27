@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+module Api
+  module V1
+    class ApprovalsController < BaseController
+      def index
+        scope = ApprovalService.list(
+          filters: {
+            status: params[:status],
+            risk_level: params[:risk_level],
+            approval_type: params[:approval_type],
+            agent_id: params[:agent_id]
+          },
+          sort: sort_param,
+          dir: dir_param
+        )
+        @pagy, @approvals = pagy(scope)
+      end
+
+      def show
+        @approval = ApprovalService.find(params[:id])
+      end
+
+      def approve
+        @approval = ApprovalService.approve(params[:id], current_user)
+        render :show
+      end
+
+      def deny
+        @approval = ApprovalService.deny(params[:id], current_user)
+        render :show
+      end
+    end
+  end
+end

@@ -6,11 +6,28 @@ Rails.application.routes.draw do
   # Health check endpoint (Rails 8 default)
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # API endpoints (must be before SPA catch-all)
+  namespace :api do
+    namespace :v1 do
+      resources :agents, only: [:index, :show, :create, :update]
+      resources :tasks, only: [:index, :show, :create, :update]
+      resources :approvals, only: [:index, :show] do
+        member do
+          patch :approve
+          patch :deny
+        end
+      end
+      resources :usage, only: [:index]
+      resource :dashboard, only: [:show]
+      resources :settings, only: [:index, :show, :update], param: :key
+    end
+  end
+
   # SPA root -- serves the React app for authenticated users
   root "pages#app"
 
   # Catch-all for client-side routing (MUST be last)
   get "*path", to: "pages#app", constraints: ->(req) {
-    !req.path.start_with?("/rails/")
+    !req.path.start_with?("/rails/", "/api/")
   }
 end

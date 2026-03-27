@@ -19,11 +19,15 @@ module Api
       def create
         @task = TaskService.create(task_params)
         render :show, status: :created
+      rescue ActiveRecord::RecordInvalid => e
+        render json: { error: e.record.errors.full_messages }, status: :unprocessable_entity
       end
 
       def update
         @task = TaskService.update(params[:id], task_params)
         render :show
+      rescue ActiveRecord::RecordInvalid => e
+        render json: { error: e.record.errors.full_messages }, status: :unprocessable_entity
       end
 
       private

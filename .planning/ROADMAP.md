@@ -73,7 +73,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 03-01-PLAN.md -- Routing infrastructure, PlaceholderSkeleton, 6 placeholder pages
+- [x] 03-01-PLAN.md -- Routing infrastructure, PlaceholderSkeleton, 6 placeholder pages
 - [ ] 03-02-PLAN.md -- Sidebar navigation, TopBar, UserMenu dropdown, AppShell layout
 
 ### Phase 4: Data Layer

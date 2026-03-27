@@ -33,7 +33,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **SHEL-02**: Top navigation bar with breadcrumbs and global search input (placeholder, `'/'` to focus)
 - [ ] **SHEL-03**: Notification bell with unread dot indicator
 - [ ] **SHEL-04**: User avatar with account dropdown
-- [ ] **SHEL-05**: React Router with routes for all 6 sections (Dashboard, Agents, Tasks, Usage, Approvals, Settings)
+- [x] **SHEL-05**: React Router with routes for all 6 sections (Dashboard, Agents, Tasks, Usage, Approvals, Settings)
 
 ### Data Layer
 
@@ -166,7 +166,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SHEL-02 | Phase 3 | Pending |
 | SHEL-03 | Phase 3 | Pending |
 | SHEL-04 | Phase 3 | Pending |
-| SHEL-05 | Phase 3 | Pending |
+| SHEL-05 | Phase 3 | Complete |
 | DATA-01 | Phase 4 | Pending |
 | DATA-02 | Phase 4 | Pending |
 | DATA-03 | Phase 4 | Pending |

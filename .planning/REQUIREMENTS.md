@@ -56,10 +56,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **AGNT-01**: Grid view with agent cards — icon, name, ID, status badge, current task, uptime, token usage sparkline, context menu
 - [x] **AGNT-02**: Table view with sortable columns — name, ID, status, model, task, uptime, tokens (7d)
-- [ ] **AGNT-03**: View toggle between grid and table
+- [x] **AGNT-03**: View toggle between grid and table
 - [x] **AGNT-04**: Filters bar — status (All/Active/Idle/Disabled), model (All/Opus/Sonnet), uptime threshold
 - [ ] **AGNT-05**: Context menu actions — restart, view logs, disable (danger)
-- [ ] **AGNT-06**: Disabled agents render at reduced opacity, error agents show red border
+- [x] **AGNT-06**: Disabled agents render at reduced opacity, error agents show red border
 
 ### Task Board
 
@@ -180,10 +180,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DASH-06 | Phase 9 | Pending |
 | AGNT-01 | Phase 5 | Complete |
 | AGNT-02 | Phase 5 | Complete |
-| AGNT-03 | Phase 5 | Pending |
+| AGNT-03 | Phase 5 | Complete |
 | AGNT-04 | Phase 5 | Complete |
 | AGNT-05 | Phase 5 | Pending |
-| AGNT-06 | Phase 5 | Pending |
+| AGNT-06 | Phase 5 | Complete |
 | TASK-01 | Phase 6 | Pending |
 | TASK-02 | Phase 6 | Pending |
 | TASK-03 | Phase 6 | Pending |

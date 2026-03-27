@@ -108,7 +108,7 @@ Plans:
 
 Plans:
 - [x] 05-01-PLAN.md -- API enrichment (current_task, tokens_7d, sparkline data), Recharts + Sonner install, Sparkline component
-- [ ] 05-02-PLAN.md -- AgentCard, AgentGrid, AgentFilters, AgentViewToggle, AgentsPage grid view composition
+- [x] 05-02-PLAN.md -- AgentCard, AgentGrid, AgentFilters, AgentViewToggle, AgentsPage grid view composition
 - [ ] 05-03-PLAN.md -- AgentTable with sortable columns, AgentContextMenu with toast actions, full page wiring
 
 ### Phase 6: Task Board

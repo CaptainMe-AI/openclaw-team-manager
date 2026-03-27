@@ -29,7 +29,7 @@ module Api
       private
 
       def agent_params
-        params.require(:agent).permit(:name, :agent_id, :status, :llm_model, :workspace, :uptime_since)
+        params.expect(agent: %i[name agent_id status llm_model workspace uptime_since])
       end
     end
   end

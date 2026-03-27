@@ -4,8 +4,12 @@ require 'rails_helper'
 
 RSpec.describe ApprovalService do
   describe '.list' do
-    let!(:pending_approval) { create(:approval, status: 'pending', risk_level: 'high', approval_type: 'dangerous_command') }
-    let!(:approved_approval) { create(:approval, status: 'approved', risk_level: 'low', approval_type: 'sensitive_data') }
+    let!(:pending_approval) do
+      create(:approval, status: 'pending', risk_level: 'high', approval_type: 'dangerous_command')
+    end
+    let!(:approved_approval) do
+      create(:approval, status: 'approved', risk_level: 'low', approval_type: 'sensitive_data')
+    end
 
     it 'returns all approvals' do
       result = described_class.list

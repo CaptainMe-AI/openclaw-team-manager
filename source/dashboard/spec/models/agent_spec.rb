@@ -59,10 +59,10 @@ RSpec.describe Agent, type: :model do
   describe 'enums' do
     it 'defines status enum with active, idle, error, disabled' do
       expect(described_class.statuses).to include(
-        "active" => "active",
-        "idle" => "idle",
-        "error" => "error",
-        "disabled" => "disabled"
+        'active' => 'active',
+        'idle' => 'idle',
+        'error' => 'error',
+        'disabled' => 'disabled'
       )
     end
   end

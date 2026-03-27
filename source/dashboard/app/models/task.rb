@@ -26,8 +26,8 @@
 #  fk_rails_...  (agent_id => agents.id)
 #
 class Task < ApplicationRecord
-  enum :status, { backlog: "backlog", queued: "queued", in_progress: "in_progress",
-                  awaiting_approval: "awaiting_approval", completed: "completed", failed: "failed" }
+  enum :status, { backlog: 'backlog', queued: 'queued', in_progress: 'in_progress',
+                  awaiting_approval: 'awaiting_approval', completed: 'completed', failed: 'failed' }
 
   belongs_to :agent, optional: true
 

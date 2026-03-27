@@ -15,11 +15,11 @@ module Api
       private
 
       def not_found
-        render json: { error: "Not found" }, status: :not_found
+        render json: { error: 'Not found' }, status: :not_found
       end
 
       def unprocessable(exception)
-        render json: { error: exception.record.errors.full_messages }, status: :unprocessable_entity
+        render json: { error: exception.record.errors.full_messages }, status: :unprocessable_content
       end
 
       def sort_param
@@ -27,7 +27,7 @@ module Api
       end
 
       def dir_param
-        params[:dir] || "desc"
+        params[:dir] || 'desc'
       end
 
       # Exposed as helper so jbuilder views can call pagination_meta(@pagy)

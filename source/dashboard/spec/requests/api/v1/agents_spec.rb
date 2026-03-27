@@ -35,7 +35,7 @@ RSpec.describe 'Api::V1::Agents', type: :request do
         get api_v1_agents_path, params: { status: 'active' }, as: :json
         json = response.parsed_body
         expect(json['data'].length).to eq(3)
-        expect(json['data'].map { |a| a['status'] }.uniq).to eq(['active'])
+        expect(json['data'].pluck('status').uniq).to eq(['active'])
       end
     end
 

@@ -29,7 +29,7 @@ module Api
       private
 
       def task_params
-        params.require(:task).permit(:task_id, :title, :description, :status, :priority, :agent_id)
+        params.expect(task: %i[task_id title description status priority agent_id])
       end
     end
   end

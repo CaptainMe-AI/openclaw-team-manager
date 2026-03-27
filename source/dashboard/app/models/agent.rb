@@ -20,7 +20,7 @@
 #  index_agents_on_status    (status)
 #
 class Agent < ApplicationRecord
-  enum :status, { active: "active", idle: "idle", error: "error", disabled: "disabled" }
+  enum :status, { active: 'active', idle: 'idle', error: 'error', disabled: 'disabled' }
 
   has_many :tasks, dependent: :nullify
   has_many :approvals, dependent: :destroy

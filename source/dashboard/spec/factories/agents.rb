@@ -21,9 +21,9 @@
 #
 FactoryBot.define do
   factory :agent do
-    name { Faker::Name.first_name + "-agent" }
+    name { "#{Faker::Name.first_name}-agent" }
     agent_id { "agt_#{SecureRandom.hex(4)}" }
-    status { "active" }
+    status { 'active' }
     llm_model { %w[opus sonnet].sample }
     workspace { "~/projects/#{Faker::Lorem.word}" }
     uptime_since { rand(1..7).days.ago }

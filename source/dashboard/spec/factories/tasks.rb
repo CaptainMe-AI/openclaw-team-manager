@@ -30,7 +30,7 @@ FactoryBot.define do
     task_id { "TASK-#{SecureRandom.hex(3).upcase}" }
     title { Faker::Lorem.sentence(word_count: 4) }
     description { Faker::Lorem.paragraph }
-    status { "backlog" }
+    status { 'backlog' }
     priority { 2 }
     association :agent
   end

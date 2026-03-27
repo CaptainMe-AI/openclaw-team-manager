@@ -74,26 +74,26 @@ RSpec.describe Approval, type: :model do
   describe 'enums' do
     it 'defines approval_type enum' do
       expect(described_class.approval_types).to include(
-        "dangerous_command" => "dangerous_command",
-        "sensitive_data" => "sensitive_data",
-        "budget_override" => "budget_override"
+        'dangerous_command' => 'dangerous_command',
+        'sensitive_data' => 'sensitive_data',
+        'budget_override' => 'budget_override'
       )
     end
 
     it 'defines status enum' do
       expect(described_class.statuses).to include(
-        "pending" => "pending",
-        "approved" => "approved",
-        "denied" => "denied"
+        'pending' => 'pending',
+        'approved' => 'approved',
+        'denied' => 'denied'
       )
     end
 
     it 'defines risk_level enum' do
       expect(described_class.risk_levels).to include(
-        "low" => "low",
-        "medium" => "medium",
-        "high" => "high",
-        "critical" => "critical"
+        'low' => 'low',
+        'medium' => 'medium',
+        'high' => 'high',
+        'critical' => 'critical'
       )
     end
   end

@@ -2,7 +2,7 @@
 
 class SettingsService
   def self.list
-    Setting.all.order(:key)
+    Setting.order(:key)
   end
 
   def self.find_by_key(key)

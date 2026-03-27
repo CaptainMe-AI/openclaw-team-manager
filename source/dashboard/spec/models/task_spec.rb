@@ -82,12 +82,12 @@ RSpec.describe Task, type: :model do
   describe 'enums' do
     it 'defines status enum with all 6 Kanban columns' do
       expect(described_class.statuses).to include(
-        "backlog" => "backlog",
-        "queued" => "queued",
-        "in_progress" => "in_progress",
-        "awaiting_approval" => "awaiting_approval",
-        "completed" => "completed",
-        "failed" => "failed"
+        'backlog' => 'backlog',
+        'queued' => 'queued',
+        'in_progress' => 'in_progress',
+        'awaiting_approval' => 'awaiting_approval',
+        'completed' => 'completed',
+        'failed' => 'failed'
       )
     end
   end

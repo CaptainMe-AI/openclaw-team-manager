@@ -29,9 +29,9 @@ RSpec.describe UsageService do
 
     it 'filters by date range (from and to)' do
       result = described_class.list(filters: {
-        from: 3.days.ago.iso8601,
-        to: 1.day.ago.end_of_day.iso8601
-      })
+                                      from: 3.days.ago.iso8601,
+                                      to: 1.day.ago.end_of_day.iso8601
+                                    })
       expect(result).to include(record1, record2)
       expect(result).not_to include(record3)
     end
@@ -41,8 +41,10 @@ RSpec.describe UsageService do
     let(:agent) { create(:agent) }
 
     before do
-      create(:usage_record, agent: agent, input_tokens: 100, output_tokens: 50, api_calls: 5, cost_cents: 10, recorded_at: 1.hour.ago)
-      create(:usage_record, agent: agent, input_tokens: 200, output_tokens: 100, api_calls: 10, cost_cents: 20, recorded_at: 2.hours.ago)
+      create(:usage_record, agent: agent, input_tokens: 100, output_tokens: 50, api_calls: 5, cost_cents: 10,
+                            recorded_at: 1.hour.ago)
+      create(:usage_record, agent: agent, input_tokens: 200, output_tokens: 100, api_calls: 10, cost_cents: 20,
+                            recorded_at: 2.hours.ago)
     end
 
     it 'returns correct total_tokens' do

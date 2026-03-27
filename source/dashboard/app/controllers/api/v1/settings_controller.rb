@@ -8,7 +8,7 @@ module Api
       end
 
       def show
-        @setting = SettingsService.find_by_key(params[:key])
+        @setting = SettingsService.find_by(key: params[:key])
       end
 
       def update
@@ -19,7 +19,7 @@ module Api
       private
 
       def setting_params
-        params.require(:setting).permit(:value)
+        params.expect(setting: [:value])
       end
     end
   end

@@ -12,9 +12,12 @@ export class ApiError extends Error {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type QueryParams = Record<string, any>;
+
 export async function apiFetch<T>(
   path: string,
-  params?: Record<string, unknown>,
+  params?: QueryParams,
   options?: RequestInit,
 ): Promise<T> {
   const url = new URL(path, window.location.origin);

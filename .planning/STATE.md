@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Ready to execute
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-27T18:36:36.707Z"
+status: Phase complete — ready for verification
+stopped_at: Completed 05-03-PLAN.md
+last_updated: "2026-03-27T18:43:25.036Z"
 progress:
   total_phases: 10
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 14
-  completed_plans: 13
+  completed_plans: 14
 ---
 
 # Project State
@@ -59,6 +59,7 @@ Plan: 3 of 3
 | Phase 04 P03 | 3min | 2 tasks | 13 files |
 | Phase 05 P01 | 4min | 2 tasks | 10 files |
 | Phase 05 P02 | 2min | 2 tasks | 5 files |
+| Phase 05 P03 | 3min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -97,6 +98,9 @@ Recent decisions affecting current work:
 - [Phase 05]: Used define_singleton_method for token data enrichment to avoid modifying Agent model
 - [Phase 05]: Sparkline width typed as number|template literal to match Recharts ResponsiveContainer API
 - [Phase 05]: Uptime filtering is client-side (not API param) because uptime_since is computed in-memory
+- [Phase 05]: Context menu owned internally by AgentCard and AgentTable (not centralized in AgentsPage)
+- [Phase 05]: Custom AgentTable component (not wrapping generic Table) for sort headers and per-row conditional classes
+- [Phase 05]: Sort cycle: unsorted -> asc -> desc -> unsorted (3-state toggle)
 
 ### Pending Todos
 
@@ -108,6 +112,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T18:36:36.704Z
-Stopped at: Completed 05-02-PLAN.md
+Last session: 2026-03-27T18:43:25.033Z
+Stopped at: Completed 05-03-PLAN.md
 Resume file: None

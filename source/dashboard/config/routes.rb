@@ -18,8 +18,8 @@ Rails.application.routes.draw do
         end
       end
       resources :usage, only: [:index]
-      resource :dashboard, only: [:show]
-      resources :settings, only: [:index, :show, :update], param: :key
+      resource :dashboard, only: [:show], controller: 'dashboard'
+      resources :settings, only: [:index, :show, :update], param: :key, constraints: { key: /[^\/]+/ }
     end
   end
 

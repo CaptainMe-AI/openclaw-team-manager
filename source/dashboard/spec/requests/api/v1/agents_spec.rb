@@ -37,6 +37,58 @@ RSpec.describe 'Api::V1::Agents', type: :request do
         expect(json['data'].length).to eq(3)
         expect(json['data'].pluck('status').uniq).to eq(['active'])
       end
+
+      it 'returns enriched fields (current_task, tokens_7d, tokens_7d_series)' do
+        agent = Agent.first
+        create(:task, agent: agent, status: 'in_progress', title: 'Deploy widget')
+        create(:usage_record, agent: agent, input_tokens: 1000, output_tokens: 500, recorded_at: 1.day.ago)
+        create(:usage_record, agent: agent, input_tokens: 2000, output_tokens: 800, recorded_at: 2.days.ago)
+
+        get api_v1_agents_path, as: :json
+        json = response.parsed_body
+        enriched = json['data'].find { |a| a['id'] == agent.id }
+
+        expect(enriched['current_task']).to eq('Deploy widget')
+        expect(enriched['tokens_7d']).to be > 0
+        expect(enriched['tokens_7d_series']).to be_an(Array)
+        expect(enriched['tokens_7d_series'].length).to eq(7)
+      end
+
+      it 'returns null current_task when agent has no in_progress task' do
+        agent = Agent.first
+        create(:task, agent: agent, status: 'completed', title: 'Done task')
+
+        get api_v1_agents_path, as: :json
+        json = response.parsed_body
+        enriched = json['data'].find { |a| a['id'] == agent.id }
+
+        expect(enriched['current_task']).to be_nil
+      end
+
+      it 'filters by llm_model' do
+        # Clear existing agents first and create with known models
+        Agent.destroy_all
+        create(:agent, llm_model: 'opus')
+        create(:agent, llm_model: 'opus')
+        create(:agent, llm_model: 'sonnet')
+
+        get api_v1_agents_path, params: { llm_model: 'opus' }, as: :json
+        json = response.parsed_body
+        expect(json['data'].length).to eq(2)
+        expect(json['data'].pluck('llm_model').uniq).to eq(['opus'])
+      end
+
+      it 'sorts by name ascending' do
+        Agent.destroy_all
+        create(:agent, name: 'Charlie-agent')
+        create(:agent, name: 'Alpha-agent')
+        create(:agent, name: 'Bravo-agent')
+
+        get api_v1_agents_path, params: { sort: 'name', dir: 'asc' }, as: :json
+        json = response.parsed_body
+        names = json['data'].pluck('name')
+        expect(names).to eq(%w[Alpha-agent Bravo-agent Charlie-agent])
+      end
     end
 
     context 'when not authenticated' do
@@ -63,6 +115,19 @@ RSpec.describe 'Api::V1::Agents', type: :request do
     it 'returns 404 for invalid id' do
       get api_v1_agent_path(id: SecureRandom.uuid), as: :json
       expect(response).to have_http_status(:not_found)
+    end
+
+    it 'returns enriched fields in show endpoint' do
+      create(:task, agent: agent, status: 'in_progress', title: 'Analyze data')
+      create(:usage_record, agent: agent, input_tokens: 3000, output_tokens: 1500, recorded_at: 1.day.ago)
+
+      get api_v1_agent_path(agent), as: :json
+      json = response.parsed_body
+
+      expect(json['current_task']).to eq('Analyze data')
+      expect(json['tokens_7d']).to eq(4500)
+      expect(json['tokens_7d_series']).to be_an(Array)
+      expect(json['tokens_7d_series'].length).to eq(7)
     end
   end
 end

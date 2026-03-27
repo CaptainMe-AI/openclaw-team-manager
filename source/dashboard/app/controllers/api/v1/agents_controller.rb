@@ -10,10 +10,12 @@ module Api
           dir: dir_param
         )
         @pagy, @agents = pagy(scope)
+        @agents = AgentService.enrich_with_token_data(@agents.to_a)
       end
 
       def show
-        @agent = AgentService.find(params[:id])
+        @agent = Agent.includes(:tasks).find(params[:id])
+        AgentService.enrich_with_token_data([@agent])
       end
 
       def create

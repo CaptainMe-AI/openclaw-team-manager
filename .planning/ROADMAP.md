@@ -125,8 +125,8 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 06-01-PLAN.md -- Install dnd-kit, task mutation hooks, TaskCard, PriorityLegend, Modal, create/update request specs
-- [ ] 06-02-PLAN.md -- KanbanBoard with dnd-kit drag-and-drop, KanbanColumn, SortableTaskCard, TaskViewToggle, TaskFilters
+- [x] 06-01-PLAN.md -- Install dnd-kit, task mutation hooks, TaskCard, PriorityLegend, Modal, create/update request specs
+- [x] 06-02-PLAN.md -- KanbanBoard with dnd-kit drag-and-drop, KanbanColumn, SortableTaskCard, TaskViewToggle, TaskFilters
 - [ ] 06-03-PLAN.md -- NewTaskModal with form validation, TaskListView, full TasksPage composition
 
 ### Phase 7: Approvals

@@ -63,12 +63,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Task Board
 
-- [ ] **TASK-01**: Kanban columns — Backlog, Queued, In Progress, Awaiting Approval, Completed, Failed
+- [x] **TASK-01**: Kanban columns — Backlog, Queued, In Progress, Awaiting Approval, Completed, Failed
 - [ ] **TASK-02**: Task cards — left border priority color, task ID, priority badge, title, description (2-line clamp), agent, timestamp
-- [ ] **TASK-03**: Drag-and-drop cards between columns using dnd-kit
+- [x] **TASK-03**: Drag-and-drop cards between columns using dnd-kit
 - [ ] **TASK-04**: Priority system — P0 (red), P1 (amber), P2 (blue), P3 (gray)
-- [ ] **TASK-05**: Board/List view toggle
-- [ ] **TASK-06**: Filters bar — agent, priority, time period
+- [x] **TASK-05**: Board/List view toggle
+- [x] **TASK-06**: Filters bar — agent, priority, time period
 - [ ] **TASK-07**: Priority legend display
 
 ### Create New Task
@@ -184,12 +184,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AGNT-04 | Phase 5 | Complete |
 | AGNT-05 | Phase 5 | Complete |
 | AGNT-06 | Phase 5 | Complete |
-| TASK-01 | Phase 6 | Pending |
+| TASK-01 | Phase 6 | Complete |
 | TASK-02 | Phase 6 | Pending |
-| TASK-03 | Phase 6 | Pending |
+| TASK-03 | Phase 6 | Complete |
 | TASK-04 | Phase 6 | Pending |
-| TASK-05 | Phase 6 | Pending |
-| TASK-06 | Phase 6 | Pending |
+| TASK-05 | Phase 6 | Complete |
+| TASK-06 | Phase 6 | Complete |
 | TASK-07 | Phase 6 | Pending |
 | NTSK-01 | Phase 6 | Pending |
 | NTSK-02 | Phase 6 | Pending |

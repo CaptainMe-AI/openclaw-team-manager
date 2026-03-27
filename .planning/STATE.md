@@ -4,12 +4,12 @@ milestone: v1.0
 milestone_name: milestone
 status: Ready to plan
 stopped_at: Phase 6 UI-SPEC approved
-last_updated: "2026-03-27T20:24:05.740Z"
+last_updated: "2026-03-27T22:20:09.733Z"
 progress:
   total_phases: 10
   completed_phases: 5
-  total_plans: 14
-  completed_plans: 14
+  total_plans: 17
+  completed_plans: 16
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-25)
 
 **Core value:** Operators can see and control their entire OpenClaw agent fleet from a single dashboard
-**Current focus:** Phase 05 — agent-fleet
+**Current focus:** Phase 06 — task-board
 
 ## Current Position
 
 Phase: 6
-Plan: Not started
+Plan: 2 of 3 complete
 
 ## Performance Metrics
 
@@ -60,6 +60,7 @@ Plan: Not started
 | Phase 05 P01 | 4min | 2 tasks | 10 files |
 | Phase 05 P02 | 2min | 2 tasks | 5 files |
 | Phase 05 P03 | 3min | 2 tasks | 6 files |
+| Phase 06 P02 | 3min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -101,6 +102,10 @@ Recent decisions affecting current work:
 - [Phase 05]: Context menu owned internally by AgentCard and AgentTable (not centralized in AgentsPage)
 - [Phase 05]: Custom AgentTable component (not wrapping generic Table) for sort headers and per-row conditional classes
 - [Phase 05]: Sort cycle: unsorted -> asc -> desc -> unsorted (3-state toggle)
+- [Phase 06]: KanbanBoard uses closestCorners collision detection for reliable multi-container drag
+- [Phase 06]: PointerSensor has 8px activation constraint to distinguish click from drag
+- [Phase 06]: KanbanColumn uses useDroppable to ensure empty columns are valid drop targets
+- [Phase 06]: TaskFilters time period managed via parent props (client-side filter) not filterStore
 
 ### Pending Todos
 
@@ -112,6 +117,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T20:24:05.737Z
-Stopped at: Phase 6 UI-SPEC approved
-Resume file: .planning/phases/06-task-board/06-UI-SPEC.md
+Last session: 2026-03-27T22:20:00Z
+Stopped at: Completed 06-02-PLAN.md
+Resume file: .planning/phases/06-task-board/06-03-PLAN.md

@@ -103,12 +103,13 @@ Plans:
   3. User can toggle between grid and table views, and filter agents by status and model
   4. Context menu on each agent card offers restart, view logs, and disable actions
   5. Disabled agents render at reduced opacity and error agents show a red border
-**Plans**: TBD
+**Plans**: 3 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md -- API enrichment (current_task, tokens_7d, sparkline data), Recharts + Sonner install, Sparkline component
+- [ ] 05-02-PLAN.md -- AgentCard, AgentGrid, AgentFilters, AgentViewToggle, AgentsPage grid view composition
+- [ ] 05-03-PLAN.md -- AgentTable with sortable columns, AgentContextMenu with toast actions, full page wiring
 
 ### Phase 6: Task Board
 **Goal**: Operators can manage tasks through a Kanban board with drag-and-drop and create new tasks
@@ -207,7 +208,7 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 | 2. Design System | 0/3 | In Progress | - |
 | 3. App Shell | 0/2 | Not started | - |
 | 4. Data Layer | 0/3 | Not started | - |
-| 5. Agent Fleet | 0/0 | Not started | - |
+| 5. Agent Fleet | 0/3 | Not started | - |
 | 6. Task Board | 0/0 | Not started | - |
 | 7. Approvals | 0/0 | Not started | - |
 | 8. Usage & Cost | 0/0 | Not started | - |

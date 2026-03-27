@@ -8,4 +8,9 @@ Rails.application.routes.draw do
 
   # SPA root -- serves the React app for authenticated users
   root "pages#app"
+
+  # Catch-all for client-side routing (MUST be last)
+  get "*path", to: "pages#app", constraints: ->(req) {
+    !req.path.start_with?("/rails/")
+  }
 end

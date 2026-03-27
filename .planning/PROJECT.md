@@ -19,6 +19,7 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 - [x] Design system: dark theme (21 color tokens), Inter + JetBrains Mono typography, 6 reusable components (StatusDot, Badge, Card, Button, Input, Table) — Validated in Phase 02: Design System
 - [x] Responsive layout baseline: Tailwind breakpoints, overflow-x-auto tables, grid responsive columns — Validated in Phase 02: Design System
 - [x] Global shell: persistent sidebar navigation + top bar with search, notifications, user menu — Validated in Phase 03: App Shell
+- [x] Data layer: 5 models (Agent, Task, Approval, UsageRecord, Setting), REST API under /api/v1/, service layer abstraction, TanStack Query hooks, Zustand stores, Faker seed data — Validated in Phase 04: Data Layer
 
 ### Active
 - [ ] Dashboard screen: KPI cards, agent activity timeline, recent tasks table, action required sidebar
@@ -28,7 +29,6 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 - [ ] Approvals screen: pending queue with approve/deny actions, expanded agent reasoning, history tab
 - [ ] Usage & Cost Tracking screen: KPI cards, token usage charts, cost breakdown, latency distribution, export
 - [ ] Settings screen: general preferences, agent policies, notifications, data sources tabs
-- [ ] Mock data layer: realistic fake data for all screens until Gateway integration
 
 ### Out of Scope
 
@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after Phase 03: App Shell completion*
+*Last updated: 2026-03-27 after Phase 04: Data Layer completion*

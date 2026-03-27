@@ -74,7 +74,7 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md -- Routing infrastructure, PlaceholderSkeleton, 6 placeholder pages
-- [ ] 03-02-PLAN.md -- Sidebar navigation, TopBar, UserMenu dropdown, AppShell layout
+- [x] 03-02-PLAN.md -- Sidebar navigation, TopBar, UserMenu dropdown, AppShell layout
 
 ### Phase 4: Data Layer
 **Goal**: Complete data pipeline from database seeds through API endpoints to React hooks, with mock data service abstraction

@@ -29,10 +29,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### App Shell
 
-- [ ] **SHEL-01**: Persistent sidebar navigation with icons, labels, active state (teal left-border), collapsible on mobile
-- [ ] **SHEL-02**: Top navigation bar with breadcrumbs and global search input (placeholder, `'/'` to focus)
-- [ ] **SHEL-03**: Notification bell with unread dot indicator
-- [ ] **SHEL-04**: User avatar with account dropdown
+- [x] **SHEL-01**: Persistent sidebar navigation with icons, labels, active state (teal left-border), collapsible on mobile
+- [x] **SHEL-02**: Top navigation bar with breadcrumbs and global search input (placeholder, `'/'` to focus)
+- [x] **SHEL-03**: Notification bell with unread dot indicator
+- [x] **SHEL-04**: User avatar with account dropdown
 - [x] **SHEL-05**: React Router with routes for all 6 sections (Dashboard, Agents, Tasks, Usage, Approvals, Settings)
 
 ### Data Layer
@@ -162,10 +162,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DSGN-02 | Phase 2 | Complete |
 | DSGN-03 | Phase 2 | Complete |
 | DSGN-04 | Phase 2 | Complete |
-| SHEL-01 | Phase 3 | Pending |
-| SHEL-02 | Phase 3 | Pending |
-| SHEL-03 | Phase 3 | Pending |
-| SHEL-04 | Phase 3 | Pending |
+| SHEL-01 | Phase 3 | Complete |
+| SHEL-02 | Phase 3 | Complete |
+| SHEL-03 | Phase 3 | Complete |
+| SHEL-04 | Phase 3 | Complete |
 | SHEL-05 | Phase 3 | Complete |
 | DATA-01 | Phase 4 | Pending |
 | DATA-02 | Phase 4 | Pending |

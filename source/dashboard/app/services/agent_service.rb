@@ -12,37 +12,47 @@ class AgentService
     agent_ids = agents.map(&:id)
     return agents if agent_ids.empty?
 
-    # Single query: total tokens per agent over last 7 days
-    totals = UsageRecord
+    totals = token_totals(agent_ids)
+    series_map = daily_series_map(agent_ids)
+    attach_token_methods(agents, totals, series_map)
+  end
+
+  private_class_method def self.token_totals(agent_ids)
+    UsageRecord
       .where(agent_id: agent_ids, recorded_at: 7.days.ago..)
       .group(:agent_id)
       .sum(Arel.sql('input_tokens + output_tokens'))
+  end
 
-    # Single query: daily token series per agent (7 values)
+  private_class_method def self.daily_series_map(agent_ids)
     daily = UsageRecord
-      .where(agent_id: agent_ids, recorded_at: 7.days.ago..)
-      .group(:agent_id, Arel.sql('DATE(recorded_at)'))
-      .order(Arel.sql('DATE(recorded_at)'))
-      .sum(Arel.sql('input_tokens + output_tokens'))
+            .where(agent_id: agent_ids, recorded_at: 7.days.ago..)
+            .group(:agent_id, Arel.sql('DATE(recorded_at)'))
+            .order(Arel.sql('DATE(recorded_at)'))
+            .sum(Arel.sql('input_tokens + output_tokens'))
 
-    # Build per-agent series hash: { agent_uuid => [day1, day2, ..., day7] }
-    series_map = {}
-    daily.each do |(aid, _date), total|
-      series_map[aid] ||= []
-      series_map[aid] << total
+    daily.each_with_object({}) do |((aid, _date), total), map|
+      (map[aid] ||= []) << total
     end
+  end
 
-    # Pad each agent's series to exactly 7 entries (fill missing days with 0)
+  private_class_method def self.attach_token_methods(agents, totals, series_map)
     agents.each do |agent|
-      raw_series = series_map[agent.id] || []
-      padded = Array.new(7, 0)
-      raw_series.last(7).each_with_index { |v, i| padded[7 - raw_series.last(7).length + i] = v }
+      raw = series_map[agent.id] || []
+      padded = pad_series(raw)
+      total = totals[agent.id] || 0
 
-      agent.define_singleton_method(:tokens_7d) { totals[agent.id] || 0 }
+      agent.define_singleton_method(:tokens_7d) { total }
       agent.define_singleton_method(:tokens_7d_series) { padded }
     end
-
     agents
+  end
+
+  private_class_method def self.pad_series(raw)
+    padded = Array.new(7, 0)
+    tail = raw.last(7)
+    tail.each_with_index { |v, i| padded[7 - tail.length + i] = v }
+    padded
   end
 
   def self.find(id)

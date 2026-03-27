@@ -30,7 +30,7 @@ RSpec.describe 'Api::V1::Settings', type: :request do
   end
 
   describe 'GET /api/v1/settings/:key' do
-    let!(:setting) { create(:setting, key: 'general.timezone', value: 'UTC') }
+    before { create(:setting, key: 'general.timezone', value: 'UTC') }
 
     it 'returns the setting by key' do
       get api_v1_setting_path(key: 'general.timezone'), as: :json
@@ -47,7 +47,7 @@ RSpec.describe 'Api::V1::Settings', type: :request do
   end
 
   describe 'PATCH /api/v1/settings/:key' do
-    let!(:setting) { create(:setting, key: 'general.timezone', value: 'UTC') }
+    before { create(:setting, key: 'general.timezone', value: 'UTC') }
 
     it 'updates the setting value' do
       patch api_v1_setting_path(key: 'general.timezone'), params: { setting: { value: 'America/New_York' } }, as: :json

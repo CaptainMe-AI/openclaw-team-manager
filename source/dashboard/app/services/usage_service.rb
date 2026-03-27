@@ -3,10 +3,15 @@
 class UsageService
   def self.list(filters: {})
     scope = UsageRecord.includes(:agent)
+    scope = apply_filters(scope, filters)
+    scope.order(recorded_at: :asc)
+  end
+
+  private_class_method def self.apply_filters(scope, filters)
     scope = scope.where(agent_id: filters[:agent_id]) if filters[:agent_id].present?
     scope = scope.where(recorded_at: Time.zone.parse(filters[:from])..) if filters[:from].present?
     scope = scope.where(recorded_at: ..Time.zone.parse(filters[:to])) if filters[:to].present?
-    scope.order(recorded_at: :asc)
+    scope
   end
 
   def self.summary(from:, to:)

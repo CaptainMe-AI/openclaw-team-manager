@@ -4,27 +4,27 @@ require 'rails_helper'
 
 RSpec.describe UsageService do
   describe '.list' do
-    let(:agent1) { create(:agent) }
-    let(:agent2) { create(:agent) }
-    let!(:record1) { create(:usage_record, agent: agent1, recorded_at: 2.days.ago) }
-    let!(:record2) { create(:usage_record, agent: agent2, recorded_at: 1.day.ago) }
-    let!(:record3) { create(:usage_record, agent: agent1, recorded_at: Time.current) }
+    let(:primary_agent) { create(:agent) }
+    let(:secondary_agent) { create(:agent) }
+    let!(:oldest_record) { create(:usage_record, agent: primary_agent, recorded_at: 2.days.ago) }
+    let!(:middle_record) { create(:usage_record, agent: secondary_agent, recorded_at: 1.day.ago) }
+    let!(:newest_record) { create(:usage_record, agent: primary_agent, recorded_at: Time.current) }
 
     it 'returns all usage records ordered by recorded_at asc' do
       result = described_class.list
-      expect(result).to eq([record1, record2, record3])
+      expect(result).to eq([oldest_record, middle_record, newest_record])
     end
 
     it 'filters by agent_id' do
-      result = described_class.list(filters: { agent_id: agent1.id })
-      expect(result).to include(record1, record3)
-      expect(result).not_to include(record2)
+      result = described_class.list(filters: { agent_id: primary_agent.id })
+      expect(result).to include(oldest_record, newest_record)
+      expect(result).not_to include(middle_record)
     end
 
     it 'filters by date range (from)' do
       result = described_class.list(filters: { from: 1.day.ago.beginning_of_day.iso8601 })
-      expect(result).to include(record2, record3)
-      expect(result).not_to include(record1)
+      expect(result).to include(middle_record, newest_record)
+      expect(result).not_to include(oldest_record)
     end
 
     it 'filters by date range (from and to)' do
@@ -32,8 +32,8 @@ RSpec.describe UsageService do
                                       from: 3.days.ago.iso8601,
                                       to: 1.day.ago.end_of_day.iso8601
                                     })
-      expect(result).to include(record1, record2)
-      expect(result).not_to include(record3)
+      expect(result).to include(oldest_record, middle_record)
+      expect(result).not_to include(newest_record)
     end
   end
 

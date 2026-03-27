@@ -1,13 +1,19 @@
 # frozen_string_literal: true
 
 class ApprovalService
+  FILTERABLE_FIELDS = %i[status risk_level approval_type agent_id].freeze
+
   def self.list(filters: {}, sort: nil, dir: 'desc')
     scope = Approval.includes(:agent, :resolved_by)
-    scope = scope.where(status: filters[:status]) if filters[:status].present?
-    scope = scope.where(risk_level: filters[:risk_level]) if filters[:risk_level].present?
-    scope = scope.where(approval_type: filters[:approval_type]) if filters[:approval_type].present?
-    scope = scope.where(agent_id: filters[:agent_id]) if filters[:agent_id].present?
+    scope = apply_filters(scope, filters)
     apply_sort(scope, sort, dir)
+  end
+
+  private_class_method def self.apply_filters(scope, filters)
+    FILTERABLE_FIELDS.each do |field|
+      scope = scope.where(field => filters[field]) if filters[field].present?
+    end
+    scope
   end
 
   def self.find(id)

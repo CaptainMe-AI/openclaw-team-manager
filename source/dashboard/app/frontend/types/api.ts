@@ -23,6 +23,10 @@ export interface Agent {
   uptime_since: string | null;
   created_at: string;
   updated_at: string;
+  // Enriched fields (Phase 5)
+  current_task: string | null;
+  tokens_7d: number;
+  tokens_7d_series: number[];
 }
 
 // Task (from GET /api/v1/tasks)

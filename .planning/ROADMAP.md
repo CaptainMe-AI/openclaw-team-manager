@@ -69,12 +69,12 @@ Plans:
   3. Notification bell displays with unread dot indicator, and user avatar shows an account dropdown on click
   4. Clicking any sidebar link navigates to the correct route without full page reload, showing a placeholder for unbuilt screens
   5. Sidebar collapses on mobile and expands on desktop
-**Plans**: TBD
+**Plans**: 2 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md -- Routing infrastructure, PlaceholderSkeleton, 6 placeholder pages
+- [ ] 03-02-PLAN.md -- Sidebar navigation, TopBar, UserMenu dropdown, AppShell layout
 
 ### Phase 4: Data Layer
 **Goal**: Complete data pipeline from database seeds through API endpoints to React hooks, with mock data service abstraction
@@ -204,7 +204,7 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | - |
 | 2. Design System | 0/3 | In Progress | - |
-| 3. App Shell | 0/0 | Not started | - |
+| 3. App Shell | 0/2 | Not started | - |
 | 4. Data Layer | 0/0 | Not started | - |
 | 5. Agent Fleet | 0/0 | Not started | - |
 | 6. Task Board | 0/0 | Not started | - |

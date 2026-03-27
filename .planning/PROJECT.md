@@ -18,9 +18,9 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 - [x] Devise authentication (user created via console, no signup form) — Validated in Phase 01: Foundation
 - [x] Design system: dark theme (21 color tokens), Inter + JetBrains Mono typography, 6 reusable components (StatusDot, Badge, Card, Button, Input, Table) — Validated in Phase 02: Design System
 - [x] Responsive layout baseline: Tailwind breakpoints, overflow-x-auto tables, grid responsive columns — Validated in Phase 02: Design System
+- [x] Global shell: persistent sidebar navigation + top bar with search, notifications, user menu — Validated in Phase 03: App Shell
 
 ### Active
-- [ ] Global shell: persistent sidebar navigation + top bar with search, notifications, user menu
 - [ ] Dashboard screen: KPI cards, agent activity timeline, recent tasks table, action required sidebar
 - [ ] Agent Fleet screen: grid/table view toggle, agent cards with status/task/uptime/tokens, context menu actions, filters
 - [ ] Task Board screen: Kanban columns (Backlog → Queued → In Progress → Awaiting Approval → Completed → Failed), draggable cards, priority system
@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-26 after Phase 02: Design System completion*
+*Last updated: 2026-03-27 after Phase 03: App Shell completion*

@@ -19,13 +19,14 @@
 #  index_agents_on_agent_id  (agent_id) UNIQUE
 #  index_agents_on_status    (status)
 #
-FactoryBot.define do
-  factory :agent do
-    name { Faker::Name.first_name + "-agent" }
-    agent_id { "agt_#{SecureRandom.hex(4)}" }
-    status { "active" }
-    llm_model { %w[opus sonnet].sample }
-    workspace { "~/projects/#{Faker::Lorem.word}" }
-    uptime_since { rand(1..7).days.ago }
-  end
+class Agent < ApplicationRecord
+  enum :status, { active: "active", idle: "idle", error: "error", disabled: "disabled" }
+
+  has_many :tasks, dependent: :nullify
+  has_many :approvals, dependent: :destroy
+  has_many :usage_records, dependent: :destroy
+
+  validates :name, presence: true
+  validates :agent_id, presence: true, uniqueness: true
+  validates :status, presence: true
 end

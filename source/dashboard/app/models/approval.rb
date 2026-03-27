@@ -31,17 +31,18 @@
 #  fk_rails_...  (agent_id => agents.id)
 #  fk_rails_...  (resolved_by_id => users.id)
 #
-FactoryBot.define do
-  factory :approval do
-    title { Faker::Lorem.sentence(word_count: 3) }
-    description { Faker::Lorem.paragraph }
-    approval_type { "dangerous_command" }
-    status { "pending" }
-    risk_level { "medium" }
-    context { { command: "rm -rf /tmp/cache" } }
-    requested_at { Time.current }
-    association :agent
-    resolved_by { nil }
-    resolved_at { nil }
-  end
+class Approval < ApplicationRecord
+  enum :approval_type, { dangerous_command: "dangerous_command", sensitive_data: "sensitive_data",
+                         budget_override: "budget_override" }
+  enum :status, { pending: "pending", approved: "approved", denied: "denied" }
+  enum :risk_level, { low: "low", medium: "medium", high: "high", critical: "critical" }
+
+  belongs_to :agent, optional: true
+  belongs_to :resolved_by, class_name: "User", optional: true
+
+  validates :title, presence: true
+  validates :approval_type, presence: true
+  validates :status, presence: true
+  validates :risk_level, presence: true
+  validates :requested_at, presence: true
 end

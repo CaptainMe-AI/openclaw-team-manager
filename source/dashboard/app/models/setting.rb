@@ -14,9 +14,6 @@
 #
 #  index_settings_on_key  (key) UNIQUE
 #
-FactoryBot.define do
-  factory :setting do
-    key { "general.#{Faker::Lorem.unique.word}" }
-    value { { enabled: true } }
-  end
+class Setting < ApplicationRecord
+  validates :key, presence: true, uniqueness: true
 end

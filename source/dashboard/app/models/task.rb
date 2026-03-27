@@ -25,13 +25,14 @@
 #
 #  fk_rails_...  (agent_id => agents.id)
 #
-FactoryBot.define do
-  factory :task do
-    task_id { "TASK-#{SecureRandom.hex(3).upcase}" }
-    title { Faker::Lorem.sentence(word_count: 4) }
-    description { Faker::Lorem.paragraph }
-    status { "backlog" }
-    priority { 2 }
-    association :agent
-  end
+class Task < ApplicationRecord
+  enum :status, { backlog: "backlog", queued: "queued", in_progress: "in_progress",
+                  awaiting_approval: "awaiting_approval", completed: "completed", failed: "failed" }
+
+  belongs_to :agent, optional: true
+
+  validates :task_id, presence: true, uniqueness: true
+  validates :title, presence: true
+  validates :status, presence: true
+  validates :priority, presence: true, numericality: { only_integer: true, in: 0..3 }
 end

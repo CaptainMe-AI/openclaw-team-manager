@@ -121,12 +121,13 @@ Plans:
   3. User can drag cards between columns using dnd-kit, and the board updates the task status accordingly
   4. User can toggle between board and list views, and filter by agent, priority, and time period
   5. Clicking "New Task" opens a modal with task name, agent dropdown, description, priority selector, and attachment area, with form validation
-**Plans**: TBD
+**Plans**: 3 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
+- [ ] 06-01-PLAN.md -- Install dnd-kit, task mutation hooks, TaskCard, PriorityLegend, Modal, create/update request specs
+- [ ] 06-02-PLAN.md -- KanbanBoard with dnd-kit drag-and-drop, KanbanColumn, SortableTaskCard, TaskViewToggle, TaskFilters
+- [ ] 06-03-PLAN.md -- NewTaskModal with form validation, TaskListView, full TasksPage composition
 
 ### Phase 7: Approvals
 **Goal**: Operators can review, approve, or deny pending agent actions with full context and reasoning
@@ -209,7 +210,7 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 | 3. App Shell | 0/2 | Not started | - |
 | 4. Data Layer | 0/3 | Not started | - |
 | 5. Agent Fleet | 0/3 | Not started | - |
-| 6. Task Board | 0/0 | Not started | - |
+| 6. Task Board | 0/3 | Not started | - |
 | 7. Approvals | 0/0 | Not started | - |
 | 8. Usage & Cost | 0/0 | Not started | - |
 | 9. Dashboard Overview | 0/0 | Not started | - |

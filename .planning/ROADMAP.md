@@ -90,7 +90,7 @@ Plans:
 
 Plans:
 - [x] 04-01-PLAN.md -- Database models, migrations, factories, model specs, Pagy config, seed data
-- [ ] 04-02-PLAN.md -- Service layer, API controllers, jbuilder views, routes, request specs
+- [x] 04-02-PLAN.md -- Service layer, API controllers, jbuilder views, routes, request specs
 - [ ] 04-03-PLAN.md -- React data layer: TanStack Query hooks, TypeScript types, Zustand stores
 
 ### Phase 5: Agent Fleet

@@ -6,7 +6,7 @@ import {
   faRobot,
   faListCheck,
   faChartPie,
-  faShieldCheck,
+  faShieldHalved,
   faGear,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
@@ -27,7 +27,7 @@ const navItems: NavItem[] = [
   { label: "Agents", path: "/agents", icon: faRobot },
   { label: "Tasks", path: "/tasks", icon: faListCheck },
   { label: "Usage", path: "/usage", icon: faChartPie },
-  { label: "Approvals", path: "/approvals", icon: faShieldCheck, badge: 3 },
+  { label: "Approvals", path: "/approvals", icon: faShieldHalved, badge: 3 },
   { label: "Settings", path: "/settings", icon: faGear },
 ];
 

@@ -1,4 +1,5 @@
-import { createBrowserRouter, Outlet } from "react-router";
+import { createBrowserRouter } from "react-router";
+import { AppShell } from "@/components/layout/AppShell";
 import { DashboardPage } from "@/components/pages/DashboardPage";
 import { AgentsPage } from "@/components/pages/AgentsPage";
 import { TasksPage } from "@/components/pages/TasksPage";
@@ -6,18 +7,10 @@ import { UsagePage } from "@/components/pages/UsagePage";
 import { ApprovalsPage } from "@/components/pages/ApprovalsPage";
 import { SettingsPage } from "@/components/pages/SettingsPage";
 
-function RootLayout() {
-  return (
-    <div className="min-h-screen bg-background">
-      <Outlet />
-    </div>
-  );
-}
-
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <AppShell />,
     children: [
       { index: true, element: <DashboardPage /> },
       { path: "agents", element: <AgentsPage /> },

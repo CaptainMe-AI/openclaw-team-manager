@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { apiFetch } from "@/lib/api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiFetch, apiMutate } from "@/lib/api";
 import type { Agent, PaginatedResponse } from "@/types/api";
 
 interface UseAgentsParams {
@@ -24,5 +24,16 @@ export function useAgent(id: string) {
     queryKey: ["agents", id],
     queryFn: () => apiFetch<Agent>(`/api/v1/agents/${id}`),
     enabled: !!id,
+  });
+}
+
+export function useUpdateAgent() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
+      apiMutate<Agent>(`/api/v1/agents/${id}`, "PATCH", { agent: data }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["agents"] });
+    },
   });
 }

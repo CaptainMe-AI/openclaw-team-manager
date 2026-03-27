@@ -6,3 +6,4 @@ export { Input } from "./Input";
 export { StatusDot } from "./StatusDot";
 export { PlaceholderSkeleton } from "./PlaceholderSkeleton";
 export { Sparkline } from "./Sparkline";
+export { Modal } from "./Modal";

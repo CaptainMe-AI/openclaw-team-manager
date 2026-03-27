@@ -73,10 +73,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Create New Task
 
-- [ ] **NTSK-01**: Modal dialog with fields: task name, agent dropdown, description textarea, priority button group
-- [ ] **NTSK-02**: Attachment/file upload area with drag-and-drop
-- [ ] **NTSK-03**: Form validation — required fields (name, agent, description, priority), cancel/create actions
-- [ ] **NTSK-04**: Default priority set to Medium
+- [x] **NTSK-01**: Modal dialog with fields: task name, agent dropdown, description textarea, priority button group
+- [x] **NTSK-02**: Attachment/file upload area with drag-and-drop
+- [x] **NTSK-03**: Form validation — required fields (name, agent, description, priority), cancel/create actions
+- [x] **NTSK-04**: Default priority set to Medium
 
 ### Approvals
 
@@ -191,10 +191,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TASK-05 | Phase 6 | Complete |
 | TASK-06 | Phase 6 | Complete |
 | TASK-07 | Phase 6 | Pending |
-| NTSK-01 | Phase 6 | Pending |
-| NTSK-02 | Phase 6 | Pending |
-| NTSK-03 | Phase 6 | Pending |
-| NTSK-04 | Phase 6 | Pending |
+| NTSK-01 | Phase 6 | Complete |
+| NTSK-02 | Phase 6 | Complete |
+| NTSK-03 | Phase 6 | Complete |
+| NTSK-04 | Phase 6 | Complete |
 | APPR-01 | Phase 7 | Pending |
 | APPR-02 | Phase 7 | Pending |
 | APPR-03 | Phase 7 | Pending |

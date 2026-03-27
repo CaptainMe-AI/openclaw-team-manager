@@ -35,8 +35,8 @@ Declared values (must be multiples of 4):
 |-------|-------|-------|
 | xs | 4px | Icon gaps, inline badge padding, gap between sortable cards |
 | sm | 8px | Compact element spacing, column inner padding, card internal gaps |
-| md | 16px | Default element spacing, card padding, column header margin |
-| lg | 24px | Section padding, page header to filters gap |
+| md | 16px | Default element spacing, card padding, column header margin, modal action row gap |
+| lg | 24px | Section padding, page header to filters gap, modal action row top margin |
 | xl | 32px | Not used this phase |
 | 2xl | 48px | Not used this phase |
 | 3xl | 64px | Not used this phase |
@@ -57,16 +57,18 @@ Source: Design screenshot (screenshot_5.png), established pattern from Phase 5 A
 |------|------|--------|-------------|------|---------------------|
 | Body | 14px (text-sm) | 400 (normal) | 1.5 | Inter | Task descriptions, filter labels, modal field labels, subtitle |
 | Label | 12px (text-xs) | 400 (normal) | 1.5 | Inter | Column headers, task timestamps, card metadata, helper text |
-| Heading | 20px (text-xl) | 600 (semibold) | 1.2 | Inter | Page title "Task Board" |
+| Heading | 20px (text-xl) | 600 (semibold) | 1.2 | Inter | Page title "Task Board", modal title "Create New Task" |
 | Data | 12px (text-xs) | 400 (normal) | 1.5 | JetBrains Mono | Task IDs (e.g., tsk_1050), timestamps |
 
 Additional typography rules:
 - Card title: 14px (text-sm) at weight 600 (font-semibold), Inter
-- Modal title: 18px (text-lg) at weight 600 (font-semibold), Inter
+- Modal title: 20px (text-xl) at weight 600 (font-semibold), Inter -- same as page heading
 - Column header label: 12px (text-xs) at weight 600 (font-semibold), uppercase, tracking-wider, Inter
 - Column task count: 12px (text-xs) at weight 400, Inter
 - Priority badge text: 10px (text-[10px]) at weight 400, Inter (existing Badge component convention)
 - Form field labels: 14px (text-sm) at weight 600 (font-semibold), Inter (existing Input component convention)
+
+Declared scale: 10, 12, 14, 20 (4 sizes). The 10px size is an exception inherited from the existing Badge component convention and is only used in priority badge text.
 
 Source: Existing component patterns (AgentCard, Input, AgentsPage header).
 
@@ -112,13 +114,13 @@ Source: `application.css` @theme block (Phase 2).
 
 | Component | Type | Description |
 |-----------|------|-------------|
-| KanbanBoard | Container | DndContext wrapper, renders 6 KanbanColumns + DragOverlay |
+| KanbanBoard | Container | DndContext wrapper, renders 6 KanbanColumns + DragOverlay. Primary visual anchor of the Task Board page. |
 | KanbanColumn | Container | useDroppable target + SortableContext, renders column header + SortableTaskCards |
 | SortableTaskCard | Wrapper | useSortable wrapper around TaskCard, applies transform/transition styles |
 | TaskCard | Presentational | Task card with priority border, ID, badge, title, desc clamp, agent, timestamp |
 | TaskListView | Container | Table view of tasks (replicates AgentTable pattern with sortable columns) |
 | TaskFilters | Presentational | Filter bar: agent dropdown, priority button group, time period button group |
-| TaskViewToggle | Presentational | Board/List toggle (replicates AgentViewToggle pattern) |
+| TaskViewToggle | Presentational | Icon-only toggle (Board/List). Uses `faGrip` for board and `faList` for list. Each button has `aria-label` ("Board view" / "List view") and `aria-pressed` reflecting active state. |
 | PriorityLegend | Presentational | Static P0-P3 color dots with labels |
 | NewTaskModal | Container | Modal overlay with form fields, validation, create mutation |
 | Modal | Reusable UI | Generic modal: backdrop + centered content + close button (reusable for future phases) |
@@ -130,7 +132,7 @@ Source: `application.css` @theme block (Phase 2).
 |-----------|----------|
 | Badge (variant="priority") | Priority badges on task cards (P0-P3) |
 | Button (variant="primary") | "New Task" CTA, "Create Task" submit, active filters |
-| Button (variant="secondary") | Inactive filters, "Cancel" in modal |
+| Button (variant="secondary") | Inactive filters, "Discard Task" in modal |
 | Button (variant="ghost") | View toggle inactive state |
 | Card | Not directly used -- TaskCard is a custom card with priority border |
 | Input | Task name field in modal, with label and error props |
@@ -140,6 +142,8 @@ Source: `application.css` @theme block (Phase 2).
 ## Interaction Contracts
 
 ### Kanban Board
+
+The Kanban board is the primary visual anchor of the Tasks page. It occupies the full content area below the filter bar and is the default view on page load.
 
 | Interaction | Visual Feedback | Implementation |
 |-------------|-----------------|----------------|
@@ -153,10 +157,12 @@ Source: `application.css` @theme block (Phase 2).
 
 ### View Toggle
 
+The TaskViewToggle is icon-only. It renders two buttons: `faGrip` (board) and `faList` (list). No text labels are shown. Accessibility is provided via `aria-label` and `aria-pressed`.
+
 | Interaction | Visual Feedback |
 |-------------|-----------------|
-| Click "Board" toggle | Board icon button gets accent background; list view hides, board view appears |
-| Click "List" toggle | List icon button gets accent background; board view hides, list view appears |
+| Click board icon (faGrip) | Board icon button gets accent background; list view hides, board view appears |
+| Click list icon (faList) | List icon button gets accent background; board view hides, list view appears |
 
 ### Filters
 
@@ -170,7 +176,7 @@ Source: `application.css` @theme block (Phase 2).
 | Interaction | Visual Feedback |
 |-------------|-----------------|
 | Click "New Task" button | Modal slides in with backdrop blur (bg-black/60 backdrop-blur-sm) |
-| Click backdrop or Cancel | Modal closes, form state discarded |
+| Click backdrop or "Discard Task" | Modal closes, form state discarded |
 | Click X button | Modal closes, form state discarded |
 | Submit with missing required field | Red border on invalid inputs; error message below each invalid field |
 | Submit valid form | Loading state on "Create Task" button (disabled + spinner); success toast + close; error toast on failure |
@@ -222,7 +228,7 @@ Note: P0 (Critical) is not available in the creation form -- it is set via direc
 | Description label | Description * |
 | Description placeholder | Provide detailed instructions for the agent. |
 | Priority label | Priority Level |
-| Cancel button | Cancel |
+| Dismiss button | Discard Task |
 | Submit button | + Create Task |
 | Validation: name required | Task name is required |
 | Validation: agent required | Agent selection is required |
@@ -288,7 +294,7 @@ Timestamp: relative time from `created_at` using `formatDistanceToNow` from date
 +-- Fixed inset-0, z-50, flex items-center justify-center ------+
 | +-- bg-black/60 backdrop-blur-sm (backdrop) -----------------+ |
 | | +-- bg-surface border-border rounded-lg max-w-lg p-6 ----+ | |
-| | | [title 18px semibold]              [X close button]     | | |
+| | | [title 20px semibold]              [X close button]     | | |
 | | | [subtitle 14px secondary]                               | | |
 | | |                                                          | | |
 | | | [Task Name input]                                        | | |
@@ -297,14 +303,14 @@ Timestamp: relative time from `created_at` using `formatDistanceToNow` from date
 | | | [Attachments area - dashed border placeholder]           | | |
 | | | [Priority Level button group]                            | | |
 | | |                                                          | | |
-| | | [Cancel secondary]              [+ Create Task accent]   | | |
+| | | [Discard Task secondary]          [+ Create Task accent] | | |
 | | +----------------------------------------------------------+ | |
 | +------------------------------------------------------------+ |
 +----------------------------------------------------------------+
 ```
 
 Field spacing: 16px (mb-4) between each form field group.
-Action row: `flex justify-end gap-3 mt-6 pt-4 border-t border-border`.
+Action row: `flex justify-end gap-4 mt-6 pt-4 border-t border-border`.
 Modal max-width: `max-w-lg` (512px).
 Modal margin: `mx-4` on small screens for edge padding.
 
@@ -369,7 +375,7 @@ No third-party registries used. All components are built manually using the exis
 | Modal | `role="dialog"`, `aria-modal="true"`, `aria-labelledby` pointing to title |
 | Modal focus trap | First focusable element (Task Name input) receives focus on open; Tab cycles within modal |
 | Modal close | Escape key closes modal |
-| View toggle buttons | `aria-pressed` attribute reflecting active state |
+| View toggle buttons | Icon-only; each button has `aria-label` ("Board view" / "List view") and `aria-pressed` reflecting active state |
 | Filter buttons | `aria-pressed` attribute reflecting active state |
 | Form validation | `aria-invalid` on invalid inputs; `aria-describedby` linking to error messages |
 | Priority button group | `role="radiogroup"` with `role="radio"` and `aria-checked` per button |

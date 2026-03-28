@@ -173,12 +173,12 @@ Plans:
   3. Recent tasks table shows 5 expandable rows with task name, agent, status badge, duration, and timestamp
   4. Action required sidebar shows top pending approvals with inline approve/deny buttons that work
   5. Time period selector changes the dashboard scope, and "New Task" button opens the create task modal
-**Plans**: TBD
+**Plans**: 2 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 09-01: TBD
-- [ ] 09-02: TBD
+- [ ] 09-01-PLAN.md -- Backend: DashboardService time-period param, trend computation, activity events endpoint, service + request specs
+- [ ] 09-02-PLAN.md -- Frontend: DashboardKpiCards, ActivityTimeline, RecentTasksTable, ActionRequired sidebar, DashboardTimePeriod dropdown, DashboardPage composition
 
 ### Phase 10: Settings
 **Goal**: Operators can configure application preferences, agent policies, notifications, and data source connections
@@ -213,5 +213,5 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 | 6. Task Board | 0/3 | Not started | - |
 | 7. Approvals | 0/2 | Not started | - |
 | 8. Usage & Cost | 0/2 | Not started | - |
-| 9. Dashboard Overview | 0/0 | Not started | - |
+| 9. Dashboard Overview | 0/2 | Not started | - |
 | 10. Settings | 0/0 | Not started | - |

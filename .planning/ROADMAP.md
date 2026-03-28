@@ -160,7 +160,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 08-01-PLAN.md -- Backend: migration (latency_ms, endpoint columns), UsageService aggregation methods, API endpoints (summary + charts), jbuilder views, specs
+- [x] 08-01-PLAN.md -- Backend: migration (latency_ms, endpoint columns), UsageService aggregation methods, API endpoints (summary + charts), jbuilder views, specs
 - [ ] 08-02-PLAN.md -- Frontend: TypeScript types, hooks, formatters, KPI cards, 4 Recharts chart components, time period selector, CSV export, UsagePage composition
 
 ### Phase 9: Dashboard Overview

@@ -90,11 +90,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Usage & Cost
 
-- [ ] **USAG-01**: KPI cards — total tokens, total API calls, estimated cost, avg latency with trends
-- [ ] **USAG-02**: Token usage over time — stacked area chart, one series per agent
-- [ ] **USAG-03**: Cost breakdown by agent — donut/pie chart
-- [ ] **USAG-04**: API calls by endpoint — horizontal bar chart
-- [ ] **USAG-05**: Latency distribution — histogram
+- [x] **USAG-01**: KPI cards — total tokens, total API calls, estimated cost, avg latency with trends
+- [x] **USAG-02**: Token usage over time — stacked area chart, one series per agent
+- [x] **USAG-03**: Cost breakdown by agent — donut/pie chart
+- [x] **USAG-04**: API calls by endpoint — horizontal bar chart
+- [x] **USAG-05**: Latency distribution — histogram
 - [ ] **USAG-06**: Time period selector button group (1h/6h/24h/7d/30d)
 - [ ] **USAG-07**: Export report button (CSV/PDF)
 
@@ -202,11 +202,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | APPR-05 | Phase 7 | Complete |
 | APPR-06 | Phase 7 | Complete |
 | APPR-07 | Phase 7 | Complete |
-| USAG-01 | Phase 8 | Pending |
-| USAG-02 | Phase 8 | Pending |
-| USAG-03 | Phase 8 | Pending |
-| USAG-04 | Phase 8 | Pending |
-| USAG-05 | Phase 8 | Pending |
+| USAG-01 | Phase 8 | Complete |
+| USAG-02 | Phase 8 | Complete |
+| USAG-03 | Phase 8 | Complete |
+| USAG-04 | Phase 8 | Complete |
+| USAG-05 | Phase 8 | Complete |
 | USAG-06 | Phase 8 | Pending |
 | USAG-07 | Phase 8 | Pending |
 | SETT-01 | Phase 10 | Pending |

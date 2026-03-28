@@ -139,12 +139,12 @@ Plans:
   3. Expanding a card shows agent reasoning on the left and related context (commit/task links) on the right
   4. User can filter by risk level and sort by time waiting
   5. History tab shows a table of past decisions with timestamp, agent, action, decision badge, and decided-by
-**Plans**: TBD
+**Plans**: 2 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 07-01: TBD
-- [ ] 07-02: TBD
+- [ ] 07-01-PLAN.md -- Batch approve endpoint, jbuilder resolved_by_name, useBatchApprove hook, ApprovalCard, ApprovalDetailPanel, ApprovalFilters
+- [ ] 07-02-PLAN.md -- ApprovalHistoryTable, full ApprovalsPage composition with tabs, batch actions, loading/error/empty states
 
 ### Phase 8: Usage & Cost
 **Goal**: Operators can monitor token usage, API costs, and latency across their agent fleet
@@ -211,7 +211,7 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 | 4. Data Layer | 0/3 | Not started | - |
 | 5. Agent Fleet | 0/3 | Not started | - |
 | 6. Task Board | 0/3 | Not started | - |
-| 7. Approvals | 0/0 | Not started | - |
+| 7. Approvals | 0/2 | Not started | - |
 | 8. Usage & Cost | 0/0 | Not started | - |
 | 9. Dashboard Overview | 0/0 | Not started | - |
 | 10. Settings | 0/0 | Not started | - |

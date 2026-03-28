@@ -124,6 +124,14 @@ export interface UsageCharts {
   latency_distribution: LatencyBucket[];
 }
 
+// Activity event (from GET /api/v1/dashboard)
+export interface ActivityEvent {
+  type: string;
+  label: string;
+  agent_name: string | null;
+  occurred_at: string;
+}
+
 // Dashboard KPIs (from GET /api/v1/dashboard)
 export interface DashboardData {
   active_agents: number;
@@ -131,8 +139,13 @@ export interface DashboardData {
   pending_approvals: number;
   tokens_used_24h: number;
   cost_24h_cents: number;
+  active_agents_trend: number | null;
+  tasks_in_progress_trend: number | null;
+  pending_approvals_trend: number | null;
+  tokens_trend: number | null;
   recent_tasks: Task[];
   pending_approval_items: Approval[];
+  activity_events: ActivityEvent[];
 }
 
 // Setting (from GET /api/v1/settings)

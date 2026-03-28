@@ -78,7 +78,50 @@ export interface UsageRecord {
   api_calls: number;
   cost_cents: number;
   llm_model: string | null;
+  latency_ms: number | null;
+  endpoint: string | null;
   recorded_at: string;
+}
+
+// Usage summary with trends (from GET /api/v1/usage/summary)
+export interface UsageSummary {
+  total_tokens: number;
+  total_api_calls: number;
+  total_cost_cents: number;
+  avg_latency_ms: number | null;
+  token_trend: number | null;
+  api_calls_trend: number | null;
+  cost_trend: number | null;
+  latency_trend: number | null;
+}
+
+// Chart data points (from GET /api/v1/usage/charts)
+export interface TokenUsagePoint {
+  bucket: string;
+  agent_name: string;
+  total_tokens: number;
+}
+
+export interface CostByAgentPoint {
+  name: string;
+  value: number;
+}
+
+export interface CallsByEndpointPoint {
+  endpoint: string;
+  calls: number;
+}
+
+export interface LatencyBucket {
+  range: string;
+  count: number;
+}
+
+export interface UsageCharts {
+  token_usage_over_time: TokenUsagePoint[];
+  cost_by_agent: CostByAgentPoint[];
+  calls_by_endpoint: CallsByEndpointPoint[];
+  latency_distribution: LatencyBucket[];
 }
 
 // Dashboard KPIs (from GET /api/v1/dashboard)

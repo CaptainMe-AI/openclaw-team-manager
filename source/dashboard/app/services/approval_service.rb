@@ -32,6 +32,14 @@ class ApprovalService
     approval
   end
 
+  def self.batch_approve(ids, user)
+    approvals = Approval.where(id: ids, status: 'pending')
+    approvals.each do |approval|
+      approval.update!(status: 'approved', resolved_at: Time.current, resolved_by: user)
+    end
+    approvals
+  end
+
   private_class_method def self.apply_sort(scope, sort, dir)
     return scope.order(requested_at: :desc) unless sort
 

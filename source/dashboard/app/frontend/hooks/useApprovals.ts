@@ -52,3 +52,19 @@ export function useDenyApproval() {
     },
   });
 }
+
+export function useBatchApprove() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (ids: string[]) =>
+      apiMutate<{ approved: number }>(
+        "/api/v1/approvals/batch_approve",
+        "POST",
+        { ids },
+      ),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["approvals"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+    },
+  });
+}

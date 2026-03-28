@@ -22,6 +22,11 @@ module Api
         render :show
       end
 
+      def batch_approve
+        @approvals = ApprovalService.batch_approve(params[:ids], current_user)
+        render json: { approved: @approvals.size }
+      end
+
       private
 
       def approval_filters

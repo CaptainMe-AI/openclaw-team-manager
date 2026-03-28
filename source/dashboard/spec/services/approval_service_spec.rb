@@ -88,4 +88,30 @@ RSpec.describe ApprovalService do
       expect(result.resolved_by).to eq(user)
     end
   end
+
+  describe '.batch_approve' do
+    let(:user) { create(:user) }
+    let!(:pending_first) { create(:approval, status: 'pending') }
+    let!(:pending_second) { create(:approval, status: 'pending') }
+    let!(:denied_one) { create(:approval, status: 'denied') }
+
+    it 'approves all pending approvals with given ids' do
+      result = described_class.batch_approve([pending_first.id, pending_second.id], user)
+      expect(result.size).to eq(2)
+      expect(pending_first.reload.status).to eq('approved')
+      expect(pending_second.reload.status).to eq('approved')
+    end
+
+    it 'sets resolved_by and resolved_at for each' do
+      described_class.batch_approve([pending_first.id], user)
+      expect(pending_first.reload.resolved_by).to eq(user)
+      expect(pending_first.reload.resolved_at).to be_present
+    end
+
+    it 'skips non-pending approvals' do
+      result = described_class.batch_approve([pending_first.id, denied_one.id], user)
+      expect(result.size).to eq(1)
+      expect(denied_one.reload.status).to eq('denied')
+    end
+  end
 end

@@ -61,6 +61,7 @@ export interface Approval {
   agent_id: string | null;
   agent_name: string | null;
   resolved_by_id: string | null;
+  resolved_by_name: string | null;
   requested_at: string | null;
   resolved_at: string | null;
   created_at: string;

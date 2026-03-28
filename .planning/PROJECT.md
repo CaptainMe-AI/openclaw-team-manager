@@ -24,10 +24,10 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 - [x] Task Board screen: Kanban columns with dnd-kit drag-and-drop, task cards with priority borders, board/list view toggle, filters (agent, priority, time period), priority legend — Validated in Phase 06: Task Board
 - [x] Create New Task modal: form with agent dropdown, description, attachment placeholder, priority radio group, client-side validation — Validated in Phase 06: Task Board
 - [x] Approvals screen: pending queue with expandable cards, inline approve/deny, batch approve, risk-level filters, history tab with decision table — Validated in Phase 07: Approvals
+- [x] Usage & Cost Tracking screen: KPI cards with trends, token usage stacked area chart, cost donut chart, API calls bar chart, latency histogram, time period selector, CSV export — Validated in Phase 08: Usage & Cost
 
 ### Active
 - [ ] Dashboard screen: KPI cards, agent activity timeline, recent tasks table, action required sidebar
-- [ ] Usage & Cost Tracking screen: KPI cards, token usage charts, cost breakdown, latency distribution, export
 - [ ] Settings screen: general preferences, agent policies, notifications, data sources tabs
 
 ### Out of Scope
@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-27 after Phase 04: Data Layer completion*
+*Last updated: 2026-03-28 after Phase 08: Usage & Cost completion*

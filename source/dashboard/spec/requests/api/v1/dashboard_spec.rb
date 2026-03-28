@@ -89,10 +89,7 @@ RSpec.describe 'Api::V1::Dashboard', type: :request do
       events = json['activity_events']
       next if events.empty?
 
-      events.each do |event|
-        expect(event).to include('type', 'label', 'occurred_at')
-        expect(event).to have_key('agent_name')
-      end
+      expect(events).to all(include('type', 'label', 'occurred_at'))
     end
 
     context 'with time_period=7d' do

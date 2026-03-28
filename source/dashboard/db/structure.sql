@@ -144,7 +144,9 @@ CREATE TABLE public.usage_records (
     llm_model character varying,
     recorded_at timestamp(6) without time zone NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    latency_ms integer,
+    endpoint character varying
 );
 
 
@@ -354,6 +356,13 @@ CREATE INDEX index_usage_records_on_agent_id_and_recorded_at ON public.usage_rec
 
 
 --
+-- Name: index_usage_records_on_endpoint; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_usage_records_on_endpoint ON public.usage_records USING btree (endpoint);
+
+
+--
 -- Name: index_usage_records_on_recorded_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -406,6 +415,7 @@ ALTER TABLE ONLY public.tasks
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260328045534'),
 ('20260327152056'),
 ('20260327152055'),
 ('20260327152054'),

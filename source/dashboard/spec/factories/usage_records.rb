@@ -7,7 +7,9 @@
 #  id            :uuid             not null, primary key
 #  api_calls     :integer          default(0), not null
 #  cost_cents    :integer          default(0), not null
+#  endpoint      :string
 #  input_tokens  :integer          default(0), not null
+#  latency_ms    :integer
 #  llm_model     :string
 #  output_tokens :integer          default(0), not null
 #  recorded_at   :datetime         not null
@@ -19,6 +21,7 @@
 #
 #  index_usage_records_on_agent_id                  (agent_id)
 #  index_usage_records_on_agent_id_and_recorded_at  (agent_id,recorded_at)
+#  index_usage_records_on_endpoint                  (endpoint)
 #  index_usage_records_on_recorded_at               (recorded_at)
 #
 # Foreign Keys
@@ -33,6 +36,10 @@ FactoryBot.define do
     api_calls { rand(10..200) }
     cost_cents { rand(5..500) }
     llm_model { %w[opus sonnet].sample }
+    latency_ms { rand(50..500) }
+    endpoint do
+      ['/v1/chat/completions', '/v1/embeddings', '/v1/models', '/v1/completions', '/v1/audio/transcriptions'].sample
+    end
     recorded_at { Time.current }
   end
 end

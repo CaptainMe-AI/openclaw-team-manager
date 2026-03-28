@@ -1,53 +1,113 @@
-Rails app - `source/dashboard`
+# OpenClaw Team Manager
 
-# Developer Info
+Local mission control dashboard for managing OpenClaw AI agents. Fleet management, task tracking, approval workflows, usage metrics, and configuration — all in a dark-mode, data-dense UI.
 
-## Ruby version
-  `3.3.3`
+Rails app lives in `source/dashboard`.
+
+## Stack
+
+| Layer    | Tech                                      |
+|----------|-------------------------------------------|
+| Backend  | Ruby 3.3.4, Rails 8.0.5, PostgreSQL 17    |
+| Frontend | React 19, TypeScript, Vite, Tailwind CSS 4 |
+| Auth     | Devise (email/password, console-created)  |
+| Realtime | ActionCable + Solid Cable (no Redis)      |
+| Testing  | RSpec, Factory Bot, Playwright            |
 
 ## Local Setup
 
-1. Install Ruby
-   - Use ruby manager as [rvm](https://rvm.io/)
-   - current version of Ruby is `3.3.3`
-   - RVM installation gotha on Mac M1 [HERE](https://stackoverflow.com/questions/66645381/installing-ruby-with-ruby-install-causes-build-error-on-mac-m1), you must run
-   `arch -x86_64 rvm install 3.3.3 --with-openssl-dir=/usr/local/opt/openssl@3`
+### 1. Install Ruby
 
-2. Install Gems by running
+Use a Ruby version manager like [rvm](https://rvm.io/). The project requires Ruby `3.3.4` (see `.ruby-version`).
 
-`bundle install`
+**Apple Silicon Macs:** you may need:
+```sh
+arch -x86_64 rvm install 3.3.4 --with-openssl-dir=/usr/local/opt/openssl@3
+```
 
-3. Run Dependency Containers with Docker
+### 2. Start PostgreSQL via Docker
 
-The following will run PSQL in Docker. It is highly recommended to use the setup instead of local versions. It will guarantee that your project will run the same version as the production.
+```sh
+docker-compose -p openclaw-team-manager -f setup/Dockerfile-local-services.yml up -d
+```
 
-   FRIENDLY WARNING, IF YOU DECIDE TO DO A DIFFERENT SETUP, YOU WILL MOST LIKELY DIVERGE FROM THE DESIRED SETUP AND BE ON YOUR OWN!
+### 3. Configure environment files
 
-   - Install [Docker Client](https://docs.docker.com/get-started/overview/)
-   - Fort M Processorrun `docker-compose -p openclaw-team-manager -f setup/Dockerfile-local-services.yml up -d`
+```sh
+cp env.sample.development source/dashboard/.env.development
+cp env.sample.test source/dashboard/.env.test.local
+```
 
-4. Set up Env files
-  - Local Dev - `cp env.sample.development .env.development`. DO NOT COMMIT THE NEW FILE - `.env.development`
-  - Local Tests - `cp env.sample.test .env.test.local`. DO NOT COMMIT THE NEW FILE - `.env.test`
+Do **not** commit `.env.development` or `.env.test.local`.
 
-5. Set up the Database for `development` & `testing` env
-  - `bundle exec rake db:setup`
+### 4. Install dependencies
 
-  - IMPORTANT: We are using `schema_dump` option with uses local installation of `pg_dump``. Running `rake db:migrate` will cause
-    that. If you do not have a matching local version of `pg_dump` as the docker DB version, you will get an error.
-    Way to fix it:
-    1. Install the same version of psql localy - `brew install postgresql@17`
-    2. Link to that version `brew link postgresql@17 --force`
-    3. Note that if this might brake other projects, you can fix that by linking the version you need when working
-    on the other project
-    4. Check version `pg_dump --version` - must be 17.x.x
+```sh
+cd source/dashboard
+bundle install
+yarn install
+```
 
-6. Set up the Database for `development` & `testing` env
-  - `bundle exec rake db:setup`
+### 5. Match local pg_dump to Docker PostgreSQL version
 
-7. Install js dependencies
-  - `yarn install`
+Rails uses `pg_dump` for schema dumps. The local version must match the Docker database version (17.x):
 
-8. Running Web Server + Vite(frontend) Server
- - `bin/dev`
- - got to `http://localhost:3000`
+```sh
+brew install postgresql@17
+brew link postgresql@17 --force
+pg_dump --version   # must be 17.x.x
+```
+
+> This may affect other projects. Re-link the version they need when switching back.
+
+### 6. Set up the database
+
+```sh
+bundle exec rake db:setup
+```
+
+This creates both development and test databases and runs seeds.
+
+### 7. Start the dev server
+
+```sh
+bin/dev
+```
+
+Runs Rails on `http://localhost:3000` and Vite on port `3036`.
+
+### Seed data
+
+Seeds create a default user and sample data:
+
+| Data           | Count   | Notes                                   |
+|----------------|---------|-----------------------------------------|
+| User           | 1       | `admin@openclaw.local` / `password123`  |
+| Agents         | 6       | active, idle, error, disabled           |
+| Tasks          | ~35     | spread across all Kanban columns        |
+| Approvals      | 12      | pending, approved, denied               |
+| Usage records  | ~1,008  | 7 days of hourly data per agent         |
+| Settings       | 12      | display, budget, notification, datasource |
+
+## Testing
+
+```sh
+# Ruby specs
+bundle exec rspec
+
+# Linting
+bundle exec rubocop
+
+# E2E (Playwright)
+npx playwright test
+```
+
+## Key Commands
+
+| Command                         | What it does                          |
+|---------------------------------|---------------------------------------|
+| `bin/dev`                       | Start Rails + Vite dev servers        |
+| `bundle exec rspec`             | Run backend tests                     |
+| `bundle exec rubocop -A .`      | Lint and auto-correct Ruby files      |
+| `bundle exec rake db:seed`      | Seed sample data                      |
+| `bundle exec rake db:reset`     | Drop, recreate, migrate, and seed     |

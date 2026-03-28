@@ -20,7 +20,12 @@ Rails.application.routes.draw do
           post :batch_approve
         end
       end
-      resources :usage, only: [:index]
+      resources :usage, only: [:index] do
+        collection do
+          get :summary
+          get :charts
+        end
+      end
       resource :dashboard, only: [:show], controller: 'dashboard'
       resources :settings, only: %i[index show update], param: :key, constraints: { key: %r{[^/]+} }
     end

@@ -204,7 +204,7 @@ RSpec.describe DashboardService do
       it 'sorts events by occurred_at ascending' do
         result = described_class.summary(from: 12.hours.ago, to: Time.current)
         events = result[:activity_events]
-        timestamps = events.map { |e| e[:occurred_at] }
+        timestamps = events.pluck(:occurred_at)
         expect(timestamps).to eq(timestamps.sort)
       end
 

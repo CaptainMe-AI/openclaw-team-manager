@@ -80,13 +80,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Approvals
 
-- [ ] **APPR-01**: Pending tab with expandable approval cards — priority badge, title, time waiting, agent, target, description
-- [ ] **APPR-02**: Inline approve (green) and deny (red) buttons per card
-- [ ] **APPR-03**: Expanded detail panel — agent reasoning (left), related context with commit/task links (right)
-- [ ] **APPR-04**: Risk level filter dropdown and time waiting sort
+- [x] **APPR-01**: Pending tab with expandable approval cards — priority badge, title, time waiting, agent, target, description
+- [x] **APPR-02**: Inline approve (green) and deny (red) buttons per card
+- [x] **APPR-03**: Expanded detail panel — agent reasoning (left), related context with commit/task links (right)
+- [x] **APPR-04**: Risk level filter dropdown and time waiting sort
 - [ ] **APPR-05**: History tab — table with timestamp, agent, action, decision badge, decided by
-- [ ] **APPR-06**: "Approve All" batch action button
-- [ ] **APPR-07**: Three approval types unified in one queue: production deployment, budget override, tool access request
+- [x] **APPR-06**: "Approve All" batch action button
+- [x] **APPR-07**: Three approval types unified in one queue: production deployment, budget override, tool access request
 
 ### Usage & Cost
 
@@ -195,13 +195,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NTSK-02 | Phase 6 | Complete |
 | NTSK-03 | Phase 6 | Complete |
 | NTSK-04 | Phase 6 | Complete |
-| APPR-01 | Phase 7 | Pending |
-| APPR-02 | Phase 7 | Pending |
-| APPR-03 | Phase 7 | Pending |
-| APPR-04 | Phase 7 | Pending |
+| APPR-01 | Phase 7 | Complete |
+| APPR-02 | Phase 7 | Complete |
+| APPR-03 | Phase 7 | Complete |
+| APPR-04 | Phase 7 | Complete |
 | APPR-05 | Phase 7 | Pending |
-| APPR-06 | Phase 7 | Pending |
-| APPR-07 | Phase 7 | Pending |
+| APPR-06 | Phase 7 | Complete |
+| APPR-07 | Phase 7 | Complete |
 | USAG-01 | Phase 8 | Pending |
 | USAG-02 | Phase 8 | Pending |
 | USAG-03 | Phase 8 | Pending |

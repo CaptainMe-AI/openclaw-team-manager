@@ -144,7 +144,7 @@ Plans:
 
 Plans:
 - [x] 07-01-PLAN.md -- Batch approve endpoint, jbuilder resolved_by_name, useBatchApprove hook, ApprovalCard, ApprovalDetailPanel, ApprovalFilters
-- [ ] 07-02-PLAN.md -- ApprovalHistoryTable, full ApprovalsPage composition with tabs, batch actions, loading/error/empty states
+- [x] 07-02-PLAN.md -- ApprovalHistoryTable, full ApprovalsPage composition with tabs, batch actions, loading/error/empty states
 
 ### Phase 8: Usage & Cost
 **Goal**: Operators can monitor token usage, API costs, and latency across their agent fleet

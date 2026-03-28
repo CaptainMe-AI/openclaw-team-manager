@@ -84,7 +84,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **APPR-02**: Inline approve (green) and deny (red) buttons per card
 - [x] **APPR-03**: Expanded detail panel — agent reasoning (left), related context with commit/task links (right)
 - [x] **APPR-04**: Risk level filter dropdown and time waiting sort
-- [ ] **APPR-05**: History tab — table with timestamp, agent, action, decision badge, decided by
+- [x] **APPR-05**: History tab — table with timestamp, agent, action, decision badge, decided by
 - [x] **APPR-06**: "Approve All" batch action button
 - [x] **APPR-07**: Three approval types unified in one queue: production deployment, budget override, tool access request
 
@@ -199,7 +199,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | APPR-02 | Phase 7 | Complete |
 | APPR-03 | Phase 7 | Complete |
 | APPR-04 | Phase 7 | Complete |
-| APPR-05 | Phase 7 | Pending |
+| APPR-05 | Phase 7 | Complete |
 | APPR-06 | Phase 7 | Complete |
 | APPR-07 | Phase 7 | Complete |
 | USAG-01 | Phase 8 | Pending |

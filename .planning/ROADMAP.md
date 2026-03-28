@@ -156,12 +156,12 @@ Plans:
   3. Horizontal bar chart shows API calls by endpoint, and histogram shows latency distribution
   4. User can switch time periods (1h, 6h, 24h, 7d, 30d) and all charts update accordingly
   5. Export button generates a report (CSV/PDF) of the current view
-**Plans**: TBD
+**Plans**: 2 plans
 **UI hint**: yes
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
+- [ ] 08-01-PLAN.md -- Backend: migration (latency_ms, endpoint columns), UsageService aggregation methods, API endpoints (summary + charts), jbuilder views, specs
+- [ ] 08-02-PLAN.md -- Frontend: TypeScript types, hooks, formatters, KPI cards, 4 Recharts chart components, time period selector, CSV export, UsagePage composition
 
 ### Phase 9: Dashboard Overview
 **Goal**: Operators see a single-screen summary of fleet health, recent activity, and items needing attention
@@ -212,6 +212,6 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 | 5. Agent Fleet | 0/3 | Not started | - |
 | 6. Task Board | 0/3 | Not started | - |
 | 7. Approvals | 0/2 | Not started | - |
-| 8. Usage & Cost | 0/0 | Not started | - |
+| 8. Usage & Cost | 0/2 | Not started | - |
 | 9. Dashboard Overview | 0/0 | Not started | - |
 | 10. Settings | 0/0 | Not started | - |

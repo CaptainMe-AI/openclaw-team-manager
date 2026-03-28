@@ -177,7 +177,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 09-01-PLAN.md -- Backend: DashboardService time-period param, trend computation, activity events endpoint, service + request specs
+- [x] 09-01-PLAN.md -- Backend: DashboardService time-period param, trend computation, activity events endpoint, service + request specs
 - [ ] 09-02-PLAN.md -- Frontend: DashboardKpiCards, ActivityTimeline, RecentTasksTable, ActionRequired sidebar, DashboardTimePeriod dropdown, DashboardPage composition
 
 ### Phase 10: Settings

@@ -45,12 +45,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Dashboard
 
-- [ ] **DASH-01**: KPI cards — active agents count, tasks in progress, pending approvals, tokens used (24h) with trend indicators
-- [ ] **DASH-02**: Agent activity timeline — horizontal timeline with color-coded event dots (green/blue/amber/red), hover tooltips
-- [ ] **DASH-03**: Recent tasks table — 5 rows, expandable, columns: task name, agent, status badge, duration, timestamp
-- [ ] **DASH-04**: Action required sidebar — top pending approvals with inline approve/deny buttons
-- [ ] **DASH-05**: Time period selector dropdown (default: Last 24 Hours)
-- [ ] **DASH-06**: "New Task" button opening Create New Task modal
+- [x] **DASH-01**: KPI cards — active agents count, tasks in progress, pending approvals, tokens used (24h) with trend indicators
+- [x] **DASH-02**: Agent activity timeline — horizontal timeline with color-coded event dots (green/blue/amber/red), hover tooltips
+- [x] **DASH-03**: Recent tasks table — 5 rows, expandable, columns: task name, agent, status badge, duration, timestamp
+- [x] **DASH-04**: Action required sidebar — top pending approvals with inline approve/deny buttons
+- [x] **DASH-05**: Time period selector dropdown (default: Last 24 Hours)
+- [x] **DASH-06**: "New Task" button opening Create New Task modal
 
 ### Agent Fleet
 
@@ -95,8 +95,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **USAG-03**: Cost breakdown by agent — donut/pie chart
 - [x] **USAG-04**: API calls by endpoint — horizontal bar chart
 - [x] **USAG-05**: Latency distribution — histogram
-- [ ] **USAG-06**: Time period selector button group (1h/6h/24h/7d/30d)
-- [ ] **USAG-07**: Export report button (CSV/PDF)
+- [x] **USAG-06**: Time period selector button group (1h/6h/24h/7d/30d)
+- [x] **USAG-07**: Export report button (CSV/PDF)
 
 ### Settings
 
@@ -172,12 +172,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DATA-03 | Phase 4 | Complete |
 | DATA-04 | Phase 4 | Complete |
 | DATA-05 | Phase 4 | Complete |
-| DASH-01 | Phase 9 | Pending |
-| DASH-02 | Phase 9 | Pending |
-| DASH-03 | Phase 9 | Pending |
-| DASH-04 | Phase 9 | Pending |
-| DASH-05 | Phase 9 | Pending |
-| DASH-06 | Phase 9 | Pending |
+| DASH-01 | Phase 9 | Complete |
+| DASH-02 | Phase 9 | Complete |
+| DASH-03 | Phase 9 | Complete |
+| DASH-04 | Phase 9 | Complete |
+| DASH-05 | Phase 9 | Complete |
+| DASH-06 | Phase 9 | Complete |
 | AGNT-01 | Phase 5 | Complete |
 | AGNT-02 | Phase 5 | Complete |
 | AGNT-03 | Phase 5 | Complete |
@@ -207,8 +207,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | USAG-03 | Phase 8 | Complete |
 | USAG-04 | Phase 8 | Complete |
 | USAG-05 | Phase 8 | Complete |
-| USAG-06 | Phase 8 | Pending |
-| USAG-07 | Phase 8 | Pending |
+| USAG-06 | Phase 8 | Complete |
+| USAG-07 | Phase 8 | Complete |
 | SETT-01 | Phase 10 | Pending |
 | SETT-02 | Phase 10 | Pending |
 | SETT-03 | Phase 10 | Pending |

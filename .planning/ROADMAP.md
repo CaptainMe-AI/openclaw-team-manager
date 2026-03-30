@@ -194,7 +194,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 10-01-PLAN.md -- Backend fixes (SettingsService bug, missing seeds), Toggle component, SettingsFormRow, SettingsTabs, typed settings interfaces
+- [x] 10-01-PLAN.md -- Backend fixes (SettingsService bug, missing seeds), Toggle component, SettingsFormRow, SettingsTabs, typed settings interfaces
 - [ ] 10-02-PLAN.md -- GeneralTab, AgentsTab, NotificationsTab, DataSourcesTab, ToolChipSelect, form state management, save/discard, full SettingsPage composition
 
 ## Progress
@@ -214,4 +214,4 @@ Note: Phases 5, 6, 7, 8, 10 all depend on Phase 4 and could theoretically run in
 | 7. Approvals | 0/2 | Not started | - |
 | 8. Usage & Cost | 0/2 | Not started | - |
 | 9. Dashboard Overview | 0/2 | Not started | - |
-| 10. Settings | 0/2 | Not started | - |
+| 10. Settings | 1/2 | In Progress|  |

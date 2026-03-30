@@ -100,12 +100,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Settings
 
-- [ ] **SETT-01**: General tab — display name, timezone dropdown, dashboard refresh interval
-- [ ] **SETT-02**: Agents tab — default budget, auto-restart toggle, global allowed tools multi-select
-- [ ] **SETT-03**: Notifications tab — alert thresholds for budget, failures, approval timeout, agent offline
-- [ ] **SETT-04**: Data Sources tab — Gateway WebSocket URL, auth token, OpenClaw home directory, session path, refresh interval
-- [ ] **SETT-05**: Save Configuration / Discard Changes actions
-- [ ] **SETT-06**: Left sidebar tab navigation (General, Agents, Notifications, Data Sources)
+- [x] **SETT-01**: General tab — display name, timezone dropdown, dashboard refresh interval
+- [x] **SETT-02**: Agents tab — default budget, auto-restart toggle, global allowed tools multi-select
+- [x] **SETT-03**: Notifications tab — alert thresholds for budget, failures, approval timeout, agent offline
+- [x] **SETT-04**: Data Sources tab — Gateway WebSocket URL, auth token, OpenClaw home directory, session path, refresh interval
+- [x] **SETT-05**: Save Configuration / Discard Changes actions
+- [x] **SETT-06**: Left sidebar tab navigation (General, Agents, Notifications, Data Sources)
 
 ## v2 Requirements
 
@@ -209,12 +209,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | USAG-05 | Phase 8 | Complete |
 | USAG-06 | Phase 8 | Complete |
 | USAG-07 | Phase 8 | Complete |
-| SETT-01 | Phase 10 | Pending |
-| SETT-02 | Phase 10 | Pending |
-| SETT-03 | Phase 10 | Pending |
-| SETT-04 | Phase 10 | Pending |
-| SETT-05 | Phase 10 | Pending |
-| SETT-06 | Phase 10 | Pending |
+| SETT-01 | Phase 10 | Complete |
+| SETT-02 | Phase 10 | Complete |
+| SETT-03 | Phase 10 | Complete |
+| SETT-04 | Phase 10 | Complete |
+| SETT-05 | Phase 10 | Complete |
+| SETT-06 | Phase 10 | Complete |
 
 **Coverage:**
 - v1 requirements: 67 total

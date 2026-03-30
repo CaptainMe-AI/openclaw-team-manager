@@ -26,9 +26,10 @@ Operators can see and control their entire OpenClaw agent fleet from a single da
 - [x] Approvals screen: pending queue with expandable cards, inline approve/deny, batch approve, risk-level filters, history tab with decision table — Validated in Phase 07: Approvals
 - [x] Usage & Cost Tracking screen: KPI cards with trends, token usage stacked area chart, cost donut chart, API calls bar chart, latency histogram, time period selector, CSV export — Validated in Phase 08: Usage & Cost
 - [x] Dashboard Overview screen: KPI cards with trend indicators, agent activity timeline with color-coded dots, recent tasks table, action required sidebar with inline approve/deny, time-period selector, New Task button — Validated in Phase 09: Dashboard Overview
+- [x] Settings screen: general preferences, agent policies, notifications, data sources tabs with save/discard — Validated in Phase 10: Settings
 
 ### Active
-- [ ] Settings screen: general preferences, agent policies, notifications, data sources tabs
+(No active requirements — all v1.0 milestone requirements validated)
 
 ### Out of Scope
 
@@ -84,4 +85,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after Phase 08: Usage & Cost completion*
+*Last updated: 2026-03-30 after Phase 10: Settings completion*

@@ -261,7 +261,7 @@ end
 # Bulk insert for performance
 UsageRecord.insert_all!(usage_records)
 
-# --- 12 Default Settings ---
+# --- 15 Default Settings ---
 settings = [
   { key: 'general.display_name', value: { name: 'OpenClaw Dashboard' } },
   { key: 'general.timezone', value: { timezone: 'UTC' } },
@@ -274,7 +274,10 @@ settings = [
   { key: 'notifications.approval_timeout_minutes', value: { minutes: 30 } },
   { key: 'notifications.agent_offline_minutes', value: { minutes: 5 } },
   { key: 'datasource.gateway_url', value: { url: 'ws://localhost:4080' } },
-  { key: 'datasource.openclaw_home', value: { path: '~/.openclaw' } }
+  { key: 'datasource.openclaw_home', value: { path: '~/.openclaw' } },
+  { key: 'datasource.auth_token', value: { token: '' } },
+  { key: 'datasource.session_path', value: { path: '~/.openclaw/agents/' } },
+  { key: 'datasource.refresh_interval', value: { seconds: 5 } }
 ]
 
 settings.each { |s| Setting.create!(s) }

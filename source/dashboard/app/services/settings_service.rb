@@ -5,6 +5,10 @@ class SettingsService
     Setting.order(:key)
   end
 
+  def self.find_by(key:)
+    find_by_key(key)
+  end
+
   def self.find_by_key(key)
     Setting.find_by!(key: key)
   end

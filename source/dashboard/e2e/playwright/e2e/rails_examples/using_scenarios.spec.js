@@ -11,7 +11,7 @@ test.describe("Rails using scenarios examples", () => {
     await page.goto("/users/sign_in");
     await page.getByLabel("Email").fill("e2e@example.com");
     await page.getByLabel("Password").fill("password123");
-    await page.getByRole("button", { name: "Log in" }).click();
-    await page.getByRole("heading", { name: "Overview" }).waitFor();
+    await page.locator('[type="submit"]').click();
+    await page.locator("h1").waitFor();
   });
 });

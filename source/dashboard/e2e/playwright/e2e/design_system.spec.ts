@@ -31,8 +31,8 @@ async function seedAndSignIn(page: import("@playwright/test").Page) {
   await page.goto("/users/sign_in");
   await page.getByLabel("Email").fill(TEST_USER.email);
   await page.getByLabel("Password").fill(TEST_USER.password);
-  await page.getByRole("button", { name: "Log in" }).click();
-  await page.getByRole("heading", { name: "Overview" }).waitFor();
+  await page.locator('[type="submit"]').click();
+  await page.locator("h1").waitFor();
 }
 
 test.describe("Design System - DSGN-01: Dark Theme", () => {

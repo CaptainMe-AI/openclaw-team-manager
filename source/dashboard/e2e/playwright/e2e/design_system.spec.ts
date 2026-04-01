@@ -99,6 +99,7 @@ test.describe("Design System - DSGN-03: Component Library", () => {
 
   test("Table renders with headers", async ({ page }) => {
     await page.goto("/agents");
+    await page.getByRole("button", { name: "Table view" }).click();
     const header = page.getByRole("columnheader", { name: "Name" });
     await expect(header).toBeVisible();
   });
@@ -114,6 +115,7 @@ test.describe("Design System - DSGN-04: Responsive Breakpoints", () => {
   test("table has horizontal scroll container", async ({ page }) => {
     await seedAndSignIn(page);
     await page.goto("/agents");
+    await page.getByRole("button", { name: "Table view" }).click();
     const scrollContainer = page.locator(".overflow-x-auto");
     await expect(scrollContainer.first()).toBeVisible();
   });

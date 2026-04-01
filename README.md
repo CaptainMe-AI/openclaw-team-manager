@@ -111,3 +111,9 @@ npx playwright test
 | `bundle exec rubocop -A .`      | Lint and auto-correct Ruby files      |
 | `bundle exec rake db:seed`      | Seed sample data                      |
 | `bundle exec rake db:reset`     | Drop, recreate, migrate, and seed     |
+
+## Connecting to OpenClaw
+
+This dashboard runs on the same machine as OpenClaw and connects via the Gateway WebSocket and filesystem reads. See [OPENCLAW_SETUP.md](OPENCLAW_SETUP.md) for full setup instructions — Gateway configuration, directory structure, auth tokens, and data flow.
+
+v1.0 ships with mock data and does not require a running OpenClaw installation.

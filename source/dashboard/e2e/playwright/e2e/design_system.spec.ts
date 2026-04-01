@@ -4,12 +4,36 @@
  *
  * Prerequisites: Dev server running at http://127.0.0.1:5017
  * Run: cd source/dashboard && npx playwright test e2e/playwright/e2e/design_system.spec.ts
- *
- * Note: If app requires authentication, these tests may need a login helper.
- * The current demo page is rendered by App.tsx within the authenticated layout.
  */
 
 import { test, expect } from "@playwright/test";
+import { app, appFactories } from "../support/on-rails.js";
+
+const TEST_USER = {
+  email: "e2e-test@example.com",
+  password: "password123",
+};
+
+async function seedAndSignIn(page: import("@playwright/test").Page) {
+  await app("clean");
+  await appFactories([
+    [
+      "create",
+      "user",
+      {
+        email: TEST_USER.email,
+        password: TEST_USER.password,
+        password_confirmation: TEST_USER.password,
+      },
+    ],
+    ["create", "agent", { status: "active" }],
+  ]);
+  await page.goto("/users/sign_in");
+  await page.getByLabel("Email").fill(TEST_USER.email);
+  await page.getByLabel("Password").fill(TEST_USER.password);
+  await page.getByRole("button", { name: "Log in" }).click();
+  await page.getByRole("heading", { name: "Overview" }).waitFor();
+}
 
 test.describe("Design System - DSGN-01: Dark Theme", () => {
   test("page renders with dark background color", async ({ page }) => {
@@ -47,38 +71,40 @@ test.describe("Design System - DSGN-02: Typography", () => {
 });
 
 test.describe("Design System - DSGN-03: Component Library", () => {
+  test.beforeEach(async ({ page }) => {
+    await seedAndSignIn(page);
+  });
+
   test("StatusDot components render on page", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/agents");
     const dots = page.locator("[role='status']");
     await expect(dots.first()).toBeVisible();
   });
 
   test("Badge components render on page", async ({ page }) => {
-    await page.goto("/");
-    const badge = page.getByText("Active").first();
+    await page.goto("/agents");
+    const badge = page.getByText("active").first();
     await expect(badge).toBeVisible();
   });
 
   test("Button components render on page", async ({ page }) => {
-    await page.goto("/");
     const button = page.getByRole("button", { name: "New Task" });
     await expect(button).toBeVisible();
   });
 
   test("Card components render on page", async ({ page }) => {
-    await page.goto("/");
-    const card = page.getByText("KPI Card Example");
+    const card = page.getByText("Active Agents");
     await expect(card).toBeVisible();
   });
 
   test("Table renders with headers", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/agents");
     const header = page.getByRole("columnheader", { name: "Name" });
     await expect(header).toBeVisible();
   });
 
   test("Input renders with label", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/settings");
     const label = page.getByText("Display Name");
     await expect(label).toBeVisible();
   });
@@ -86,7 +112,8 @@ test.describe("Design System - DSGN-03: Component Library", () => {
 
 test.describe("Design System - DSGN-04: Responsive Breakpoints", () => {
   test("table has horizontal scroll container", async ({ page }) => {
-    await page.goto("/");
+    await seedAndSignIn(page);
+    await page.goto("/agents");
     const scrollContainer = page.locator(".overflow-x-auto");
     await expect(scrollContainer.first()).toBeVisible();
   });

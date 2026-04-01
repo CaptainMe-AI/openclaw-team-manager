@@ -1,5 +1,7 @@
 # OpenClaw Team Manager
 
+[![CI](https://github.com/CaptainMe-AI/openclaw-team-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/CaptainMe-AI/openclaw-team-manager/actions/workflows/ci.yml)
+
 Local mission control dashboard for managing OpenClaw AI agents. Fleet management, task tracking, approval workflows, usage metrics, and configuration — all in a dark-mode, data-dense UI.
 
 Rails app lives in `source/dashboard`.
